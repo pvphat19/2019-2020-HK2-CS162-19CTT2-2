@@ -4,9 +4,15 @@ int main()
 {
 	Student* pStudent = nullptr;
 	Class* pClass = nullptr;
-	loadStudent(pStudent, "Student.txt");
+	Staff* pStaff = nullptr;
+	Lecturer* pLecturer = nullptr;
+	loadStudent(pStudent, "Student");
 	loadClass(pClass);
+	loadStaff(pStaff);
+	loadLecturer(pLecturer);
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
+	deleteStaffList(pStaff);
+	deleteLecturerList(pLecturer);
 	return 0;
 }

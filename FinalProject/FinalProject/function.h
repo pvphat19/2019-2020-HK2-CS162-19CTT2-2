@@ -26,9 +26,28 @@ struct Class {
 	Student* pStudent;
 	Class* pNext;
 };
+struct Staff {
+	string username;
+	string password;
+	string fullname;
+	int gender; //0:male; 1:female;
+	Staff* pNext;
+};
+struct Lecturer {
+	string username;
+	string password;
+	string fullname;
+	string degree;
+	int gender; //0:male; 1:female;
+	Lecturer* pNext;
+};
 void loadStudent(Student*&, string);
 void loadClass(Class*&);
+void loadStaff(Staff*&);
+void loadLecturer(Lecturer*&);
 void deleteStudentList(Student*&);
 void deleteClassList(Class*&);
+void deleteStaffList(Staff*&);
+void deleteLecturerList(Lecturer*&);
 #endif // !_FUNCTION_H_
 
