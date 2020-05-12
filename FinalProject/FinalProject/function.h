@@ -49,5 +49,6 @@ void deleteStudentList(Student*&);
 void deleteClassList(Class*&);
 void deleteStaffList(Staff*&);
 void deleteLecturerList(Lecturer*&);
+void viewClass(Class*&);
 #endif // !_FUNCTION_H_
 

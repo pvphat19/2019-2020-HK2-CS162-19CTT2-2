@@ -8,6 +8,7 @@ int main()
 	Lecturer* pLecturer = nullptr;
 	loadStudent(pStudent, "Student");
 	loadClass(pClass);
+	viewClass(pClass);
 	loadStaff(pStaff);
 	loadLecturer(pLecturer);
 	deleteStudentList(pStudent);
