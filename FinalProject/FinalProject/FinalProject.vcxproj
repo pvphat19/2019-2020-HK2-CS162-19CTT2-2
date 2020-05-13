@@ -126,9 +126,10 @@
     <ClInclude Include="function.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="consoleEdit.cpp" />
     <ClCompile Include="loadData.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="viewData.cpp" />
+    <ClCompile Include="staffClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
