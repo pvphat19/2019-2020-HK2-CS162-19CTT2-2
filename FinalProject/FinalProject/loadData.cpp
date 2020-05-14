@@ -1,6 +1,6 @@
 #include "function.h"
 
-void loadStudent(Student*& pStudent, string name)
+void loadStudent(int& numStudent, Student*& pStudent, string name)
 {
 	ifstream in;
 	string fileName = name + ".txt";
@@ -9,13 +9,16 @@ void loadStudent(Student*& pStudent, string name)
 	Student* cur = nullptr;
 	if (in >> n)
 	{
+		numStudent = n;
+		//in >> n;
+		//cout << n << endl; in.close(); return;
 		for (int i = 0; i < n; i++)
 		{
 			if (pStudent == nullptr)
 			{
 				pStudent = new Student;
 				cur = pStudent;
-				in >> cur->id; 
+				in >> cur->id;
 				in.ignore();
 				getline(in, cur->password);
 				getline(in, cur->fullname);
@@ -36,20 +39,23 @@ void loadStudent(Student*& pStudent, string name)
 				in >> cur->dob.year >> cur->dob.month >> cur->dob.day;
 				in.ignore();
 				getline(in, cur->cla);
+				in >> cur->status;
 				cur->pNext = nullptr;
 			}
 		}
 	}
+	else
+		numStudent = 0;
 	in.close();
 }
-void loadClass(Class*& pClass)
+void loadClass(int& numClass, Class*& pClass)
 {
 	ifstream in;
 	in.open("Class.txt");
 	int n;
 	Class* cur = nullptr;
-	in >> n; 
-	in.get();
+	in >> n; in.get();
+	numClass = n;
 	for (int i = 0; i < n; i++)
 	{
 		if (pClass == nullptr)
@@ -58,7 +64,7 @@ void loadClass(Class*& pClass)
 			cur = pClass;
 			getline(in, cur->name);
 			cur->pStudent = nullptr;
-			loadStudent(cur->pStudent, cur->name);
+			loadStudent(cur->numStudent, cur->pStudent, cur->name);
 			cur->pNext = nullptr;
 		}
 		else
@@ -67,13 +73,13 @@ void loadClass(Class*& pClass)
 			cur = cur->pNext;
 			getline(in, cur->name);
 			cur->pStudent = nullptr;
-			loadStudent(cur->pStudent, cur->name);
+			loadStudent(cur->numStudent, cur->pStudent, cur->name);
 			cur->pNext = nullptr;
 		}
 	}
 	in.close();
 }
-void loadStaff(Staff*& pStaff)
+void loadStaff(int& numStaff, Staff*& pStaff)
 {
 	ifstream in;
 	in.open("Staff.txt");
@@ -82,6 +88,7 @@ void loadStaff(Staff*& pStaff)
 	string emptyLine;
 	if (in >> n)
 	{
+		numStaff = n;
 		for (int i = 0; i < n; i++)
 		{
 			if (pStaff == nullptr)
@@ -111,7 +118,7 @@ void loadStaff(Staff*& pStaff)
 	}
 	in.close();
 }
-void loadLecturer(Lecturer*& pLecturer)
+void loadLecturer(int& numLecturer, Lecturer*& pLecturer)
 {
 	ifstream in;
 	in.open("Lecturer.txt");
@@ -120,6 +127,7 @@ void loadLecturer(Lecturer*& pLecturer)
 	string emptyLine;
 	if (in >> n)
 	{
+		numLecturer = n;
 		for (int i = 0; i < n; i++)
 		{
 			if (pLecturer == nullptr)

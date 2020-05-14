@@ -2,15 +2,17 @@
 
 int main()
 {
+	resizeConsole(1200, 720);
+	fixConsoleWindow();
+	int numStudent, numClass, numStaff, numLecturer;
 	Student* pStudent = nullptr;
 	Class* pClass = nullptr;
 	Staff* pStaff = nullptr;
 	Lecturer* pLecturer = nullptr;
-	loadStudent(pStudent, "Student");
-	loadClass(pClass);
-	viewClass(pClass);
-	loadStaff(pStaff);
-	loadLecturer(pLecturer);
+	loadStudent(numStudent, pStudent, "Student");
+	loadClass(numClass, pClass);
+	loadStaff(numStaff, pStaff);
+	loadLecturer(numLecturer, pLecturer);
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStaffList(pStaff);

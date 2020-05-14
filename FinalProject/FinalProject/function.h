@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <Windows.h>
+#include <conio.h>
 using namespace std;
 
 struct Date {
@@ -23,6 +25,7 @@ struct Student {
 };
 struct Class {
 	string name;
+	int numStudent;
 	Student* pStudent;
 	Class* pNext;
 };
@@ -41,14 +44,33 @@ struct Lecturer {
 	int gender; //0:male; 1:female;
 	Lecturer* pNext;
 };
-void loadStudent(Student*&, string);
-void loadClass(Class*&);
-void loadStaff(Staff*&);
-void loadLecturer(Lecturer*&);
+//loadData
+void loadStudent(int&, Student*&, string);
+void loadClass(int&, Class*&);
+void loadStaff(int&, Staff*&);
+void loadLecturer(int&, Lecturer*&);
 void deleteStudentList(Student*&);
 void deleteClassList(Class*&);
 void deleteStaffList(Staff*&);
 void deleteLecturerList(Lecturer*&);
+
+//rewriteTextFile
+void printDate(ofstream&, int);
+void rewriteStudent(int, Student*, string);
+void rewriteClass(int, Class*);
+void rewriteStaff(int, Staff*);
+void rewriteLecturer(int, Lecturer*);
+
+//consoleEdit
+void resizeConsole(int width, int height);	// Ham thay doi kich co cua khung cmd 
+void textColor(int x);	// Ham to mau chu
+void goToXY(int x, int y);	// Ham dich chuyen con tro den toa do x, y
+void fixConsoleWindow(); // Ham co dinh console
+/* system("cls")	// Ham xoa man hinh
+// system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
+
+//staffClass
 void viewClass(Class*&);
+void viewStudentsInClass(Student* pStudent, string name);
 #endif // !_FUNCTION_H_
 
