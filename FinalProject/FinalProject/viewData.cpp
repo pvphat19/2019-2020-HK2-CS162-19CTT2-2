@@ -15,7 +15,7 @@ void viewClass(Class*&pClass){
 	}
 }
 
-void viewStudentsInClass(Student* pStudent, string name) {
+void viewStudentsInClass(Class* pClass, string name) {
 	int option;
 
 	cout << "Please choose the class you want to view information" << endl;
@@ -47,380 +47,380 @@ void viewStudentsInClass(Student* pStudent, string name) {
 	case 1:
 	{
 		string classname = "19APCS1";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 2:
 	{
 		string classname = "19APCS2";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 3:
 	{
-		string classname = "19CLC1";
-		loadStudent(pStudent, classname);
+		string classname = "19APCS2";
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 4:
 	{
 		string classname = "19CLC2";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 5:
 	{
 		string classname = "19CLC3";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 6:
 	{
 		string classname = "19CLC4";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 7:
 	{
 		string classname = "19CLC5";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 8:
 	{
 		string classname = "19CLC6";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 9:
 	{
 		string classname = "19CLC7";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 10:
 	{
 		string classname = "19CLC8";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 11:
 	{
 		string classname = "19CLC9";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 12:
 	{
 		string classname = "19CLC10";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 13:
 	{
 		string classname = "18APCS1";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 14:
 	{
 		string classname = "18APCS2";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 15:
 	{
 		string classname = "18APCS3";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 16:
 	{
 		string classname = "18CLC1";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 17:
 	{
 		string classname = "18CLC2";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 18:
 	{
 		string classname = "18CLC3";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 19:
 	{
 		string classname = "18CLC4";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 20:
 	{
 		string classname = "18CLC5";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	case 21:
 	{
 		string classname = "19CLC6";
-		loadStudent(pStudent, classname);
+		Class* cur = pClass;
 
-		if (pStudent == nullptr) {
-			cout << "There is no information about this class" << endl;
-		}
-		else
-		{
-			Student* cur = pStudent;
-			while (cur != nullptr) {
-				cout << cur->fullname << " - ";
-				cout << cur->id;
-				cur = cur->pNext;
+		while (cur != nullptr) {
+			if (cur->name == classname) {
+				break;
 			}
+			cur = cur->pNext;
 		}
+
+		while (cur->pStudent != nullptr) {
+			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
+		}
+		break;
 	}
 	}
 }
