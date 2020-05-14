@@ -25,6 +25,7 @@ struct Student {
 };
 struct Class {
 	string name;
+	int numStudent;
 	Student* pStudent;
 	Class* pNext;
 };
@@ -44,14 +45,21 @@ struct Lecturer {
 	Lecturer* pNext;
 };
 //loadData
-void loadStudent(Student*&, string);
-void loadClass(Class*&);
-void loadStaff(Staff*&);
-void loadLecturer(Lecturer*&);
+void loadStudent(int&, Student*&, string);
+void loadClass(int&, Class*&);
+void loadStaff(int&, Staff*&);
+void loadLecturer(int&, Lecturer*&);
 void deleteStudentList(Student*&);
 void deleteClassList(Class*&);
 void deleteStaffList(Staff*&);
 void deleteLecturerList(Lecturer*&);
+
+//rewriteTextFile
+void printDate(ofstream&, int);
+void rewriteStudent(int, Student*, string);
+void rewriteClass(int, Class*);
+void rewriteStaff(int, Staff*);
+void rewriteLecturer(int, Lecturer*);
 
 //consoleEdit
 void resizeConsole(int width, int height);	// Ham thay doi kich co cua khung cmd 
