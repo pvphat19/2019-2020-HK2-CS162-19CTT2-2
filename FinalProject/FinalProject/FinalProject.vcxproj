@@ -129,6 +129,7 @@
     <ClCompile Include="consoleEdit.cpp" />
     <ClCompile Include="loadData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModificationFunction.cpp" />
     <ClCompile Include="rewriteTextFile.cpp" />
     <ClCompile Include="staffClass.cpp" />
   </ItemGroup>
