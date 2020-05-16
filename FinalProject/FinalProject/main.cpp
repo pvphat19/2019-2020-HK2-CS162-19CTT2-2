@@ -13,6 +13,7 @@ int main()
 	loadClass(numClass, pClass);
 	loadStaff(numStaff, pStaff);
 	loadLecturer(numLecturer, pLecturer);
+	ChangeStudentsInfo(numStudent, pStudent);
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStaffList(pStaff);

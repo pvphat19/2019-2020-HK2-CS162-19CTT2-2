@@ -1,13 +1,13 @@
 #include "function.h"
 //little stuff for 3 main function
-Student* checkCondition(int mark, int& d, Student* pStudent) {
+Student* checkCondition(int mark, int& Id, Student* pStudent) {
 	Student* link = nullptr;
 	do {
 	    link = pStudent;
 		mark = 0;
-		cout << "enter ID of student : "; cin >> d;
+		cout << "enter ID of student : "; cin >> Id;
 		while (link != nullptr) {
-			if (d == link->id) {
+			if (Id == link->id) {
 				mark++;
 				break;
 			}
@@ -180,12 +180,18 @@ void ChangeInfoAuto(int numStudent, Student*& pStudent,string s,int d) {
 }
 //Remove a Student (count=0 when you put it inparameter)
 Student* removeStudents(int numStudent, Student*& pStudent, int& count) {
-	int mark = 0, d = 0;
-	checkCondition(mark, d, pStudent); 
+	int mark = 0, Id = 0; int numStudent1; Student* st2=nullptr;
+	Student*choose=checkCondition(mark, Id, pStudent); 
+	string k = choose->cla;
 	Student* replica = new Student;
-	count = removeFunction(pStudent, d, 0, replica);
+	count = removeFunction(pStudent, Id, 0, replica);
 	numStudent--;
 	rewriteStudent(numStudent, pStudent, "Student");
+	loadStudent(numStudent1, st2, k);
+	removeFunction(st2, Id, 0, choose);
+	numStudent1--;
+	rewriteStudent(numStudent1, st2, k);
+	deleteStudentList(st2);
 	return replica;
 }
 //Edit an existing Student
