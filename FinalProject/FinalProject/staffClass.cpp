@@ -15,7 +15,7 @@ void viewClass(Class*& pClass) {
 	}
 }
 
-/*void viewStudentsInClass(Student* pStudent, string name) {
+void viewStudentsInClass(Student* pStudent, string name) {
 	int option;
 
 	cout << "Please choose the class you want to view information" << endl;
@@ -423,4 +423,4 @@ void viewClass(Class*& pClass) {
 		}
 	}
 	}
-} */
+} 

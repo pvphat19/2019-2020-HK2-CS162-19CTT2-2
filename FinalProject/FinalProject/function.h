@@ -72,9 +72,9 @@ void fixConsoleWindow(); // Ham co dinh console
 
 //staffClass
 void viewClass(Class*&);
-void viewStudentsInClass(Student* pStudent, string name);
+void viewStudentsInClass(Class* pClass, string name);
 //ModificationClass
-Student* removeStudents(int numStudent, Student*& pStudent, int& count);
+void removeStudents(int numStudent, Student*& pStudent);
 void ChangeStudentsInfo(int numStudent, Student*& pStudent);
 void ChangeStudentsClass(int numStudent, Student*& pStudent);
 #endif // !_FUNCTION_H_

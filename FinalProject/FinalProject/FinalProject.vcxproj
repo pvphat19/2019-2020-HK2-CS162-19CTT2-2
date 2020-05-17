@@ -131,7 +131,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModificationFunction.cpp" />
     <ClCompile Include="rewriteTextFile.cpp" />
-    <ClCompile Include="staffClass.cpp" />
+    <ClCompile Include="viewData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
