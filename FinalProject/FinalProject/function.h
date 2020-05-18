@@ -6,6 +6,7 @@
 #include <string>
 #include <Windows.h>
 #include <conio.h>
+#include <string>
 using namespace std;
 
 struct Date {
@@ -45,7 +46,7 @@ struct Lecturer {
 	Lecturer* pNext;
 };
 //loadData
-void loadStudent(int&, Student*&, string);
+bool loadStudent(int&, Student*&, string);
 void loadClass(int&, Class*&);
 void loadStaff(int&, Staff*&);
 void loadLecturer(int&, Lecturer*&);
@@ -71,6 +72,10 @@ void fixConsoleWindow(); // Ham co dinh console
 
 //staffClass
 void viewClass(Class*&);
-void viewStudentsInClass(Student* pStudent, string name);
+void viewStudentsInClass(Class* pClass, string name);
+//ModificationClass
+void removeStudents(int numStudent, Student*& pStudent);
+void ChangeStudentsInfo(int numStudent, Student*& pStudent);
+void ChangeStudentsClass(int numStudent, Student*& pStudent);
 #endif // !_FUNCTION_H_
 

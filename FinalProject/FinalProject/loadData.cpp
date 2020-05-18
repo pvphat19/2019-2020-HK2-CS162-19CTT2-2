@@ -1,52 +1,56 @@
 #include "function.h"
 
-void loadStudent(int& numStudent, Student*& pStudent, string name)
+bool loadStudent(int& numStudent, Student*& pStudent, string name)
 {
 	ifstream in;
 	string fileName = name + ".txt";
 	in.open(fileName);
-	int n;
-	Student* cur = nullptr;
-	if (in >> n)
-	{
-		numStudent = n;
-		//in >> n;
-		//cout << n << endl; in.close(); return;
-		for (int i = 0; i < n; i++)
+	if (!in.is_open()) return false;
+	else {
+		int n;
+		Student* cur = nullptr;
+		if (in >> n)
 		{
-			if (pStudent == nullptr)
+			numStudent = n;
+			//in >> n;
+			//cout << n << endl; in.close(); return;
+			for (int i = 0; i < n; i++)
 			{
-				pStudent = new Student;
-				cur = pStudent;
-				in >> cur->id;
-				in.ignore();
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				in >> cur->dob.year >> cur->dob.month >> cur->dob.day;
-				in.ignore();
-				getline(in, cur->cla);
-				in >> cur->status;
-				cur->pNext = nullptr;
-			}
-			else
-			{
-				cur->pNext = new Student;
-				cur = cur->pNext;
-				in >> cur->id;
-				in.ignore();
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				in >> cur->dob.year >> cur->dob.month >> cur->dob.day;
-				in.ignore();
-				getline(in, cur->cla);
-				in >> cur->status;
-				cur->pNext = nullptr;
+				if (pStudent == nullptr)
+				{
+					pStudent = new Student;
+					cur = pStudent;
+					in >> cur->id;
+					in.ignore();
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					in >> cur->dob.year >> cur->dob.month >> cur->dob.day;
+					in.ignore();
+					getline(in, cur->cla);
+					in >> cur->status;
+					cur->pNext = nullptr;
+				}
+				else
+				{
+					cur->pNext = new Student;
+					cur = cur->pNext;
+					in >> cur->id;
+					in.ignore();
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					in >> cur->dob.year >> cur->dob.month >> cur->dob.day;
+					in.ignore();
+					getline(in, cur->cla);
+					in >> cur->status;
+					cur->pNext = nullptr;
+				}
 			}
 		}
+		else
+			numStudent = 0;
+		in.close();
+		return true;
 	}
-	else
-		numStudent = 0;
-	in.close();
 }
 void loadClass(int& numClass, Class*& pClass)
 {

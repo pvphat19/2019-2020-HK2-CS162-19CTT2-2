@@ -29,10 +29,13 @@
     <ClCompile Include="consoleEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="staffClass.cpp">
+    <ClCompile Include="rewriteTextFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rewriteTextFile.cpp">
+    <ClCompile Include="ModificationFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="viewData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

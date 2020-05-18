@@ -1,6 +1,6 @@
 #include "function.h"
 
-void viewClass(Class*&pClass){
+void viewClass(Class*& pClass) {
 	if (pClass == nullptr) {
 		cout << "There is no class in stored data" << endl;
 	}
