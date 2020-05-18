@@ -1,6 +1,7 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -77,5 +78,11 @@ void viewStudentsInClass(Class* pClass, string name);
 void removeStudents(int numStudent, Student*& pStudent);
 void ChangeStudentsInfo(int numStudent, Student*& pStudent);
 void ChangeStudentsClass(int numStudent, Student*& pStudent);
+
+//add import student
+void manually_add_student();
+void import();
+void create_password(Date dob, string& s);
+bool check_id(int ID, Student* pStudent);
 #endif // !_FUNCTION_H_
 

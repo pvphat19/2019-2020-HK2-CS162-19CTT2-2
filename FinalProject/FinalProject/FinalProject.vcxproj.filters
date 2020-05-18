@@ -38,5 +38,8 @@
     <ClCompile Include="viewData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="add_import_students.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
