@@ -224,7 +224,7 @@ void ChangeStudentsClassAuto(int numStudent, Student*& pStudent,Student*& sub) {
 		goToXY(10, clr + 1); cout << "                                   ";
 		goToXY(10, clr + 1);
 		cout << "Now change to class: "; cin.ignore(); cin.get(s, 100, '\n');
-		k = loadStudent(numStudent, st3, s);
+		k = true; loadStudent(numStudent, st3, s);
 		if (k == true) {
 			insertBefore(st3, 0, replica);
 			numStudent++;
@@ -263,7 +263,10 @@ void ViewInfo(Student* viewStudent)
 	cout << endl;
 }
 //Remove a Student 
-void removeStudents(int numStudent, Student*& pStudent) {
+void removeStudents() {
+	system("cls");
+	int numStudent = 0; Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
 	int mark = 0, Id = 0; int numStudent1; Student* st2=nullptr;
 	Student*choose=checkCondition(mark, Id, pStudent); 
 	ViewInfo(choose);
@@ -287,11 +290,15 @@ void removeStudents(int numStudent, Student*& pStudent) {
 	numStudent1--;
 	rewriteStudent(numStudent1, st2, k);
 	deleteStudentList(st2);
+	deleteStudentList(pStudent);
 	goToXY(10, y++); goToXY(10, y++);
 	cout << "Your data has been changed successfully." << endl;
 }
 //Edit an existing Student
-void ChangeStudentsInfo(int numStudent, Student*& pStudent) {
+void ChangeStudentsInfo() {
+	system("cls");
+	int numStudent = 0; Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
 	Student* re; int count = 0; int i;
 	int mark = 0, d = 0; Student* st2 = nullptr;
 	Student* choose = checkCondition(mark, d, pStudent); 
@@ -323,7 +330,6 @@ void ChangeStudentsInfo(int numStudent, Student*& pStudent) {
 	re = removeStudentsAuto(numStudent, pStudent, count,d,"Student");
 	deleteStudentList(pStudent);
 	loadStudent(numStudent, pStudent, "Student");
-
 	Student* insert = inputStudentsInfo(i, re, pStudent,numStudent);
 	insertBefore(pStudent, count, insert);
 	numStudent++;
@@ -340,11 +346,15 @@ void ChangeStudentsInfo(int numStudent, Student*& pStudent) {
 	insertBefore(st2, count, insert);
 	numStudent1++;
 	rewriteStudent(numStudent1, st2, k);
+	deleteStudentList(pStudent);
 	goToXY(10, y++);
 	cout << "Your data has been changed successfully." << endl;
 }
 //Change student from Class A to B
-void ChangeStudentsClass(int numStudent, Student*& pStudent) {
+void ChangeStudentsClass() {
+	system("cls");
+	int numStudent = 0; Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
 	int mark = 0, d = 0; char s[100]; int pos; bool k; int preserve = numStudent;
 	Student* choose = checkCondition(mark, d, pStudent);
 	goToXY(10, y++);
@@ -366,7 +376,7 @@ void ChangeStudentsClass(int numStudent, Student*& pStudent) {
 		goToXY(10, clr + 1); cout << "                                   ";
 		goToXY(10, clr + 1);
 		cout << "Now change to class: "; cin.ignore(); cin.get(s, 100, '\n');
-		k = loadStudent(numStudent, st3, s);
+		k = true; loadStudent(numStudent, st3, s);
 		if (k == true) {
 			insertBefore(st3, 0, replica);
 			numStudent++;
@@ -382,4 +392,5 @@ void ChangeStudentsClass(int numStudent, Student*& pStudent) {
     delete st3;
 	goToXY(10, y++);
 	cout << "Your data has been changed successfully." << endl;
+	deleteStudentList(pStudent);
 }
