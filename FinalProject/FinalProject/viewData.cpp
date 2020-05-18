@@ -17,6 +17,7 @@ void viewClass(Class*&pClass){
 	}
 }
 
+void viewStudentsInClass(Class* pClass) {
 	Node* cur = pClass;
 
 	// View Selection
@@ -44,102 +45,5 @@ void viewClass(Class*&pClass){
 			++count;
 			cur = cur->pNext;
 		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
-	case 17:
-	{
-		string classname = "18CLC2";
-		Class* cur = pClass;
-
-		while (cur != nullptr) {
-			if (cur->name == classname) {
-				break;
-			}
-			cur = cur->pNext;
-		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
-	case 18:
-	{
-		string classname = "18CLC3";
-		Class* cur = pClass;
-
-		while (cur != nullptr) {
-			if (cur->name == classname) {
-				break;
-			}
-			cur = cur->pNext;
-		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
-	case 19:
-	{
-		string classname = "18CLC4";
-		Class* cur = pClass;
-
-		while (cur != nullptr) {
-			if (cur->name == classname) {
-				break;
-			}
-			cur = cur->pNext;
-		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
-	case 20:
-	{
-		string classname = "18CLC5";
-		Class* cur = pClass;
-
-		while (cur != nullptr) {
-			if (cur->name == classname) {
-				break;
-			}
-			cur = cur->pNext;
-		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
-	case 21:
-	{
-		string classname = "19CLC6";
-		Class* cur = pClass;
-
-		while (cur != nullptr) {
-			if (cur->name == classname) {
-				break;
-			}
-			cur = cur->pNext;
-		}
-
-		while (cur->pStudent != nullptr) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-		}
-		break;
-	}
 	}
 }
