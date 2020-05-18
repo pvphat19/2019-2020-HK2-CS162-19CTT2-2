@@ -264,7 +264,11 @@ void import()//can nang cap doan check class ban dau//loi doc file csv
 		}
 		rewriteClass(numClass1, pClass1);
 		//
-		cout << "We have import " << success << " students successfully over " << dem << " students." << endl;
+		cout << "We have import " << success << " students successfully among " << dem << " students." << endl;
+		if (dem > success)
+		{
+			cout << dem - success << " students failed because of existing id." << endl;
+		}
 		deleteClassList(pClass1);
 		deleteStudentList(pStudent1);
 }
