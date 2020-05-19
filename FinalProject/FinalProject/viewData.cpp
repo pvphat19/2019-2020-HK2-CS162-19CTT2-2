@@ -1,10 +1,12 @@
 #include "function.h"
 
-void viewClass(Class*& pClass) {
+void viewClass() {
+	system("cls");
+	int numClass; Class* pClass = nullptr;
+	loadClass(numClass, pClass);
 	if (pClass == nullptr) {
 		cout << "There is no class in stored data" << endl;
 	}
-
 	else {
 		Class* cur = pClass;
 		int i = 1;
@@ -15,9 +17,13 @@ void viewClass(Class*& pClass) {
 			++i;
 		}
 	}
+	deleteClassList(pClass);
 }
 
-void viewStudentsInClass(Class* pClass) {
+void viewStudentsInClass() {
+	system("cls");
+	int numClass; Class* pClass = nullptr;
+	loadClass(numClass, pClass);
 	Class* cur = pClass;
 
 	// View Selection
@@ -46,4 +52,5 @@ void viewStudentsInClass(Class* pClass) {
 			cur = cur->pNext;
 		}
 	}
+	deleteClassList(pClass);
 }

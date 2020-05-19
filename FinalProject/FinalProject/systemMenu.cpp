@@ -32,7 +32,11 @@ void staffMenu(Staff*& curStaff)
 		goToXY(x, y++); cout << "3. Move a student to another class" << endl;
 		goToXY(x, y++); cout << "0. Logout" << endl;
 		goToXY(x, y++); cout << "Please enter your choice: "; cin >> choice;
-		if (choice == 0) return;
+		if (choice == 0)
+		{
+			cin.get();
+			break;
+		}
 		switch (choice)
 		{
 		case 1:
@@ -63,7 +67,6 @@ void login()
 	{
 		system("cls");
 		printHCMUS(40, 10);
-
 		int x = 56, y = 20;
 		string username = "ntmphuc";
 		string password = "";
@@ -73,7 +76,7 @@ void login()
 		goToXY(x + 10, y); getline(cin, username); 
 		goToXY(x + 10, y + 1);
 		char ch = _getch();
-		while (ch != 13) {//character 13 is enter
+		while (ch != 13) {
 			if (ch == '\b')
 			{
 				cout << "\b \b";
@@ -89,10 +92,8 @@ void login()
 		Staff* curStaff = nullptr;
 		if (isStaff(username, password, curStaff))
 		{
-			//system("cls");
 			staffMenu(curStaff);
 			delete curStaff;
-			system("pause");
 		}
 		else
 		{

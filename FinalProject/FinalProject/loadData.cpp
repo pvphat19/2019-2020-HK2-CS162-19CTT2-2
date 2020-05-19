@@ -43,36 +43,49 @@ void loadStudent(int& numStudent, Student*& pStudent, string name)
 			}
 		}
 	}
+	else
+	{
+		numStudent = 0;
+		pStudent = nullptr;
+	}
 	in.close();
 }
 void loadClass(int& numClass, Class*& pClass)
 {
 	ifstream in;
 	in.open("Class.txt");
-	int n;
-	Class* cur = nullptr;
-	in >> n; in.get();
-	numClass = n;
-	for (int i = 0; i < n; i++)
+	if (in.is_open())
 	{
-		if (pClass == nullptr)
+		int n;
+		Class* cur = nullptr;
+		in >> n; in.get();
+		numClass = n;
+		for (int i = 0; i < n; i++)
 		{
-			pClass = new Class;
-			cur = pClass;
-			getline(in, cur->name);
-			cur->pStudent = nullptr;
-			loadStudent(cur->numStudent, cur->pStudent, cur->name);
-			cur->pNext = nullptr;
+			if (pClass == nullptr)
+			{
+				pClass = new Class;
+				cur = pClass;
+				getline(in, cur->name);
+				cur->pStudent = nullptr;
+				loadStudent(cur->numStudent, cur->pStudent, cur->name);
+				cur->pNext = nullptr;
+			}
+			else
+			{
+				cur->pNext = new Class;
+				cur = cur->pNext;
+				getline(in, cur->name);
+				cur->pStudent = nullptr;
+				loadStudent(cur->numStudent, cur->pStudent, cur->name);
+				cur->pNext = nullptr;
+			}
 		}
-		else
-		{
-			cur->pNext = new Class;
-			cur = cur->pNext;
-			getline(in, cur->name);
-			cur->pStudent = nullptr;
-			loadStudent(cur->numStudent, cur->pStudent, cur->name);
-			cur->pNext = nullptr;
-		}
+	}
+	else
+	{
+		numClass = 0;
+		pClass = nullptr;
 	}
 	in.close();
 }
@@ -80,38 +93,46 @@ void loadStaff(int& numStaff, Staff*& pStaff)
 {
 	ifstream in;
 	in.open("Staff.txt");
-	int n;
-	Staff* cur = nullptr;
-	string emptyLine;
-	if (in >> n)
+	if (in.is_open())
 	{
-		numStaff = n;
-		for (int i = 0; i < n; i++)
+		int n;
+		Staff* cur = nullptr;
+		string emptyLine;
+		if (in >> n)
 		{
-			if (pStaff == nullptr)
+			numStaff = n;
+			for (int i = 0; i < n; i++)
 			{
-				pStaff = new Staff;
-				cur = pStaff;
-				in.ignore();
-				getline(in, cur->username);
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				in >> cur->gender;
-				cur->pNext = nullptr;
-			}
-			else
-			{
-				cur->pNext = new Staff;
-				cur = cur->pNext;
-				in.ignore();
-				getline(in, emptyLine);
-				getline(in, cur->username);
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				in >> cur->gender;
-				cur->pNext = nullptr;
+				if (pStaff == nullptr)
+				{
+					pStaff = new Staff;
+					cur = pStaff;
+					in.ignore();
+					getline(in, cur->username);
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					in >> cur->gender;
+					cur->pNext = nullptr;
+				}
+				else
+				{
+					cur->pNext = new Staff;
+					cur = cur->pNext;
+					in.ignore();
+					getline(in, emptyLine);
+					getline(in, cur->username);
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					in >> cur->gender;
+					cur->pNext = nullptr;
+				}
 			}
 		}
+	}
+	else
+	{
+		numStaff = 0;
+		pStaff = nullptr;
 	}
 	in.close();
 }
@@ -119,81 +140,217 @@ void loadLecturer(int& numLecturer, Lecturer*& pLecturer)
 {
 	ifstream in;
 	in.open("Lecturer.txt");
-	int n;
-	Lecturer* cur = nullptr;
-	string emptyLine;
-	if (in >> n)
+	if (in.is_open())
 	{
-		numLecturer = n;
+		int n;
+		Lecturer* cur = nullptr;
+		string emptyLine;
+		if (in >> n)
+		{
+			numLecturer = n;
+			for (int i = 0; i < n; i++)
+			{
+				if (pLecturer == nullptr)
+				{
+					pLecturer = new Lecturer;
+					cur = pLecturer;
+					in.ignore();
+					getline(in, cur->username);
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					getline(in, cur->degree);
+					in >> cur->gender;
+					cur->pNext = nullptr;
+				}
+				else
+				{
+					cur->pNext = new Lecturer;
+					cur = cur->pNext;
+					in.ignore();
+					getline(in, emptyLine);
+					getline(in, cur->username);
+					getline(in, cur->password);
+					getline(in, cur->fullname);
+					getline(in, cur->degree);
+					in >> cur->gender;
+					cur->pNext = nullptr;
+				}
+			}
+		}
+	}
+	else
+	{
+		numLecturer = 0;
+		pLecturer = nullptr;
+	}
+	in.close();
+}
+void loadSemester(int& numSemester, Semester*& pSemester)
+{
+	ifstream in;
+	string filename = "Semester\\Semester.txt";
+	in.open(filename);
+	if (in.is_open())
+	{
+		int n;
+		in >> n; in.get();
+		numSemester = n;
+		Semester* cur = nullptr;
+		string emptyLine;
 		for (int i = 0; i < n; i++)
 		{
-			if (pLecturer == nullptr)
+			if (pSemester == nullptr)
 			{
-				pLecturer = new Lecturer;
-				cur = pLecturer;
-				in.ignore();
-				getline(in, cur->username);
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				getline(in, cur->degree);
-				in >> cur->gender;
+				pSemester = new Semester;
+				cur = pSemester;
+				getline(in, cur->academicYear);
+				getline(in, cur->semester);
+				cur->pSchedule = nullptr;
+				string name = cur->academicYear + '-' + cur->semester;
+				loadSchedule(cur->numSchedule, cur->pSchedule, "Semester\\" + name + "\\", name);
+				getline(in, emptyLine);
 				cur->pNext = nullptr;
 			}
 			else
 			{
-				cur->pNext = new Lecturer;
-				cur = cur->pNext;
-				in.ignore();
+				cur->pNext = new Semester;
+				getline(in, cur->academicYear);
+				getline(in, cur->semester);
+				cur->pSchedule = nullptr;
+				string name = cur->academicYear + '-' + cur->semester;
+				loadSchedule(cur->numSchedule, cur->pSchedule, "Semester\\" + name + "\\", name);
 				getline(in, emptyLine);
-				getline(in, cur->username);
-				getline(in, cur->password);
-				getline(in, cur->fullname);
-				getline(in, cur->degree);
-				in >> cur->gender;
 				cur->pNext = nullptr;
 			}
 		}
 	}
+	else
+	{
+		numSemester = 0;
+		pSemester = nullptr;
+	}
 	in.close();
 }
-void deleteStudentList(Student*& pStudent)
+void loadSchedule(int& numSchedule, Schedule*& pSchedule, string dir, string name)
 {
-	Student* tmp;
-	while (pStudent)
+	ifstream in;
+	string filename = dir + name + ".txt";
+	in.open(filename);
+	if (in.is_open())
 	{
-		tmp = pStudent;
-		pStudent = pStudent->pNext;
-		delete tmp;
+		int n;
+		in >> n; in.get();
+		numSchedule = n;
+		Schedule* cur = nullptr;
+		for (int i = 0; i < n; i++)
+		{
+			if (pSchedule == nullptr)
+			{
+				pSchedule = new Schedule;
+				cur = pSchedule;
+				getline(in, cur->cla);
+				cur->pCourse = nullptr;
+				loadCourseList(cur->numCourse, cur->pCourse, dir + cur->cla + "\\", cur->cla);
+				cur->pNext = nullptr;
+			}
+			else
+			{
+				cur->pNext = new Schedule;
+				getline(in, cur->cla);
+				cur->pCourse = nullptr;
+				loadCourseList(cur->numCourse, cur->pCourse, dir + cur->cla + "\\", cur->cla);
+				cur->pNext = nullptr;
+			}
+		}
 	}
+	else
+	{
+		numSchedule = 0;
+		pSchedule = nullptr;
+	}
+	in.close();
 }
-void deleteClassList(Class*& pClass)
+void loadCourse(Course* curCourse, string dir, string name)
 {
-	Class* tmp;
-	while (pClass)
+	ifstream in;
+	string filename = dir + name + ".txt";
+	in.open(filename);
+	getline(in, curCourse->courseID);
+	getline(in, curCourse->courseName);
+	getline(in, curCourse->cla);
+	getline(in, curCourse->lecturer.username);
+	getline(in, curCourse->lecturer.fullname);
+	getline(in, curCourse->lecturer.degree);
+	in >> curCourse->lecturer.gender; in.get();
+	getline(in, curCourse->day);
+	getline(in, curCourse->room);
+	in >> curCourse->dateStart.year >> curCourse->dateStart.month >> curCourse->dateStart.day;
+	in >> curCourse->dateEnd.year >> curCourse->dateEnd.month >> curCourse->dateEnd.day;
+	in >> curCourse->timeStart.hour >> curCourse->timeStart.minute >> curCourse->timeEnd.hour >> curCourse->timeEnd.minute;
+	in >> curCourse->numStudent;
+	Student* cur = nullptr;
+	for (int i = 0; i < curCourse->numStudent; i++)
 	{
-		tmp = pClass;
-		pClass = pClass->pNext;
-		deleteStudentList(tmp->pStudent);
-		delete tmp;
+		if (curCourse->pStudent == nullptr)
+		{
+			curCourse->pStudent = new Student;
+			cur = curCourse->pStudent;
+			in >> cur->id;
+			in >> cur->grade.midterm >> cur->grade.final >> cur->grade.bonus >> cur->grade.total;
+			for (int j = 0; j < 10; j++)
+				in >> cur->attend[j];
+			cur->pNext = nullptr;
+		}
+		else
+		{
+			cur->pNext = new Student;
+			cur = cur->pNext;
+			in >> cur->id;
+			in >> cur->grade.midterm >> cur->grade.final >> cur->grade.bonus >> cur->grade.total;
+			for (int j = 0; j < 10; j++)
+				in >> cur->attend[j];
+			cur->pNext = nullptr;
+		}
 	}
+	in.close();
 }
-void deleteStaffList(Staff*& pStaff)
+void loadCourseList(int& numCourse, Course*& pCourse, string dir, string name)
 {
-	Staff* tmp;
-	while (pStaff)
+	ifstream in;
+	string filename = dir + name + ".txt";
+	in.open(filename);
+	if (in.is_open())
 	{
-		tmp = pStaff;
-		pStaff = pStaff->pNext;
-		delete tmp;
+		int n;
+		in >> n; in.get();
+		numCourse = n;
+		Course* cur = nullptr;
+		string courseName;
+		for (int i = 0; i < n; i++)
+		{
+			if (pCourse == nullptr)
+			{
+				pCourse = new Course;
+				cur = pCourse;
+				getline(in, courseName);
+				cur->pStudent = nullptr;
+				loadCourse(cur, dir, courseName);
+				cur->pNext = nullptr;
+			}
+			else
+			{
+				cur->pNext = new Course;
+				getline(in, courseName);
+				cur->pStudent = nullptr;
+				loadCourse(cur, dir, courseName);
+				cur->pNext = nullptr;
+			}
+		}
 	}
-}
-void deleteLecturerList(Lecturer*& pLecturer)
-{
-	Lecturer* tmp;
-	while (pLecturer)
+	else
 	{
-		tmp = pLecturer;
-		pLecturer = pLecturer->pNext;
-		delete tmp;
+		numCourse = 0;
+		pCourse = nullptr;
 	}
+	in.close();
 }

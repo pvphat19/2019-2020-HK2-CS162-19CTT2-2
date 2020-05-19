@@ -15,15 +15,9 @@ void replicateStaff(Staff* origin, Staff*& copy)
 }
 bool isStaff(string username, string password, Staff*& curStaff)
 {
-	goToXY(1, 1);
-	cout << username << endl;
-	cout << password << endl;
-	system("pause");
-
 	int numStaff = 0;
 	Staff* pStaff = nullptr;
 	loadStaff(numStaff, pStaff);
-
 	Staff* cur = pStaff;
 	while (cur)
 	{
