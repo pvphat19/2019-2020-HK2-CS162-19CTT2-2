@@ -46,7 +46,7 @@ struct Lecturer {
 	Lecturer* pNext;
 };
 //loadData
-bool loadStudent(int&, Student*&, string);
+void loadStudent(int&, Student*&, string);
 void loadClass(int&, Class*&);
 void loadStaff(int&, Staff*&);
 void loadLecturer(int&, Lecturer*&);
@@ -70,12 +70,21 @@ void fixConsoleWindow(); // Ham co dinh console
 /* system("cls")	// Ham xoa man hinh
 // system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
 
-//staffClass
+//checkUser
+bool isStaff(string username, string password, Staff*& curStaff);
+
+//systemMenu
+void printHCMUS(int x, int y);
+void staffMenu(Staff*& curStaff);
+void login();
+
+//viewData
 void viewClass(Class*&);
 void viewStudentsInClass(Class* pClass, string name);
+
 //ModificationClass
-void removeStudents(int numStudent, Student*& pStudent);
-void ChangeStudentsInfo(int numStudent, Student*& pStudent);
-void ChangeStudentsClass(int numStudent, Student*& pStudent);
+void removeStudents();
+void ChangeStudentsInfo();
+void ChangeStudentsClass();
 #endif // !_FUNCTION_H_
 

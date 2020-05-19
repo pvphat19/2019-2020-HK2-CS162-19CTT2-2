@@ -38,5 +38,11 @@
     <ClCompile Include="viewData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="systemMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="checkUsers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

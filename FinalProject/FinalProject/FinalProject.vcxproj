@@ -126,11 +126,13 @@
     <ClInclude Include="function.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="checkUsers.cpp" />
     <ClCompile Include="consoleEdit.cpp" />
     <ClCompile Include="loadData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModificationFunction.cpp" />
     <ClCompile Include="rewriteTextFile.cpp" />
+    <ClCompile Include="systemMenu.cpp" />
     <ClCompile Include="viewData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
