@@ -1,6 +1,8 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -86,5 +88,9 @@ void viewStudentsInClass(Class* pClass, string name);
 void removeStudents();
 void ChangeStudentsInfo();
 void ChangeStudentsClass();
+
+//manually add and import class
+void manually_add_student_to_class();
+void import_class();
 #endif // !_FUNCTION_H_
 

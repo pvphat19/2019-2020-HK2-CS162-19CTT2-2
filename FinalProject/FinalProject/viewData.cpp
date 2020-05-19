@@ -18,7 +18,7 @@ void viewClass(Class*& pClass) {
 }
 
 void viewStudentsInClass(Class* pClass) {
-	Node* cur = pClass;
+	Class* cur = pClass;
 
 	// View Selection
 	cout << "Choose the class you want to view students list: " << endl;

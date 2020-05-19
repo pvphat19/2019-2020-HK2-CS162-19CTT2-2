@@ -1,6 +1,43 @@
 #include "function.h"
 
-void manually_add_student()
+void create_password(Date dob, string& s)
+{
+	s = "";
+	while (dob.year > 0)
+	{
+		int k = dob.year % 10;
+		char c = int('0') + k;
+		s = c + s;
+		dob.year = dob.year / 10;
+	}
+	char c = int('0') + dob.month / 10;
+	s = s + c;
+	c = int('0') + dob.month % 10;
+	s = s + c;
+	c = int('0') + dob.day / 10;
+	s = s + c;
+	c = int('0') + dob.day % 10;
+	s = s + c;
+}
+
+bool check_id(int ID, Student* pStudent)
+{
+	if (pStudent == nullptr) return true;
+	Student* tmp = pStudent;
+	bool t = true;
+	while (tmp != nullptr)
+	{
+		if (tmp->id == ID)
+		{
+			t = false;
+			break;
+		}
+		tmp = tmp->pNext;
+	}
+	return t;
+}
+
+void manually_add_student_to_class()
 {
 	//input class
 	int numClass=0;
@@ -92,7 +129,7 @@ void manually_add_student()
 	cout << "The student has been add to symstem." << endl;
 }
 
-void import()//can nang cap doan check class ban dau//loi doc file csv
+void import_class()//can nang cap doan check class ban dau
 {
 	cout << "Please enter the name of the class: ";
 	string classname;
@@ -162,14 +199,13 @@ void import()//can nang cap doan check class ban dau//loi doc file csv
 		Student* pStudent1 = nullptr;
 		loadStudent(numstudent1, pStudent1, "Student");
 		in.ignore(1000, '\n');
-		while (!in.eof())//con error o cuoi file
+		while (!in.eof())
 		{
 			in.ignore(100, ',');
 			if (in.eof())
 				break;
 			int ID;
 			in >> ID;
-			cout << ID;//doan nay de test
 			if (!check_id(ID, pStudent1))
 			{
 				dem++;
@@ -240,7 +276,7 @@ void import()//can nang cap doan check class ban dau//loi doc file csv
 		out.close();
 		rewriteStudent(success, pStudent, classname);
 		rewriteStudent(numstudent1, pStudent1, "Student");
-		//update class.txt doan nay bi loi
+		//update class.txt
 		int numClass1 = 0;
 		Class* pClass1 = nullptr;
 		loadClass(numClass1, pClass1);
@@ -271,41 +307,4 @@ void import()//can nang cap doan check class ban dau//loi doc file csv
 		}
 		deleteClassList(pClass1);
 		deleteStudentList(pStudent1);
-}
-
-void create_password(Date dob, string& s)
-{
-	s ="";
-	while (dob.year > 0)
-	{
-		int k = dob.year % 10;
-		char c = int('0') + k;
-		s = c + s;
-		dob.year = dob.year / 10;
-	}
-	char c = int('0') + dob.month / 10;
-	s = s + c;
-	c = int('0') + dob.month % 10;
-	s = s + c;
-	c = int('0') + dob.day / 10;
-	s = s + c;
-	c = int('0') + dob.day % 10;
-	s = s + c;	
-}
-
-bool check_id(int ID, Student* pStudent)
-{
-	if (pStudent == nullptr) return true;
-	Student* tmp = pStudent;
-	bool t = true;
-	while (tmp != nullptr)
-	{
-		if (tmp->id == ID)
-		{
-			t = false;
-			break;
-		}
-		tmp = tmp->pNext;
-	}
-	return t;
 }
