@@ -71,8 +71,8 @@ void fixConsoleWindow(); // Ham co dinh console
 // system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
 
 //staffClass
-void viewClass(Class*&);
-void viewStudentsInClass(Class* pClass, string name);
+void viewClass();
+void viewStudentsInClass();
 //ModificationClass
 void removeStudents(int numStudent, Student*& pStudent);
 void ChangeStudentsInfo(int numStudent, Student*& pStudent);

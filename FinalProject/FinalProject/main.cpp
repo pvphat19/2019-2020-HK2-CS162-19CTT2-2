@@ -13,6 +13,8 @@ int main()
 	loadClass(numClass, pClass);
 	loadStaff(numStaff, pStaff);
 	loadLecturer(numLecturer, pLecturer);
+	viewClass();
+	viewStudentsInClass();
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStaffList(pStaff);

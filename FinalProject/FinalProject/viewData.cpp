@@ -1,6 +1,9 @@
 #include "function.h"
 
-void viewClass(Class*& pClass) {
+void viewClass() {
+	int numClass;
+	Class* pClass = nullptr;
+	loadClass(numClass, pClass);
 	if (pClass == nullptr) {
 		cout << "There is no class in stored data" << endl;
 	}
@@ -17,8 +20,11 @@ void viewClass(Class*& pClass) {
 	}
 }
 
-void viewStudentsInClass(Class* pClass) {
-	Node* cur = pClass;
+void viewStudentsInClass() {
+	Class* pClass=nullptr;
+	int numClass;
+	Class* cur = pClass;
+	loadClass(numClass, pClass);
 
 	// View Selection
 	cout << "Choose the class you want to view students list: " << endl;
@@ -39,6 +45,7 @@ void viewStudentsInClass(Class* pClass) {
 	while (cur != nullptr) {
 		if (count == choice) {
 			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+			cur->pStudent = cur->pStudent->pNext;
 			if (cur->pStudent == nullptr) break;
 		}
 		else {
