@@ -214,6 +214,7 @@ void loadSemester(int& numSemester, Semester*& pSemester)
 			else
 			{
 				cur->pNext = new Semester;
+				cur = cur->pNext;
 				getline(in, cur->academicYear);
 				getline(in, cur->semester);
 				cur->pSchedule = nullptr;
@@ -256,6 +257,7 @@ void loadSchedule(int& numSchedule, Schedule*& pSchedule, string dir, string nam
 			else
 			{
 				cur->pNext = new Schedule;
+				cur = cur->pNext;
 				getline(in, cur->cla);
 				cur->pCourse = nullptr;
 				loadCourseList(cur->numCourse, cur->pCourse, dir + cur->cla + "\\", cur->cla);
@@ -340,6 +342,7 @@ void loadCourseList(int& numCourse, Course*& pCourse, string dir, string name)
 			else
 			{
 				cur->pNext = new Course;
+				cur = cur->pNext;
 				getline(in, courseName);
 				cur->pStudent = nullptr;
 				loadCourse(cur, dir, courseName);

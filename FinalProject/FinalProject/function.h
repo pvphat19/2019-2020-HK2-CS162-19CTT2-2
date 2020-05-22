@@ -122,21 +122,21 @@ void fixConsoleWindow(); // Ham co dinh console
 /* system("cls")	// Ham xoa man hinh
 // system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
 
-//staffClass
-void viewClass();
-void viewStudentsInClass();
 //checkUser
 bool isStaff(string username, string password, Staff*& curStaff);
 
 //systemMenu
-void printHCMUS(int x, int y);
-void staffMenu(Staff*& curStaff);
-void login();
+bool convertStringToInt(string, int&);
+void staffMenu(Staff*& curStaff, int&, Semester*&);
+void login(int&, Semester*&);
 
 //viewData
+bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory);
+void viewCourseAttendance(Semester*);
+void viewCurStaffInfo(Staff* curStaff);
+void viewLecturer();
 void viewClass();
 void viewStudentsInClass();
-void viewCourse(Semester*& pSemester);
 
 //ModificationClass
 void removeStudents();
