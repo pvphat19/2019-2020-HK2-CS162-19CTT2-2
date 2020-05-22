@@ -126,15 +126,11 @@ void fixConsoleWindow(); // Ham co dinh console
 bool isStaff(string username, string password, Staff*& curStaff);
 
 //systemMenu
-bool convertStringToInt(string, int&);
-void staffMenu(Staff*& curStaff, int&, Semester*&);
-void login(int&, Semester*&);
+void printHCMUS(int x, int y);
+void staffMenu(Staff*& curStaff);
+void login();
 
 //viewData
-bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory);
-void viewCourseAttendance(Semester*);
-void viewCurStaffInfo(Staff* curStaff);
-void viewLecturer();
 void viewClass();
 void viewStudentsInClass();
 
@@ -146,5 +142,12 @@ void ChangeStudentsClass();
 //manually add and import class
 void manually_add_student_to_class();
 void import_class();
+//CourseMod
+void editCourse(int numSemester, Semester* pSemester);
+void removeCourse(int numSemester, Semester* pSemester);
+void removeStudentfromCourse(int numSemester, Semester* pSemester);
+//may function nay tien, co the xai lai.
+bool convertStringToInt(string str, int& x);	
+void inputDate(int& result, int& result2, int& result3);
 #endif // !_FUNCTION_H_
 

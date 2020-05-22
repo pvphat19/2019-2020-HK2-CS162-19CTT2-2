@@ -1,5 +1,7 @@
 #include "function.h"
 
+#include "function.h"
+
 string maleFemale(int gender)
 {
 	if (gender)
@@ -36,7 +38,7 @@ void viewLecturer()
 	deleteLecturerList(pLecturer);
 	goToXY(x, y++); system("pause");
 }
-bool inputCourse(int& x, int&y, Semester* pSemester, Course*& curCourse, string& directory)
+bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory)
 {
 	string academicYear, semester, cla, courseId, dir = "Semester\\"; curCourse = nullptr;
 	//Semester
@@ -104,7 +106,7 @@ bool inputCourse(int& x, int&y, Semester* pSemester, Course*& curCourse, string&
 void viewCourseAttendance(Semester* pSemester)
 {
 	int x, y;
-	string dir; 
+	string dir;
 	Course* curCourse;
 	while (true)
 	{
@@ -128,7 +130,7 @@ void viewCourseAttendance(Semester* pSemester)
 	while (curStudent)
 	{
 		goToXY(x, ++y); cout << curStudent->id;
-		goToXY(x, ++y); 
+		goToXY(x, ++y);
 		for (int i = 0; i < 10; i++)
 		{
 			goToXY(x + 25 + i * 8, y);

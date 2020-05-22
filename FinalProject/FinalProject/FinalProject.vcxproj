@@ -129,6 +129,7 @@
     <ClCompile Include="add_import_students.cpp" />
     <ClCompile Include="checkUsers.cpp" />
     <ClCompile Include="consoleEdit.cpp" />
+    <ClCompile Include="CourseMod.cpp" />
     <ClCompile Include="deleteData.cpp" />
     <ClCompile Include="loadData.cpp" />
     <ClCompile Include="main.cpp" />

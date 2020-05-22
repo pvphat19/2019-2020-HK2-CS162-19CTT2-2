@@ -19,128 +19,56 @@ string msMr(int gender)
 	else
 		return "Mr.";
 }
-bool convertStringToInt(string str, int& x)
-{
-	int n = str.length();
-	x = 0;
-	for (int i = 0; i < n; i++)
-		if (isdigit(str[i]))
-			x = x * 10 + int(str[i]) - int('0');
-		else
-			return false;
-	return true;
-}
-void staffClassMenu()
+void staffMenu(Staff*& curStaff)
 {
 	int choice;
 	while (true)
 	{
 		system("cls");
-		int x = 10, y = 5;
-		goToXY(x, y++); cout << "1. Import students of a class from a csv file." << endl;
-		goToXY(x, y++); cout << "2. Manually add a new student to a class." << endl;
-		goToXY(x, y++); cout << "3. Change a student's info." << endl;
-		goToXY(x, y++); cout << "4. Remove a student." << endl;
-		goToXY(x, y++); cout << "5. Move a student to another class." << endl;
-		goToXY(x, y++); cout << "6. View list of classes." << endl;
-		goToXY(x, y++); cout << "7. View list of students in a class." << endl;
-		goToXY(x, y++); cout << "0. Return" << endl; y++;
-		goToXY(x, y++); cout << "Please enter your choice: "; 
-		cin >> choice;	cin.get();
-		if (choice == 0)	break;
+		int x = 10, y = 4;
+		goToXY(x, y++); cout << "Welcome " << msMr(curStaff->gender) << curStaff->fullname << '!' << endl;
+		goToXY(x, y++); cout << "1. Remove a student" << endl;
+		goToXY(x, y++); cout << "2. Change a student's info" << endl;
+		goToXY(x, y++); cout << "3. Move a student to another class" << endl;
+		goToXY(x, y++); cout << "0. Logout" << endl;
+		goToXY(x, y++); cout << "Please enter your choice: "; cin >> choice;
+		if (choice == 0)
+		{
+			cin.get();
+			break;
+		}
 		switch (choice)
 		{
 		case 1:
-		{
-			import_class();
-			break;
-		}
-		case 2:
-		{
-			manually_add_student_to_class();
-			break;
-		}
-		case 3:
-		{
-			ChangeStudentsInfo();
-			break;
-		}
-		case 4:
 		{
 			removeStudents();
 			break;
 		}
-		case 5:
+		case 2:
+		{
+			ChangeStudentsInfo();
+			break;
+		}
+		case 3:
 		{
 			ChangeStudentsClass();
 			break;
 		}
-		case 6:
-		{
-			viewClass();
-			break;
-		}
-		case 7:
-		{
-			viewStudentsInClass();
-			break;
-		}
 		default:
-			textColor(4);
-			goToXY(x, y + 5); cout << "Invalid choice! Please try again." << endl;
-			goToXY(x, y + 6); system("pause");
-			textColor(15);
+			cout << "Incorrect" << endl;
+			cout << endl;
 			break;
 		}
 	}
 }
-void staffMenu(Staff*& curStaff, int& numSemester, Semester*& pSemester)
-{
-	int choice;
-	while (true)
-	{
-		system("cls");
-		int x = 10, y = 5;
-		goToXY(x, y++); cout << "Welcome " << msMr(curStaff->gender) << curStaff->fullname << '!' << endl; y++;
-		goToXY(x, y++); cout << "1. View profile" << endl;
-		goToXY(x, y++); cout << "   Task: " << endl;
-		goToXY(x, y++); cout << "2. Class" << endl;
-		goToXY(x, y++); cout << "3. Course" << endl;
-		goToXY(x, y++); cout << "4. Scoreboard" << endl;
-		goToXY(x, y++); cout << "5. Attendance list" << endl;
-		goToXY(x, y++); cout << "0. Logout" << endl; y++;
-		goToXY(x, y++); cout << "Please enter your choice: "; 
-		cin >> choice;	cin.get();
-		if (choice == 0)	break;
-		switch (choice)
-		{
-		case 1:
-		{
-			viewCurStaffInfo(curStaff);
-			break;
-		}
-		case 2:
-		{
-			staffClassMenu();
-			break;
-		}
-		default:
-			textColor(4);
-			goToXY(x, y + 5); cout << "Invalid choice! Please try again." << endl;
-			goToXY(x, y + 6); system("pause");
-			textColor(15);
-			break;
-		}
-	}
-}
-void login(int& numSemester, Semester*& pSemester)
+void login()
 {
 	while (true)
 	{
 		system("cls");
-		printHCMUS(29, 12);
-		int x = 50, y = 22;
-		string username = "";
+		printHCMUS(40, 10);
+		int x = 56, y = 20;
+		string username = "ntmphuc";
 		string password = "";
 		goToXY(x, y); cout << "Username: ";
 		goToXY(x, y + 1); cout << "Password: ";
@@ -164,14 +92,16 @@ void login(int& numSemester, Semester*& pSemester)
 		Staff* curStaff = nullptr;
 		if (isStaff(username, password, curStaff))
 		{
-			staffMenu(curStaff, numSemester, pSemester);
+			staffMenu(curStaff);
 			delete curStaff;
 		}
 		else
 		{
+			goToXY(x, y + 9);
 			textColor(4);
-			goToXY(x, y + 9); cout << "Invalid login! Please try again.";
-			goToXY(x, y + 10); system("pause");
+			cout << "Invalid login, please try again.";
+			goToXY(x, y + 10);
+			system("pause");
 			textColor(15);
 		}
 	}

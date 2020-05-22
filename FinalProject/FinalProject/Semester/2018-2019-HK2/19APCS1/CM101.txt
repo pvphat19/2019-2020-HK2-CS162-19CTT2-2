@@ -1,15 +1,15 @@
-CS162
-Introduction to Computer Science II
+CM101
+Communications
 19APCS1
-nmhuy
-Nguyen Minh Huy
-Thac si
+dnvu
+Duong Nguyen Vu
+GS
 0
 WED
-I42
-2020 4 6
-2020 6 8
-7 30 11 30
+I25
+2020 4 1
+2020 6 1
+13 40 17 40
 3
 19126002
 0 0 0 0

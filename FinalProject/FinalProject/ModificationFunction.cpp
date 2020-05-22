@@ -2,14 +2,15 @@
 //little stuff for 3 main function
 int y=5;
 Student* checkCondition(int mark, int& Id, Student* pStudent) {
-	Student* link = nullptr;
+	Student* link = nullptr; string forID;
 	goToXY(10, y);
 	do {
 	    link = pStudent;
 		mark = 0;                                                                  
 		goToXY(10, y); cout << "                                                                      ";
 		goToXY(10, y);
-		cout << "Enter ID of student that's available : "; cin >> Id;
+		cout << "Enter ID of student that's available : "; cin >> forID;
+		convertStringToInt(forID, Id);
 		while (link != nullptr) {
 			if (Id == link->id) {
 				mark++;

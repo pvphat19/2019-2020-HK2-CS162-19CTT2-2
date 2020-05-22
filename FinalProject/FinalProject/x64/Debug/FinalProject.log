@@ -1,0 +1,12 @@
+﻿  CourseMod.cpp
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(5,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(174,18): warning C4101: 'compr3': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(173,20): warning C4101: 'compr2': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(355,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(29): warning C4715: 'checkAcademicY': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(63): warning C4715: 'checkClassID': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(79): warning C4715: 'checkCourse': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(46): warning C4715: 'checkSemester': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(95): warning C4715: 'checkStudent': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(170): warning C4715: 'correctDate': not all control paths return a value
+  FinalProject.vcxproj -> C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\x64\Debug\FinalProject.exe
