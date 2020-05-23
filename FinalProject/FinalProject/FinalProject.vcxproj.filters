@@ -42,10 +42,10 @@
     <ClCompile Include="deleteData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="add_import_students.cpp">
+    <ClCompile Include="CourseMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CourseMod.cpp">
+    <ClCompile Include="add_import_students.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -214,14 +214,14 @@ void import_class()//can nang cap doan check class ban dau
 				getline(in, lastname, ',');
 				string firstname;
 				getline(in, firstname, ',');
-				int day;
-				in >> day;
+				int year;
+				in >> year;
 				in.ignore();
 				int month;
 				in >> month;
 				in.ignore();
-				int year;
-				in >> year;
+				int day;
+				in >> day;
 				in.ignore();
 			}
 			else
@@ -262,11 +262,11 @@ void import_class()//can nang cap doan check class ban dau
 				string firstname;
 				getline(in, firstname, ',');
 				cur->fullname = lastname + " " + firstname;
-				in >> cur->dob.day;
-				in.ignore(100, '/');
-				in >> cur->dob.month;
-				in.ignore(100, '/');
 				in >> cur->dob.year;
+				in.ignore();
+				in >> cur->dob.month;
+				in.ignore();
+				in >> cur->dob.day;
 				cur->status = 1;
 				cur->cla = classname;
 				create_password(cur->dob, cur->password);
