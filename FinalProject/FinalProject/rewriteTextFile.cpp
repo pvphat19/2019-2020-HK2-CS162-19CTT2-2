@@ -80,7 +80,7 @@ void rewriteSemester(int numSemester, Semester* pSemester)
 	{
 		out << cur->academicYear << endl;
 		out << cur->semester << endl;
-		cout << endl;
+		out << endl;
 		cur = cur->pNext;
 	}
 	out.close();
