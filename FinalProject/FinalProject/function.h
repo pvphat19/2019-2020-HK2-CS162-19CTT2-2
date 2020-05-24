@@ -149,5 +149,10 @@ void removeStudentfromCourse(int numSemester, Semester* pSemester);
 //may function nay tien, co the xai lai.
 bool convertStringToInt(string str, int& x);	
 void inputDate(int& result, int& result2, int& result3);
+//academic
+void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
+void createAcademicYear(int& numSemester, Semester*& pSemester);
+void importCourse(int& numSemester, Semester*& pSemester);
+void manuallyAddCourse(int& numSemester, Semester*& pSemester);
 #endif // !_FUNCTION_H_
 

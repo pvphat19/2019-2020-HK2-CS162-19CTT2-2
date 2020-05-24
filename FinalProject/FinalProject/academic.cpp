@@ -47,6 +47,7 @@ void createSemester(string AcademicYear, string Semestername, int& numSemester, 
 	Foldername = Foldername + "\\" + AcademicYear + '-' + Semestername + ".txt";
 	ofstream out;
 	out.open(Foldername);
+	out << 0 << endl;
 	out.close();
 	//cap nhat pSemester
 	if (pSemester == nullptr)
@@ -146,7 +147,7 @@ void createAcademicYear(int& numSemester, Semester*& pSemester)
 	cout << "The academic year has been created." << endl;
 }
 
-void updateAcademicYear(int& numSemester, Semester*& pSemester)
+void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semester
 {
 	string academicYear;
 	cout << "Please enter the academic year: ";
@@ -304,7 +305,7 @@ bool checkExistingClass(string classname) {
 	deleteClassList(pClass);
 	return t;
 }
-bool checkExistingLecturer(string lecturerName)
+bool checkExistingLecturer(string lecturerAccount)
 {
 	int numLecturer;
 	Lecturer* pLecturer = nullptr;
@@ -312,7 +313,7 @@ bool checkExistingLecturer(string lecturerName)
 	Lecturer* cur = pLecturer;
 	while (cur != nullptr)
 	{
-		if (cur->fullname == lecturerName)
+		if (cur->username == lecturerAccount)
 		{
 			deleteLecturerList(pLecturer);
 			return true;
@@ -356,6 +357,7 @@ void createClassInSemester(string classname, string academicYear, string Semeste
 		Foldername = Foldername + "\\" +classname+ ".txt";
 		ofstream out;
 		out.open(Foldername);
+		out << 0 << endl;
 		out.close();
 		//cap nhat pSemester
 		Semester* cur = pSemester;
@@ -403,6 +405,7 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		cout << "The academic year is not existed. Please enter another academic year: ";
 		getline(cin, academicYear, '\n');
 	}
+	cout << "We already have the following semester." << endl;
 	viewAcademicYear(academicYear, numSemester, pSemester);
 	cout << "Please enter the semester: ";
 	string Semestername;
@@ -440,7 +443,9 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		curSemester = curSemester->pNext;
 	Schedule* curSchedule = curSemester->pSchedule;
 	while (curSchedule != nullptr && (curSchedule->cla != classname))
+	{
 		curSchedule = curSchedule->pNext;
+	}
 	Course* pCourse = curSchedule->pCourse;
 	cout << "Please enter the link of csv file." << endl;
 	cout << "Notice that the order of csv file must be: No,Course ID,Course Name,Lecturer name,Lecturer Degree,Lecturer gender,Lecturer Account,Start Date,End Date,Day of Week,Start Hour,Start Minute,End Hour,End HourMinute,Room" << endl;
@@ -453,6 +458,8 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		cout << "Can not open csv file. Please check the link." << endl;
 		return;
 	}
+
+	//toi cho nay thi check on, con 2 ham o tren chua viet thoi
 	in.ignore(1000, '\n');
 	while (!in.eof())
 	{
@@ -465,6 +472,7 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		{
 			pCourse = new Course;
 			tmpCourse = pCourse;
+			curSchedule->numCourse++;
 		}
 		else {
 			while (tmpCourse != nullptr)
@@ -480,6 +488,7 @@ void importCourse(int& numSemester, Semester*& pSemester)
 					tmpCourse = tmpCourse->pNext;
 				tmpCourse->pNext = new Course;
 				tmpCourse = tmpCourse->pNext;
+				curSchedule->numCourse++;
 			}
 		}
 		tmpCourse->pNext = nullptr;
@@ -487,14 +496,35 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		getline(in,tmpCourse->courseName,',');
 		string lecturerName;
 		getline(in, lecturerName,',');
-		//kt xem giao vien co trung k, k trung thi tao
 		string lecturerDegree;
 		getline(in, lecturerDegree, ',');
 		string lecturerGender;
 		getline(in, lecturerGender, ',');
 		string lecturerAccount;
 		getline(in, lecturerAccount,',');
-		if (!checkExistingLecturer(lecturerName))
+		in >> tmpCourse->dateStart.year;
+		in.ignore();
+		in >> tmpCourse->dateStart.month;
+		in.ignore();
+		in >> tmpCourse->dateStart.day;
+		in.ignore();
+		in >> tmpCourse->dateEnd.year;
+		in.ignore();
+		in >> tmpCourse->dateEnd.month;
+		in.ignore();
+		in >> tmpCourse->dateEnd.day;
+		in.ignore();
+		getline(in, tmpCourse->day, ',');
+		in >> tmpCourse->timeStart.hour;
+		in.ignore();
+		in >> tmpCourse->timeStart.minute;
+		in.ignore();
+		in >> tmpCourse->timeEnd.hour;
+		in.ignore();
+		in >> tmpCourse->timeEnd.minute;
+		in.ignore();
+		getline(in, tmpCourse->room, '\n');
+		if (!checkExistingLecturer(lecturerAccount))
 		{
 			int numLecturer = 0;
 			Lecturer* pLecturer = nullptr;
@@ -526,33 +556,65 @@ void importCourse(int& numSemester, Semester*& pSemester)
 			rewriteLecturer(numLecturer, pLecturer);
 			deleteLecturerList(pLecturer);
 		}
-		string dateStart;
-		getline(in, dateStart, ',');
-
-		string endStart;
-		getline(in, endStart, ',');
-		string dayOfWeek;
-		getline(in, dayOfWeek, ',');
-		int startHour;
-		cin >> startHour;
-		in.ignore();
-		int startMinute;
-		cin >> startMinute;
-		in.ignore();
-		int endHour;
-		cin >> endHour;
-		in.ignore();
-		int endMinute;
-		cin >> endMinute;
-		in.ignore();
-		string room;
-		getline(in, room, '\n');
-
+		//neu lecturer trung username ma khac ten thi sao???
+		int numLecturer = 0;
+		Lecturer* pLecturer = nullptr;
+		loadLecturer(numLecturer, pLecturer);
+		Lecturer* currentLecturer = pLecturer;
+		while (currentLecturer != nullptr && currentLecturer->username != lecturerAccount)
+			currentLecturer = currentLecturer->pNext;
+		tmpCourse->lecturer.fullname = lecturerName;
+		tmpCourse->lecturer.degree = lecturerDegree;
+		if (lecturerGender == "Male")
+			tmpCourse->lecturer.gender = 0;
+		else
+			tmpCourse->lecturer.gender = 1;
+		tmpCourse->lecturer.password = currentLecturer->password;
+		tmpCourse->lecturer.username = lecturerAccount;
+		deleteLecturerList(pLecturer);
+		tmpCourse->lecturer.pNext = nullptr;
+		tmpCourse->cla = classname;
+		tmpCourse->numStudent = 0;
+		tmpCourse->pStudent = nullptr;
+		loadStudent(tmpCourse->numStudent, tmpCourse->pStudent,classname);
+		Student* temp = tmpCourse->pStudent;
+		while (temp)
+		{
+			temp->grade.bonus = -1;
+			temp->grade.final = -1;
+			temp->grade.midterm = -1;
+			temp->grade.total = -1;
+			for (int i = 0; i < 10; i++)
+				temp->attend[i] = -1;
+			temp = temp->pNext;
+		}
+		string directory1 = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + courseID + ".txt";
+		rewriteCourse(tmpCourse, directory1);
 	}
 	//viet lai text file
-
-
+	string directory="Semester\\"+academicYear+"-"+Semestername+"\\"+academicYear+"-"+Semestername+".txt";
+	rewriteScheduleList(curSemester->numSchedule, curSemester->pSchedule, directory);
+	directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + classname + ".txt";
+	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
 	in.close();
+}
+
+void createdayOfWeek(int day, string& res)
+{
+	if (day == 2)
+		res = "MON";
+	if (day == 3)
+		res = "TUE";
+	if (day == 3)
+		res = "WED";
+	if (day == 5)
+		res = "THU";
+	if (day == 6)
+		res = "FRI";
+	if (day == 7)
+		res = "SAT";
+	else
+		res = "SUN";
 }
 
 void manuallyAddCourse(int& numSemester, Semester*& pSemester)
@@ -567,6 +629,7 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 		cout << "The academic year is not existed. Please enter another academic year: ";
 		getline(cin, academicYear, '\n');
 	}
+	cout << "We already have the following semester." << endl;
 	viewAcademicYear(academicYear, numSemester, pSemester);
 	cout << "Please enter the semester: ";
 	string Semestername;
@@ -604,7 +667,9 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 		curSemester = curSemester->pNext;
 	Schedule* curSchedule = curSemester->pSchedule;
 	while (curSchedule != nullptr && (curSchedule->cla != classname))
+	{
 		curSchedule = curSchedule->pNext;
+	}
 	Course* pCourse = curSchedule->pCourse;
 	cout << "Please enter course ID: ";
 	string courseID;
@@ -614,6 +679,7 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 	{
 		pCourse = new Course;
 		tmpCourse = pCourse;
+		curSchedule->numCourse++;
 	}
 	else {
 		while (tmpCourse != nullptr)
@@ -627,25 +693,21 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 			tmpCourse = pCourse;
 			while (tmpCourse->pNext != nullptr)
 				tmpCourse = tmpCourse->pNext;
-			tmpCourse = new Course;
+			tmpCourse->pNext = new Course;
+			tmpCourse = tmpCourse->pNext;
+			curSchedule->numCourse++;
 		}
 	}
 	tmpCourse->pNext = nullptr;
 	tmpCourse->courseID = courseID;
 	cout << "Please enter course name: ";
 	getline(cin, tmpCourse->courseName, '\n');
-	cout << "Please enter lecturer name: ";
-	string lecturerName;
-	getline(cin, lecturerName, '\n');
-	//kt xem giao vien co trung k, k trung thi tao
-	string lecturerDegree;
-	getline(cin, lecturerDegree, '\n');
-	string lecturerGender;
-	getline(cin, lecturerGender, '\n');
+	cout << "Please enter lecturer username: ";
 	string lecturerAccount;
 	getline(cin, lecturerAccount, '\n');
-	if (!checkExistingLecturer(lecturerName))
+	if (!checkExistingLecturer(lecturerAccount))
 	{
+		cout << "This is a new lecturer. We need to add more information." << endl;
 		int numLecturer = 0;
 		Lecturer* pLecturer = nullptr;
 		loadLecturer(numLecturer, pLecturer);
@@ -664,32 +726,81 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 			curLecturer->pNext = new Lecturer;
 			curLecturer = curLecturer->pNext;
 		}
-		curLecturer->fullname = lecturerName;
-		curLecturer->degree = lecturerDegree;
-		if (lecturerGender == "Male")
-			curLecturer->gender = 0;
-		else curLecturer->gender = 1;
 		curLecturer->username = lecturerAccount;
+		cout << "Please enter lecturer name: ";
+		string lecturerName;
+		getline(cin, lecturerName, '\n');
+		curLecturer->fullname = lecturerName;
+		cout << "Please enter lecturer degree: ";
+		string lecturerDegree;
+		getline(cin, lecturerDegree, '\n');
+		curLecturer->degree = lecturerDegree;
+		cout << "Please enter lecturer gender (0 for male and 1 for female):";
+		cin >> curLecturer->gender;
 		curLecturer->password = lecturerAccount;
 		curLecturer->pNext = nullptr;
 		numLecturer++;
 		rewriteLecturer(numLecturer, pLecturer);
 		deleteLecturerList(pLecturer);
 	}
-	string dateStart;
-	getline(cin, dateStart, '\n');
-	string endStart;
-	getline(cin, endStart, '\n');
-	string dayOfWeek;
-	getline(cin, dayOfWeek, '\n');
-	int startHour;
-	cin >> startHour;
-	int startMinute;
-	cin >> startMinute;
-	int endHour;
-	cin >> endHour;
-	int endMinute;
-	cin >> endMinute;
-	string room;
-	getline(cin, room, '\n');
+	cout << "Input date start. " << endl;
+	inputDate(tmpCourse->dateStart.year, tmpCourse->dateStart.month, tmpCourse->dateStart.day);
+	cout << "Input date end: " << endl;
+	inputDate(tmpCourse->dateEnd.year, tmpCourse->dateEnd.month, tmpCourse->dateEnd.day);
+	cout << "Day of week(e.g: 2, 3, 4, 5, 6, 7, 8): ";
+	int dayOfWeek;
+	cin >> dayOfWeek;
+	while (dayOfWeek <= 1 || dayOfWeek > 8)
+	{
+		cout << "Please enter from 2 to 8: ";
+		cin >> dayOfWeek;
+	}
+	createdayOfWeek(dayOfWeek, tmpCourse->day);
+	cout << "Start hour: ";
+	cin >> tmpCourse->timeStart.hour;
+	cout << "Start minute: ";
+	cin >> tmpCourse->timeStart.minute;
+	cout << "End hour: ";
+	cin >> tmpCourse->timeEnd.hour;
+	cout << "End minute: ";
+	cin >> tmpCourse->timeEnd.minute;
+	cin.ignore();
+	cout << "Room: ";
+	getline(cin, tmpCourse->room, '\n');
+	//neu lecturer trung username ma khac ten thi sao???
+	int numLecturer = 0;
+	Lecturer* pLecturer = nullptr;
+	loadLecturer(numLecturer, pLecturer);
+	Lecturer* currentLecturer = pLecturer;
+	while (currentLecturer != nullptr && currentLecturer->username != lecturerAccount)
+		currentLecturer = currentLecturer->pNext;
+	tmpCourse->lecturer.fullname = currentLecturer->fullname;
+	tmpCourse->lecturer.degree = currentLecturer->degree;
+	tmpCourse->lecturer.gender = currentLecturer->gender;
+	tmpCourse->lecturer.password = currentLecturer->password;
+	tmpCourse->lecturer.username = lecturerAccount;
+	deleteLecturerList(pLecturer);
+	tmpCourse->lecturer.pNext = nullptr;
+	tmpCourse->cla = classname;
+	tmpCourse->numStudent = 0;
+	tmpCourse->pStudent = nullptr;
+	loadStudent(tmpCourse->numStudent, tmpCourse->pStudent, classname);
+	Student* temp = tmpCourse->pStudent;
+	while (temp)
+	{
+		temp->grade.bonus = -1;
+		temp->grade.final = -1;
+		temp->grade.midterm = -1;
+		temp->grade.total = -1;
+		for (int i = 0; i < 10; i++)
+			temp->attend[i] = -1;
+		temp = temp->pNext;
+	}
+	string directory1 = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + courseID + ".txt";
+	rewriteCourse(tmpCourse, directory1);
+	//viet lai text file
+	string directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + academicYear + "-" + Semestername + ".txt";
+	rewriteScheduleList(curSemester->numSchedule, curSemester->pSchedule, directory);
+	directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + classname + ".txt";
+	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
 }
