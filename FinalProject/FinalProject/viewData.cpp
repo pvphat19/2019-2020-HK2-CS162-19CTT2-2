@@ -140,6 +140,7 @@ void viewCourseAttendance(Semester* pSemester)
 	}
 }
 void viewClass() {
+	system("cls");
 	int numClass;
 	Class* pClass = nullptr;
 	loadClass(numClass, pClass);
@@ -158,6 +159,7 @@ void viewClass() {
 	}
 	deleteClassList(pClass);
 }
+
 void viewStudentsInClass() {
 	Class* pClass = nullptr;
 	int numClass;
@@ -172,18 +174,26 @@ void viewStudentsInClass() {
 		cur = cur->pNext;
 		++i;
 	}
+
 	cur = pClass;
 	int count = 1;
 	int choice;
 
-	cout << "Choice: ";
+	cout << "Your Choice is: ";
 	cin >> choice;
 
 	while (cur != nullptr) {
 		if (count == choice) {
-			cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
-			cur->pStudent = cur->pStudent->pNext;
-			if (cur->pStudent == nullptr) break;
+			if (cur->pStudent == nullptr)
+			{
+				cout << "There is no information in stored data." << endl;
+				break;
+			}
+			while (cur->pStudent != nullptr) {
+				cout << cur->pStudent->fullname << " - " << cur->pStudent->id << endl;
+				cur->pStudent = cur->pStudent->pNext;
+			}
+			break;
 		}
 		else {
 			++count;
@@ -191,4 +201,185 @@ void viewStudentsInClass() {
 		}
 	}
 	deleteClassList(pClass);
+}
+
+void viewCourse(Semester*& pSemester) {
+	string year, term;
+
+	// User enters selection
+	cout << "Please enter the academic year you need (Example: 2018-2019): ";
+	cin >> year;
+	cout << "Please enter the semester you need (Example: HK2): ";
+	cin >> term;
+
+	Semester* cur = pSemester;
+	while (cur != nullptr) {
+		if (year == cur->academicYear && term == cur->semester) {
+			if (cur->pSchedule == nullptr) {
+				cout << "There is no information in stored data." << endl;
+				break;
+			}
+			cout << "Here is the course list of each class" << endl;
+			while (cur->pSchedule != nullptr) {
+				int i = 1;
+				cout << i << ". " << cur->pSchedule->cla << ": " << endl;
+				while (cur->pSchedule->pCourse != nullptr) {
+					cout << "   - " << cur->pSchedule->pCourse->courseName << " - " << cur->pSchedule->pCourse->courseID << endl; // Print out course's name and course's id
+					cur->pSchedule->pCourse = cur->pSchedule->pCourse->pNext; // move to next course
+				}
+				cur->pSchedule = cur->pSchedule->pNext; // move to next schedule
+				++i;
+			}
+			break;
+		}
+		cur = cur->pNext;
+	}
+}
+
+void viewStudentInCourse(Semester*& pSemester) {
+	Semester* curSemester = pSemester;
+	Schedule* curSchedule = pSemester->pSchedule;
+	string year, term;
+
+	// Users choose academic year and semester
+	cout << "Please enter the academic year you need (Example: 2018-2019): ";
+	cin >> year;
+	cout << "Please enter the semester you need (Example: HK2): ";
+	cin >> term;
+
+	// Users choose a semester
+	while (curSemester != nullptr) {
+
+		// If the user's input matches the node
+		if (year == curSemester->academicYear && term == curSemester->semester) {
+
+			//User chooses a schedule
+			cout << "Please choose the class in which is the course you need" << endl;
+			cout << "Here is the list of class:" << endl;
+			while (curSchedule != nullptr) {
+				int i = 1;
+				cout << i << ". " << curSchedule->cla << endl; // Print out list of class
+				curSchedule = curSchedule->pNext; // move to next schedule
+				++i;
+			}
+
+			curSchedule = pSemester->pSchedule; // Set the curSemester->pSchedule to head of the schedule list
+			int iSchedule = 1;
+			int classChoice;
+
+			cout << "Your choice is: "; // User's input
+			cin >> classChoice;
+
+			Course* curCourse = pSemester->pSchedule->pCourse;
+			while (curSchedule != nullptr) {
+
+				// if the schedule node matches the user's choice
+				if (iSchedule == classChoice) {
+
+					// If there is no course in data
+					if (curCourse == nullptr) {
+						cout << "There is no information in stored data." << endl;
+						break;
+					}
+
+					// else
+					else {
+						// Users choose a course
+						cout << "Please choose the course in which you need to view information of students" << endl;
+						cout << "Here is the list of courses:" << endl;
+						while (curCourse != nullptr) {
+							// Print out the list of courses
+							int i = 1;
+							cout << i << ". " << curCourse->courseName << " - " << curCourse->courseID << endl;
+							curCourse = curCourse->pNext;
+						}
+
+						curCourse = pSemester->pSchedule->pCourse; // Set the curSemester->pSchedule->pCourse to head of the course list
+						int iCourse = 1;
+						int courseChoice;
+
+						cout << "Your choice is: ";
+						cin >> courseChoice;
+
+						int numStudent;
+						Student* pStudent = nullptr;
+						loadStudent(numStudent, pStudent, "Student");
+
+						Student* curStudent = pSemester->pSchedule->pCourse->pStudent;
+						while (curCourse != nullptr) {
+
+							// If the course node matches the user's input
+							if (iCourse == courseChoice) {
+								int count = 1;
+								Student* cur = pStudent;
+
+								// Evaluate the first student on the list
+								while (curStudent == pSemester->pSchedule->pCourse->pStudent) {
+									while (cur != nullptr) {
+										if (cur->id == curStudent->id) {
+											cout << cur->fullname << endl;
+											cout << cur->id << endl;
+											cout << cur->cla << endl;
+											curStudent = curStudent->pNext;
+											break;
+										}
+										else {
+											++count;
+											cur = cur->pNext;
+										}
+									}
+									if (count == numStudent) {
+										cout << "There is no information about student with ID " << curStudent->id << " in stored data" << endl;
+										Student* temp = curStudent;
+										curStudent = curStudent->pNext;
+										delete temp;
+									}
+								}
+
+								// Evaluate from 2nd student on the list
+								Student* prevStudent = pSemester->pSchedule->pCourse->pStudent;
+								while (curStudent != nullptr) {
+									cur = pStudent;
+									while (cur != nullptr) {
+										if (cur->id == curStudent->id) {
+											cout << cur->fullname << endl;
+											cout << cur->id << endl;
+											cout << cur->cla << endl;
+											curStudent = curStudent->pNext;
+											prevStudent = prevStudent->pNext;
+											break;
+										}
+										else {
+											++count;
+											cur = cur->pNext;
+										}
+									}
+									if (count == numStudent) {
+										cout << "There is no information about student with ID " << curStudent->id << " in stored data" << endl;
+										Student* temp = curStudent;
+										curStudent = curStudent->pNext;
+										prevStudent->pNext = curStudent;
+										delete temp;
+									}
+								}
+							}
+
+							//else
+							++iCourse;
+							curCourse = curCourse->pNext;
+						}
+						break;
+					}
+				}
+
+				// else
+				++iSchedule;
+				curSchedule = curSchedule->pNext;
+			}
+			break;
+		}
+
+		// else
+		curSemester = curSemester->pNext;
+	}
 }
