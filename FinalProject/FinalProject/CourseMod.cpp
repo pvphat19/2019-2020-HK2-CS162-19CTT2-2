@@ -1,16 +1,5 @@
 #include "function.h"
 
-bool convertStringToInt(string str, int& x)
-{
-	int n = str.length();
-	x = 0;
-	for (int i = 0; i < n; i++)
-		if (isdigit(str[i]))
-			x = x * 10 + int(str[i]) - int('0');
-		else
-			return false;
-	return true;
-}
 Semester* checkAcademicY(Semester*& sm, string& s) {
 	int count = 0;
 	do {

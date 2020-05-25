@@ -33,7 +33,7 @@ struct Student {
 	string cla; //class
 	int status; //0:inactive; 1:active;
 	Grade grade;
-	bool attend[10];
+	int attend[10];
 	Student* pNext;
 };
 struct Class {
@@ -96,6 +96,7 @@ void loadCourse(Course*, string dir, string name);
 void loadCourseList(int&, Course*&, string dir, string name);
 
 //deleteData
+void deleteStudent(Student* prev, Student*& cur, Student*& pHead);
 void deleteStudentList(Student*&);
 void deleteClassList(Class*&);
 void deleteStaffList(Staff*&);
@@ -122,17 +123,22 @@ void fixConsoleWindow(); // Ham co dinh console
 /* system("cls")	// Ham xoa man hinh
 // system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
 
-//checkUser
-bool isStaff(string username, string password, Staff*& curStaff);
-
 //systemMenu
-void printHCMUS(int x, int y);
-void staffMenu(Staff*& curStaff);
+bool convertStringToInt(string, int&);
 void login();
 
 //viewData
+bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory);
+void viewCurLecturerInfo(Lecturer* curLecturer);
+void viewCurStaffInfo(Staff* curStaff);
+void viewCurStudentInfo(Student* curStudent);
+void viewCourseAttendance(Semester*);
+void viewCourseScoreboard(Semester*);
+void viewLecturer();
 void viewClass();
 void viewStudentsInClass();
+void viewStudentInCourse(Semester*& pSemester);
+void viewCourse(Semester*& pSemester);
 
 //ModificationClass
 void removeStudents();
@@ -142,13 +148,22 @@ void ChangeStudentsClass();
 //manually add and import class
 void manually_add_student_to_class();
 void import_class();
+
 //CourseMod
 void editCourse(int numSemester, Semester* pSemester);
 void removeCourse(int numSemester, Semester* pSemester);
 void removeStudentfromCourse(int numSemester, Semester* pSemester);
-//may function nay tien, co the xai lai.
-bool convertStringToInt(string str, int& x);	
+
+//modifyFunction
+bool convertStringToInt(string str, int& x);
 void inputDate(int& result, int& result2, int& result3);
+bool cmpDate(Date& date1, Date& date2);
+void nextWeek(Date& date, int n);
+void sortStudentList(Student*& pStudent);
+void nextWeek(Date& date, int n);
+bool isLunarYear(int year);
+void printDate(int x);
+
 //academic
 void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
 void createAcademicYear(int& numSemester, Semester*& pSemester);
