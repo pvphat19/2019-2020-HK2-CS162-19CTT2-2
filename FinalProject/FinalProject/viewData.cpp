@@ -1,7 +1,5 @@
 #include "function.h"
 
-#include "function.h"
-
 string maleFemale(int gender)
 {
 	if (gender)
@@ -9,14 +7,100 @@ string maleFemale(int gender)
 	else
 		return "male";
 }
+void printDate(int x)
+{
+	if (x < 10)
+		cout << 0 << x;
+	else
+		cout << x;
+}
+bool isLunarYear(int year)
+{
+	return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
+}
+void nextWeek(Date& date, int n)
+{
+	int nday;
+	if ((4 == date.month) || (6 == date.month) || (9 == date.month) || (11 == date.month))
+		nday = 30;
+	else
+		if (2 == date.month)
+			if (isLunarYear(date.year))
+				nday = 29;
+			else
+				nday = 28;
+		else nday = 31;
+	if (n != 0)
+		date.day += 7;
+	if (date.day > nday)
+	{
+		date.day = date.day - nday;
+		date.month++;
+	}
+	if (date.month > 12)
+	{
+		date.month = 1;
+		date.year++;
+	}
+}
+bool cmpDate(Date& date1, Date& date2)
+{
+	if (date1.year > date2.year)
+		return true;
+	if (date1.year < date2.year)
+		return false;
+	if (date1.month > date2.month)
+		return true;
+	if (date1.month < date2.month)
+		return false;
+	if (date1.day > date2.day)
+		return true;
+	if (date1.day < date2.day)
+		return false;
+	return false;
+}
+void sortStudentList(Student*& pStudent)
+{
+	for (Student* curI = pStudent; curI != nullptr; curI = curI->pNext)
+		for (Student* curJ = curI->pNext; curJ != nullptr; curJ = curJ->pNext)
+			if (curI->id > curJ->id)
+			{
+				swap(curI->id, curJ->id);
+				swap(curI->grade, curJ->grade);
+				for (int k = 0; k < 10; k++)
+					swap(curI->attend[k], curJ->attend[k]);
+			}
+}
 void viewCurStaffInfo(Staff* curStaff)
 {
 	system("cls");
 	int x = 10, y = 5;
-	goToXY(x, y++); cout << "Your Profile Information" << endl;
+	goToXY(x, y++); cout << "Your Profile Information" << endl; y++;
 	goToXY(x, y++); cout << "User name: " << curStaff->username << endl;
 	goToXY(x, y++); cout << "Full name: " << curStaff->fullname << endl;
-	goToXY(x, y++); cout << "Gender: " << maleFemale(curStaff->gender) << endl;
+	goToXY(x, y++); cout << "Gender   : " << maleFemale(curStaff->gender) << endl; y++;
+	goToXY(x, y++); system("pause");
+}
+void viewCurLecturerInfo(Lecturer* curLecturer)
+{
+	system("cls");
+	int x = 10, y = 5;
+	goToXY(x, y++); cout << "Your Profile Information" << endl; y++;
+	goToXY(x, y++); cout << "User name: " << curLecturer->username << endl;
+	goToXY(x, y++); cout << "Full name: " << curLecturer->fullname << endl;
+	goToXY(x, y++); cout << "Degree   : " << curLecturer->degree << endl;
+	goToXY(x, y++); cout << "Gender   : " << maleFemale(curLecturer->gender) << endl; y++;
+	goToXY(x, y++); system("pause");
+}
+void viewCurStudentInfo(Student* curStudent)
+{
+	system("cls");
+	int x = 10, y = 5;
+	goToXY(x, y++); cout << "Your Profile Information" << endl; y++;
+	goToXY(x, y++); cout << "ID number    : " << curStudent->id << endl;
+	goToXY(x, y++); cout << "Full name    : " << curStudent->fullname << endl;
+	goToXY(x, y++); cout << "Date of birth: " << curStudent->dob.day << '/' << curStudent->dob.month << '/' << curStudent->dob.year << endl;
+	goToXY(x, y++); cout << "Class        : " << curStudent->cla << endl; y++;
 	goToXY(x, y++); system("pause");
 }
 void viewLecturer()
@@ -38,7 +122,7 @@ void viewLecturer()
 	deleteLecturerList(pLecturer);
 	goToXY(x, y++); system("pause");
 }
-bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory)
+bool inputCourse(int& x, int&y, Semester* pSemester, Course*& curCourse, string& directory)
 {
 	string academicYear, semester, cla, courseId, dir = "Semester\\"; curCourse = nullptr;
 	//Semester
@@ -102,8 +186,79 @@ bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string
 		return choice;
 	}
 	directory = dir;
+	return true;
 }
 void viewCourseAttendance(Semester* pSemester)
+{
+	int x, y;
+	string dir; 
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to view the attendance list"; y++;	 
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	viewCourseAttendance(pSemester);	
+		return;
+	}
+
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	resizeConsole(1100, 700);
+	y++; goToXY(x+40, y++); cout << "Attendance list of the course" << endl; y++;
+	int numDay = 10;
+	Date date = curCourse->dateStart;
+	for (int i = 0; i < 10; i++)
+	{
+		goToXY(x + 23 + i * 10, y);
+		nextWeek(date, i);
+		if (cmpDate(date, curCourse->dateEnd))
+		{
+			numDay = i;
+			break;
+		}
+		printDate(date.day); cout << '/'; printDate(date.month); cout << '/'; printDate(date.year % 100);
+	}
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+	Student* curStudent = curCourse->pStudent;
+	while (curStudent)
+	{
+		Student* cur = pStudent;
+		while (cur)
+		{
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur)
+		{
+			goToXY(x, ++y); cout << cur->id;
+			goToXY(x, ++y); cout << cur->fullname;
+			for (int i = 0; i < numDay; i++)
+			{
+				goToXY(x + 27 + i * 10, y);
+				cout << curStudent->attend[i];
+			}
+			prevStudent = curStudent;
+			curStudent = curStudent->pNext;
+		}
+		else
+		{
+			curCourse->numStudent--;
+			deleteStudent(prevStudent, curStudent, curCourse->pStudent);
+		}
+	}
+	y++;
+	goToXY(x, y++); system("pause");
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
+	deleteStudentList(pStudent);
+	resizeConsole(1000, 700);
+}
+void viewCourseScoreboard(Semester* pSemester)
 {
 	int x, y;
 	string dir;
@@ -112,32 +267,54 @@ void viewCourseAttendance(Semester* pSemester)
 	{
 		system("cls");
 		x = 10; y = 5;
-		goToXY(x, y++); cout << "Choose the course you want to view the attendance list"; y++;	//Changes depend on the purpose  
+		goToXY(x, y++); cout << "Choose the course you want to view the scoreboard"; y++;
 		bool check = inputCourse(x, y, pSemester, curCourse, dir);
 		if (curCourse)	break;
-		if (check)	viewCourseAttendance(pSemester);	//Change to the name of the current function
+		if (check)	viewCourseAttendance(pSemester);
 		return;
 	}
-	goToXY(x, y++); cout << "Directory: " << dir << endl;	//Test purpose
-	//function process part
-	//For Ex: View attendance list	
+
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	y++; goToXY(x + 30, y++); cout << "Scoreboard of the course" << endl; y++;
+	goToXY(x + 25, y); cout << "Midterm";
+	goToXY(x + 35, y); cout << "Final";
+	goToXY(x + 45, y); cout << "Bonus";
+	goToXY(x + 55, y); cout << "Total";
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
 	Student* curStudent = curCourse->pStudent;
-	for (int i = 0; i < 10; i++)
-	{
-		goToXY(x + 25 + i * 8, y);
-		cout << i + 1;
-	}
 	while (curStudent)
 	{
-		goToXY(x, ++y); cout << curStudent->id;
-		goToXY(x, ++y);
-		for (int i = 0; i < 10; i++)
+		Student* cur = pStudent;
+		while (cur)
 		{
-			goToXY(x + 25 + i * 8, y);
-			cout << curStudent->attend[i];
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
 		}
-		curStudent = curStudent->pNext;
+		if (cur)
+		{
+			goToXY(x, ++y); cout << cur->id;
+			goToXY(x, ++y); cout << cur->fullname;
+			goToXY(x + 25, y); cout << curStudent->grade.midterm;
+			goToXY(x + 35, y); cout << curStudent->grade.total;
+			goToXY(x + 45, y); cout << curStudent->grade.final;
+			goToXY(x + 55, y); cout << curStudent->grade.bonus;
+			prevStudent = curStudent;
+			curStudent = curStudent->pNext;
+		}
+		else
+		{
+			curCourse->numStudent--;
+			deleteStudent(prevStudent, curStudent, curCourse->pStudent);
+		}
 	}
+	y++;
+	goToXY(x, y++); system("pause");
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
+	deleteStudentList(pStudent);
 }
 void viewClass() {
 	system("cls");
@@ -159,7 +336,6 @@ void viewClass() {
 	}
 	deleteClassList(pClass);
 }
-
 void viewStudentsInClass() {
 	Class* pClass = nullptr;
 	int numClass;
@@ -202,7 +378,6 @@ void viewStudentsInClass() {
 	}
 	deleteClassList(pClass);
 }
-
 void viewCourse(Semester*& pSemester) {
 	string year, term;
 
@@ -235,7 +410,6 @@ void viewCourse(Semester*& pSemester) {
 		cur = cur->pNext;
 	}
 }
-
 void viewStudentInCourse(Semester*& pSemester) {
 	Semester* curSemester = pSemester;
 	Schedule* curSchedule = pSemester->pSchedule;

@@ -128,7 +128,6 @@
   <ItemGroup>
     <ClCompile Include="academic.cpp" />
     <ClCompile Include="add_import_students.cpp" />
-    <ClCompile Include="checkUsers.cpp" />
     <ClCompile Include="consoleEdit.cpp" />
     <ClCompile Include="CourseMod.cpp" />
     <ClCompile Include="deleteData.cpp" />
