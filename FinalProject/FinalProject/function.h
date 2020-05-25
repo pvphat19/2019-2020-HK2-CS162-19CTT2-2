@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include <string>
+#include <direct.h>
 using namespace std;
 
 struct Date {
