@@ -10,7 +10,8 @@ int main()
 	loadSemester(numSemester, pSemester);
 	//viewStudentInCourse(pSemester);
 	//viewCourseAttendance(pSemester);
-	viewCourseScoreboard(pSemester);
+	//viewCourseScoreboard(pSemester);
+
 	deleteSemesterList(pSemester);
 	//login();
 	//viewCourseAttendance(pSemester);
