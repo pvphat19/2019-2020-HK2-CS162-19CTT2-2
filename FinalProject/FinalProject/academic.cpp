@@ -954,3 +954,99 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
 	cout << "We have import scoreboard successfully " << success << " student(s) in " << dem << " student(s).";
 }
+
+void exportAttendanceList(Semester* pSemester)
+{
+	int x, y;
+	string dir;
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to export the attendance list"; y++;
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	viewCourseAttendance(pSemester);
+		return;
+	}
+	//
+	cout << "Please enter the link of csv file." << endl;
+	cout << "Notice that the order of csv file must be: No,Student ID,Student name,Midterm,Final,Bonus,Total" << endl;
+	string linkcsv;
+	getline(cin, linkcsv, '\n');
+	ofstream outcsv;
+	outcsv.open(linkcsv);
+	if (!outcsv.is_open())
+	{
+		cout << "Can not open file csv." << endl;
+		return;
+	}
+	outcsv << "No,Student ID,Student name,";
+	//
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	resizeConsole(1100, 700);
+	y++; goToXY(x + 40, y++);
+	int numDay = 10;
+	Date date = curCourse->dateStart;
+	for (int i = 0; i < 10; i++)
+	{
+		goToXY(x + 23 + i * 10, y);
+		nextWeek(date, i);
+		if (cmpDate(date, curCourse->dateEnd))
+		{
+			outcsv << endl;
+			numDay = i;
+			break;
+		}
+		outcsv << date.year << "-" << date.month << "-" << date.day;
+		Date tmp = date;
+		nextWeek(tmp, 1);
+		if (!cmpDate(tmp, curCourse->dateEnd))
+			outcsv << ",";
+	}
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+	Student* curStudent = curCourse->pStudent;
+	int no = 0;
+	while (curStudent)
+	{
+		Student* cur = pStudent;
+		while (cur)
+		{
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur)
+		{
+			no++;
+			outcsv << no << ",";
+			outcsv << cur->id << ",";
+			outcsv << cur->fullname << ",";
+			for (int i = 0; i < numDay; i++)
+			{
+				outcsv << curStudent->attend[i];
+				if (i < (numDay - 1))
+				{
+					outcsv << ',';
+				}
+			}
+			outcsv << endl;
+			prevStudent = curStudent;
+			curStudent = curStudent->pNext;
+		}
+		else
+		{
+			curCourse->numStudent--;
+			deleteStudent(prevStudent, curStudent, curCourse->pStudent);
+		}
+	}
+	y++;
+	goToXY(x, y++); system("pause");
+	deleteStudentList(pStudent);
+	resizeConsole(1000, 700);
+	outcsv.close();
+}

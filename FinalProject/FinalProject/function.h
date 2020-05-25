@@ -170,5 +170,8 @@ void createSemester(string AcademicYear, string Semestername, int& numSemester, 
 void createAcademicYear(int& numSemester, Semester*& pSemester);
 void importCourse(int& numSemester, Semester*& pSemester);
 void manuallyAddCourse(int& numSemester, Semester*& pSemester);
+void importScoreboard(int& numSemester, Semester*& pSemester);
+void exportAttendanceList(Semester* pSemester);
+
 #endif // !_FUNCTION_H_
 
