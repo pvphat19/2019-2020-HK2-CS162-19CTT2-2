@@ -139,6 +139,10 @@ void viewClass();
 void viewStudentsInClass();
 void viewStudentInCourse(Semester*& pSemester);
 void viewCourse(Semester*& pSemester);
+void viewCheckInResult(Student* curStudent, Course* curCourse);
+void viewSchedule(Student* curStudent, Course* curCourse);
+void student_view_score(Student* curStudent, Course* curCourse);
+
 
 //ModificationClass
 void removeStudents();

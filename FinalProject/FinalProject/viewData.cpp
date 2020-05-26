@@ -411,149 +411,150 @@ void viewCourse(Semester*& pSemester) {
 	}
 }
 void viewStudentInCourse(Semester*& pSemester) {
-	Semester* curSemester = pSemester;
-	Schedule* curSchedule = pSemester->pSchedule;
-	string year, term;
+	int x, y;
+	string dir;
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to view the students"; y++;
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	viewStudentInCourse(pSemester);
+		return;
+	}
 
-	// Users choose academic year and semester
-	cout << "Please enter the academic year you need (Example: 2018-2019): ";
-	cin >> year;
-	cout << "Please enter the semester you need (Example: HK2): ";
-	cin >> term;
-
-	// Users choose a semester
-	while (curSemester != nullptr) {
-
-		// If the user's input matches the node
-		if (year == curSemester->academicYear && term == curSemester->semester) {
-
-			//User chooses a schedule
-			cout << "Please choose the class in which is the course you need" << endl;
-			cout << "Here is the list of class:" << endl;
-			while (curSchedule != nullptr) {
-				int i = 1;
-				cout << i << ". " << curSchedule->cla << endl; // Print out list of class
-				curSchedule = curSchedule->pNext; // move to next schedule
-				++i;
-			}
-
-			curSchedule = pSemester->pSchedule; // Set the curSemester->pSchedule to head of the schedule list
-			int iSchedule = 1;
-			int classChoice;
-
-			cout << "Your choice is: "; // User's input
-			cin >> classChoice;
-
-			Course* curCourse = pSemester->pSchedule->pCourse;
-			while (curSchedule != nullptr) {
-
-				// if the schedule node matches the user's choice
-				if (iSchedule == classChoice) {
-
-					// If there is no course in data
-					if (curCourse == nullptr) {
-						cout << "There is no information in stored data." << endl;
-						break;
-					}
-
-					// else
-					else {
-						// Users choose a course
-						cout << "Please choose the course in which you need to view information of students" << endl;
-						cout << "Here is the list of courses:" << endl;
-						while (curCourse != nullptr) {
-							// Print out the list of courses
-							int i = 1;
-							cout << i << ". " << curCourse->courseName << " - " << curCourse->courseID << endl;
-							curCourse = curCourse->pNext;
-						}
-
-						curCourse = pSemester->pSchedule->pCourse; // Set the curSemester->pSchedule->pCourse to head of the course list
-						int iCourse = 1;
-						int courseChoice;
-
-						cout << "Your choice is: ";
-						cin >> courseChoice;
-
-						int numStudent;
-						Student* pStudent = nullptr;
-						loadStudent(numStudent, pStudent, "Student");
-
-						Student* curStudent = pSemester->pSchedule->pCourse->pStudent;
-						while (curCourse != nullptr) {
-
-							// If the course node matches the user's input
-							if (iCourse == courseChoice) {
-								int count = 1;
-								Student* cur = pStudent;
-
-								// Evaluate the first student on the list
-								while (curStudent == pSemester->pSchedule->pCourse->pStudent) {
-									while (cur != nullptr) {
-										if (cur->id == curStudent->id) {
-											cout << cur->fullname << endl;
-											cout << cur->id << endl;
-											cout << cur->cla << endl;
-											curStudent = curStudent->pNext;
-											break;
-										}
-										else {
-											++count;
-											cur = cur->pNext;
-										}
-									}
-									if (count == numStudent) {
-										cout << "There is no information about student with ID " << curStudent->id << " in stored data" << endl;
-										Student* temp = curStudent;
-										curStudent = curStudent->pNext;
-										delete temp;
-									}
-								}
-
-								// Evaluate from 2nd student on the list
-								Student* prevStudent = pSemester->pSchedule->pCourse->pStudent;
-								while (curStudent != nullptr) {
-									cur = pStudent;
-									while (cur != nullptr) {
-										if (cur->id == curStudent->id) {
-											cout << cur->fullname << endl;
-											cout << cur->id << endl;
-											cout << cur->cla << endl;
-											curStudent = curStudent->pNext;
-											prevStudent = prevStudent->pNext;
-											break;
-										}
-										else {
-											++count;
-											cur = cur->pNext;
-										}
-									}
-									if (count == numStudent) {
-										cout << "There is no information about student with ID " << curStudent->id << " in stored data" << endl;
-										Student* temp = curStudent;
-										curStudent = curStudent->pNext;
-										prevStudent->pNext = curStudent;
-										delete temp;
-									}
-								}
-							}
-
-							//else
-							++iCourse;
-							curCourse = curCourse->pNext;
-						}
-						break;
-					}
-				}
-
-				// else
-				++iSchedule;
-				curSchedule = curSchedule->pNext;
-			}
-			break;
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	y++; goToXY(x + 30, y++); cout << "Students of the course" << endl; y++;
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+	Student* curStudent = curCourse->pStudent;
+	while (curStudent)
+	{
+		Student* cur = pStudent;
+		while (cur)
+		{
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
 		}
+		if (cur)
+		{
+			goToXY(x, ++y); cout << cur->fullname;
+			goToXY(x, ++y); cout << cur->id;
+			goToXY(x, ++y); cout << cur->cla;
+			prevStudent = curStudent;
+			curStudent = curStudent->pNext;
+		}
+		else
+		{
+			curCourse->numStudent--;
+			deleteStudent(prevStudent, curStudent, curCourse->pStudent);
+		}
+	}
+	y++;
+	goToXY(x, y++); system("pause");
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
+	deleteStudentList(pStudent);
+}
 
-		// else
-		curSemester = curSemester->pNext;
+void viewCheckInResult(Student* curStudent, Course* curCourse) {
+	cout << "Your check-in results of all your course" << endl;
+	Student* cur = curCourse->pStudent;
+
+	while (curCourse) {
+		while (cur) {
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur) {
+			cout << curCourse->courseName << ": ";
+			for (int j = 0; j < 10; ++j) {
+				cout << cur->attend[j];
+			}
+		}
+		else {
+			cout << "You didn't enroll in course" << curCourse->courseID << endl;
+		}
+		curCourse = curCourse->pNext;
+	}
+}
+
+void viewSchedule(Student* curStudent, Course* curCourse) {
+	int x, y;
+	resizeConsole(1100, 700);
+	y++; goToXY(x + 40, y++); cout << "The schedules of all the courses you've enrolled" << endl;
+	Student* cur = curCourse->pStudent;
+
+	while (curCourse) {
+		while (cur) {
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur) {
+			cout << curCourse->courseName << " - " << curCourse->courseID << ": ";
+			cout << curCourse->cla << endl;
+			cout << curCourse->lecturer.fullname << endl;
+			int numDay = 10;
+			Date date = curCourse->dateStart;
+			for (int i = 0; i < 10; i++)
+			{
+				goToXY(x + 23 + i * 10, y);
+				nextWeek(date, i);
+				if (cmpDate(date, curCourse->dateEnd))
+				{
+					numDay = i;
+					break;
+				}
+				printDate(date.day); cout << '/'; printDate(date.month); cout << '/'; printDate(date.year % 100);
+			}
+			for (int i = 0; i < numDay; i++)
+			{
+				goToXY(x + 27 + i * 10, y);
+				cout << curStudent->attend[i];
+			}
+		}
+		else {
+			cout << "You didn't enroll in course" << curCourse->courseID << endl;
+		}
+		curCourse = curCourse->pNext;
+	}
+}
+
+void student_view_score(Student* curStudent, Course* curCourse) {
+	int x, y;
+	resizeConsole(1100, 700);
+	y++; goToXY(x + 40, y++); cout << "The schedules of all the courses you've enrolled" << endl;
+	Student* cur = curCourse->pStudent;
+	goToXY(x + 25, y); cout << "Midterm";
+	goToXY(x + 35, y); cout << "Final";
+	goToXY(x + 45, y); cout << "Bonus";
+	goToXY(x + 55, y); cout << "Total";
+
+	while (curCourse) {
+		while (cur) {
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur) {
+			cout << curCourse->courseName << " - " << curCourse->courseID << ": ";
+			int numDay = 10;
+			goToXY(x, ++y); cout << cur->id;
+			goToXY(x, ++y); cout << cur->fullname;
+			goToXY(x + 25, y); cout << curStudent->grade.midterm;
+			goToXY(x + 35, y); cout << curStudent->grade.total;
+			goToXY(x + 45, y); cout << curStudent->grade.final;
+			goToXY(x + 55, y); cout << curStudent->grade.bonus;
+		}
+		else {
+			cout << "You didn't enroll in course" << curCourse->courseID << endl;
+		}
+		curCourse = curCourse->pNext;
 	}
 }

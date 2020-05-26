@@ -9,8 +9,9 @@ int main()
 	Semester* pSemester = nullptr;
 	loadSemester(numSemester, pSemester);
 	//viewStudentInCourse(pSemester);
-	//viewCourseAttendance(pSemester);
-	viewCourseScoreboard(pSemester);
+	viewCourseAttendance(pSemester);
+	//viewCourseScoreboard(pSemester);
+	//viewStudentInCourse(pSemester);
 	deleteSemesterList(pSemester);
 	//login();
 	//viewCourseAttendance(pSemester);

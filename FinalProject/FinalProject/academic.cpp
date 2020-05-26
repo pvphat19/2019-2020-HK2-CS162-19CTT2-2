@@ -41,7 +41,7 @@ void createSemester(string AcademicYear, string Semestername, int& numSemester, 
 	for (int i = 0; i < s; ++i)
 		Foldernamereal[i] = Foldername[i];
 	Foldernamereal[s] = '\0';
-	_mkdir(Foldernamereal);
+	////_mkdir(Foldernamereal);
 	delete[]Foldernamereal;
 	//tao file txt
 	Foldername = Foldername + "\\" + AcademicYear + '-' + Semestername + ".txt";
@@ -351,7 +351,7 @@ void createClassInSemester(string classname, string academicYear, string Semeste
 		for (int i = 0; i < s; ++i)
 			Foldernamereal[i] = Foldername[i];
 		Foldernamereal[s] = '\0';
-		_mkdir(Foldernamereal);
+		//_mkdir(Foldernamereal);
 		delete[]Foldernamereal;
 		//tao file txt cho class
 		Foldername = Foldername + "\\" + classname + ".txt";
