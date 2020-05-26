@@ -254,6 +254,7 @@ void viewCourseAttendance(Semester* pSemester)
 	}
 	y++;
 	goToXY(x, y++); system("pause");
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
 	deleteStudentList(pStudent);
 	resizeConsole(1000, 700);
 }

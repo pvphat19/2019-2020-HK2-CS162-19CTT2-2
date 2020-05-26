@@ -31,6 +31,21 @@ bool checkDuplicateSemester(string AcademicYear, string Semestername, Semester* 
 	}
 	return t;
 }
+void convertStringChar(string source, char*& destination)
+{
+	destination = new char[source.size() + 1];
+	for (int i = 0; i < source.size(); ++i)
+		destination[i] = source[i];
+	destination[source.size()] = '\0';
+}
+void deleteDirectory(string dir)
+{
+	char* directory;
+	convertStringChar(dir, directory);
+	_rmdir(directory);
+	delete[]directory;
+}
+
 void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester* &pSemester)
 {
 	//tao folder cho tung Semester
@@ -76,11 +91,66 @@ void createSemester(string AcademicYear, string Semestername, int& numSemester, 
 		cur->pSchedule = nullptr;
 		cur->numSchedule = 0;
 	}
+	rewriteSemester(numSemester, pSemester);
 }
-void deleteSemester(string AcademicYear, string Semestername, int& numSemester, Semester* &pSemester)//chua delete directory
+void deleteFirstSchedule(string academicYear, string Semestername, int& numSemester, Semester*& pSemester)
 {
-	//delete directory
-	
+	Semester* curSemester = pSemester;
+	while (curSemester && (curSemester->academicYear != academicYear || curSemester->semester != Semestername))
+		curSemester = curSemester->pNext;
+	if (curSemester == nullptr) return;
+	Schedule* pSchedule = curSemester->pSchedule;
+	if (pSchedule == nullptr) return;
+	while (pSchedule->pCourse != nullptr)
+	{
+		string dir="Semester\\"+academicYear+"-"+Semestername+"\\"+pSchedule->cla+"\\"+pSchedule->pCourse->courseID+".txt";
+		char* directory;
+		convertStringChar(dir, directory);
+		remove(directory);
+		Course* tmp = pSchedule->pCourse;
+		Student* tmpStudent = tmp->pStudent;
+		while (tmpStudent)
+		{
+			Student* temp = tmpStudent;
+			tmpStudent = tmpStudent->pNext;
+			delete temp;
+		}
+		pSchedule->pCourse = pSchedule->pCourse->pNext;
+		delete tmp;
+	}
+	string dir = "Semester\\" + academicYear + "-" + Semestername + "\\" + pSchedule->cla + "\\" + pSchedule->cla + ".txt";
+	char* directory;
+	convertStringChar(dir, directory);
+	remove(directory);
+	dir = "Semester\\" + academicYear + "-" + Semestername + "\\" + pSchedule->cla;
+	deleteDirectory(dir);
+	Schedule* tmp = pSchedule;
+	curSemester->pSchedule =curSemester-> pSchedule->pNext;
+	delete tmp;
+	curSemester->numSchedule--;
+	dir = "Semester\\" + academicYear + "-" + Semestername + "\\" + academicYear + "-" + Semestername + ".txt";
+	rewriteScheduleList(curSemester->numSchedule, curSemester->pSchedule, dir);
+}
+void deleteSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester)
+{
+	//delete directory va nhung cai p trong no
+	Semester* curSemester = pSemester;
+	while (curSemester!=nullptr &&( curSemester->academicYear != AcademicYear || curSemester->semester != Semestername))
+		curSemester = curSemester->pNext;
+	if (curSemester == nullptr)
+	{
+		return;
+	}
+	while (curSemester->pSchedule != nullptr)
+	{
+		deleteFirstSchedule(AcademicYear, Semestername, numSemester, pSemester);
+	}
+	string dir = "Semester\\" + AcademicYear + "-" + Semestername + "\\" + AcademicYear + "-" + Semestername + ".txt";
+	char* directory;
+	convertStringChar(dir, directory);
+	remove(directory);
+	dir = "Semester\\" + AcademicYear + "-" + Semestername;
+	deleteDirectory(dir);
 	//update pSemester
 	if (pSemester->academicYear == AcademicYear && pSemester->semester == Semestername)
 	{
@@ -111,7 +181,6 @@ void deleteSemester(string AcademicYear, string Semestername, int& numSemester, 
 	}
 	rewriteSemester(numSemester, pSemester);
 }
-
 void createAcademicYear(int& numSemester, Semester*& pSemester)
 {
 	cout << "Please enter the academic year: ";
@@ -185,6 +254,7 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 			cout << "Please enter from 0 to 2: ";
 			cin >> choice;
 		}
+		cin.ignore();
 		if (choice == 0)
 			break;
 		else if (choice == 1)
@@ -209,6 +279,7 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 					cout << "Please enter 0 or 1: ";
 					cin >> choice2;
 				}
+				cin.ignore();
 				if (choice2 == 0)
 					break;
 				else
@@ -217,25 +288,17 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 				}
 			}
 			if (t == true);
-			else createSemester(academicYear,Semestername, numSemester, pSemester);
+			else
+			{
+				dem++;
+				createSemester(academicYear, Semestername, numSemester, pSemester);
+			}
 		}
 		else
 		{
 			if (dem == 0)
 				cout << "There are no semester to delete." << endl;
 			else {
-				cout << "The academic year has had semester(s) below: " << endl;
-				cur = pSemester;
-				int dem = 0;
-				while (cur != nullptr)
-				{
-					if (cur->academicYear == academicYear)
-					{
-						dem++;
-						cout << dem << ". " << cur->semester << endl;
-					}
-					cur = cur->pNext;
-				}
 				cout << "Please enter the name of semester you want to delete: " << endl;
 				string deleteSemestername;
 				getline(cin, deleteSemestername, '\n');
@@ -244,6 +307,7 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 					cout << "You have enter a wrong name. Please enter again: ";
 					getline(cin, deleteSemestername, '\n');
 				}
+				dem--;
 				deleteSemester(academicYear, deleteSemestername, numSemester, pSemester);
 			}
 		}
@@ -252,7 +316,6 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 }
 void deleteAcademicYear(int& numSemester, Semester*& pSemester)//chua xoa duoc folder
 {
-	loadSemester(numSemester, pSemester);
 	string academicYear;
 	cout << "Please enter the academic year: ";
 	getline(cin, academicYear, '\n');
@@ -273,18 +336,52 @@ void deleteAcademicYear(int& numSemester, Semester*& pSemester)//chua xoa duoc f
 	if (choice == 0);
 	else
 	{
-		//xoa directory
-
-		//cap nhat pSemester
+		while (pSemester &&(checkDuplicateAcademicYear(academicYear,pSemester)))
+		{
+			Semester* cur = pSemester;
+			while (cur && cur->academicYear != academicYear)
+				cur = cur->pNext;
+			deleteSemester(academicYear, cur->semester, numSemester, pSemester);
+		}
 	}
 	rewriteSemester(numSemester, pSemester);
 }
 void viewAcademicYear(string academicYear, int numSemester, Semester* pSemester)
 {
-
+	Semester* curSemester = pSemester;
+	while (curSemester)
+	{
+		if (curSemester->academicYear == academicYear)
+			cout << curSemester->semester << endl;
+	}
 }
-void viewallSemester(int numSemester, Semester* pSemester) {
-
+void sortSemesterList(Semester *&pSemester)
+{
+	for (Semester* curI = pSemester; curI != nullptr; curI = curI->pNext)
+		for (Semester* curJ = curI->pNext; curJ != nullptr; curJ = curJ->pNext)
+			if (curI->academicYear > curJ->academicYear)
+			{
+				swap(curI->academicYear, curJ->academicYear);
+				swap(curI->semester, curJ->semester);
+			}
+			else if(curI->academicYear==curJ->academicYear)
+				if (curI->semester > curJ->semester)
+				{
+					swap(curI->semester, curJ->semester);
+				}
+}
+void viewallSemester() {
+	int tmpnum=0;
+	Semester* tmppSemester=nullptr;
+	loadSemester(tmpnum, tmppSemester);
+	sortSemesterList(tmppSemester);
+	Semester* cur = tmppSemester;
+	while (cur)
+	{
+		cout << cur->academicYear << " - " << cur->semester << endl;
+		cur = cur->pNext;
+	}
+	deleteSemesterList(tmppSemester);
 }
 
 bool checkExistingClass(string classname) {
@@ -396,7 +493,7 @@ void createClassInSemester(string classname, string academicYear, string Semeste
 void importCourse(int& numSemester, Semester*& pSemester)
 {
 	cout << "We have the following semester: " << endl;
-	viewallSemester(numSemester, pSemester);
+	viewallSemester();
 	cout << "Please enter the academic year: ";
 	string academicYear;
 	getline(cin, academicYear, '\n');
@@ -620,7 +717,7 @@ void createdayOfWeek(int day, string& res)
 void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 {
 	cout << "We have the following semester: " << endl;
-	viewallSemester(numSemester, pSemester);
+	viewallSemester();
 	cout << "Please enter the academic year: ";
 	string academicYear;
 	getline(cin, academicYear, '\n');
@@ -830,7 +927,7 @@ bool checkExistingCourse(int numSemester, Semester* pSemester, string academicYe
 void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course phai ton tai truoc moi nhap diem duoc
 {
 	cout << "We have the following semester: " << endl;
-	viewallSemester(numSemester, pSemester);
+	viewallSemester();
 	cout << "Please enter the academic year: ";
 	string academicYear;
 	getline(cin, academicYear, '\n');
@@ -955,7 +1052,7 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	cout << "We have import scoreboard successfully " << success << " student(s) in " << dem << " student(s).";
 }
 
-void exportAttendanceList(Semester* pSemester)
+void exportAttendanceList(Semester *pSemester)
 {
 	int x, y;
 	string dir;
@@ -972,7 +1069,6 @@ void exportAttendanceList(Semester* pSemester)
 	}
 	//
 	cout << "Please enter the link of csv file." << endl;
-	cout << "Notice that the order of csv file must be: No,Student ID,Student name,Midterm,Final,Bonus,Total" << endl;
 	string linkcsv;
 	getline(cin, linkcsv, '\n');
 	ofstream outcsv;
@@ -1034,6 +1130,80 @@ void exportAttendanceList(Semester* pSemester)
 					outcsv << ',';
 				}
 			}
+			outcsv << endl;
+			prevStudent = curStudent;
+			curStudent = curStudent->pNext;
+		}
+		else
+		{
+			curCourse->numStudent--;
+			deleteStudent(prevStudent, curStudent, curCourse->pStudent);
+		}
+	}
+	y++;
+	goToXY(x, y++); system("pause");
+	deleteStudentList(pStudent);
+	resizeConsole(1000, 700);
+	outcsv.close();
+}
+
+void exportscoreboard(Semester* pSemester)
+{
+	int x, y;
+	string dir;
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to export the attendance list"; y++;
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	viewCourseAttendance(pSemester);
+		return;
+	}
+	//
+	cout << "Please enter the link of csv file." << endl;
+	cout << "Notice that the order of csv file will be: No,Student ID,Student name,Midterm,Final,Bonus,Total" << endl;
+	string linkcsv;
+	getline(cin, linkcsv, '\n');
+	ofstream outcsv;
+	outcsv.open(linkcsv);
+	if (!outcsv.is_open())
+	{
+		cout << "Can not open file csv." << endl;
+		return;
+	}
+	outcsv << "No,Student ID,Student name,Midterm,Final,Bonus,Total"<<endl;
+	//
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	resizeConsole(1100, 700);
+	y++; goToXY(x + 40, y++);
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+	Student* curStudent = curCourse->pStudent;
+	int no = 0;
+	while (curStudent)
+	{
+		Student* cur = pStudent;
+		while (cur)
+		{
+			if (cur->id == curStudent->id)
+				break;
+			cur = cur->pNext;
+		}
+		if (cur)
+		{
+			no++;
+			outcsv << no << ",";
+			outcsv << cur->id << ",";
+			outcsv << cur->fullname << ",";
+			outcsv << curStudent->grade.midterm << ",";
+			outcsv << curStudent->grade.final << ",";
+			outcsv << curStudent->grade.bonus << ",";
+			outcsv << curStudent->grade.total;
 			outcsv << endl;
 			prevStudent = curStudent;
 			curStudent = curStudent->pNext;

@@ -168,6 +168,11 @@ void printDate(int x);
 //academic
 void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
 void createAcademicYear(int& numSemester, Semester*& pSemester);
+void deleteSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
+void deleteAcademicYear(int& numSemester, Semester*& pSemester);
+void updateAcademicYear(int& numSemester, Semester*& pSemester);
+void viewAcademicYear(string academicYear, int numSemester, Semester* pSemester);
+void viewallSemester();
 void importCourse(int& numSemester, Semester*& pSemester);
 void manuallyAddCourse(int& numSemester, Semester*& pSemester);
 void importScoreboard(int& numSemester, Semester*& pSemester);
