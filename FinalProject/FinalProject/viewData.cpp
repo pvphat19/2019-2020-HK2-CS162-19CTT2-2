@@ -487,7 +487,7 @@ void viewCheckInResult(Student* curStudent, Course* curCourse) {
 void viewSchedule(Student* curStudent, Course* curCourse) {
 	int x, y;
 	resizeConsole(1100, 700);
-	y++; goToXY(x + 40, y++); cout << "The schedules of all the courses you've enrolled" << endl;
+	cout << "The schedules of all the courses you've enrolled" << endl;
 	Student* cur = curCourse->pStudent;
 
 	while (curCourse) {
@@ -504,7 +504,6 @@ void viewSchedule(Student* curStudent, Course* curCourse) {
 			Date date = curCourse->dateStart;
 			for (int i = 0; i < 10; i++)
 			{
-				goToXY(x + 23 + i * 10, y);
 				nextWeek(date, i);
 				if (cmpDate(date, curCourse->dateEnd))
 				{
@@ -515,7 +514,6 @@ void viewSchedule(Student* curStudent, Course* curCourse) {
 			}
 			for (int i = 0; i < numDay; i++)
 			{
-				goToXY(x + 27 + i * 10, y);
 				cout << curStudent->attend[i];
 			}
 		}
@@ -529,12 +527,12 @@ void viewSchedule(Student* curStudent, Course* curCourse) {
 void student_view_score(Student* curStudent, Course* curCourse) {
 	int x, y;
 	resizeConsole(1100, 700);
-	y++; goToXY(x + 40, y++); cout << "The schedules of all the courses you've enrolled" << endl;
+	cout << "The schedules of all the courses you've enrolled" << endl;
 	Student* cur = curCourse->pStudent;
-	goToXY(x + 25, y); cout << "Midterm";
-	goToXY(x + 35, y); cout << "Final";
-	goToXY(x + 45, y); cout << "Bonus";
-	goToXY(x + 55, y); cout << "Total";
+	cout << "Midterm";
+	cout << "Final";
+	cout << "Bonus";
+	cout << "Total";
 
 	while (curCourse) {
 		while (cur) {
@@ -545,12 +543,12 @@ void student_view_score(Student* curStudent, Course* curCourse) {
 		if (cur) {
 			cout << curCourse->courseName << " - " << curCourse->courseID << ": ";
 			int numDay = 10;
-			goToXY(x, ++y); cout << cur->id;
-			goToXY(x, ++y); cout << cur->fullname;
-			goToXY(x + 25, y); cout << curStudent->grade.midterm;
-			goToXY(x + 35, y); cout << curStudent->grade.total;
-			goToXY(x + 45, y); cout << curStudent->grade.final;
-			goToXY(x + 55, y); cout << curStudent->grade.bonus;
+			cout << cur->id;
+			cout << cur->fullname;
+			cout << curStudent->grade.midterm;
+			cout << curStudent->grade.total;
+			cout << curStudent->grade.final;
+			cout << curStudent->grade.bonus;
 		}
 		else {
 			cout << "You didn't enroll in course" << curCourse->courseID << endl;

@@ -12,6 +12,8 @@ int main()
 	viewCourseAttendance(pSemester);
 	//viewCourseScoreboard(pSemester);
 	//viewStudentInCourse(pSemester);
+	//viewCourseAttendance(pSemester);
+	//viewCourseScoreboard(pSemester);
 	deleteSemesterList(pSemester);
 	//login();
 	//viewCourseAttendance(pSemester);
