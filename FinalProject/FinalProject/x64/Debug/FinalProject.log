@@ -1,2 +1,15 @@
-﻿  add_import_students.cpp
-  FinalProject.vcxproj -> C:\Users\phanv\source\2019-2020-HK2-CS162-19CTT2-2\FinalProject\x64\Debug\FinalProject.exe
+﻿  CourseMod.cpp
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(5,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(240,18): warning C4101: 'compr3': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(239,20): warning C4101: 'compr2': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(535,29): warning C4101: 'ch': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(581,29): warning C4101: 'ch': unreferenced local variable
+  main.cpp
+  Generating Code...
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(77): warning C4715: 'checkSemester': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(45): warning C4715: 'checkAcademicY': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(109): warning C4715: 'checkClassID': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(173): warning C4715: 'checkStudent': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(141): warning C4715: 'checkCourse': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(232): warning C4715: 'correctDate': not all control paths return a value
+  FinalProject.vcxproj -> C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\x64\Debug\FinalProject.exe
