@@ -172,7 +172,6 @@ Student* checkStudent(Course*& cour, string& s, int& y, int& x) {
 	} while (count == 0);
 }
 bool correctDate(int month, int year, int day) {
-	cout << "tttt";
 	switch (month) {
 	case 1: if (day > 0 && day < 32) return true;
 		  else return false;
@@ -234,27 +233,31 @@ bool correctMonth(int month) {
 	if (month < 1 || month>12) return false;
 	else return true;
 }
-void inputDate(int& result, int& result2, int& result3) {
+void inputDate(int& result, int& result2, int& result3,int y,int x) {
 	string yr;  bool compr;
 	string mnth; bool compr2;
 	string dy; bool compr3; bool ultcompr, monthcmpr;
-	cout << "Now change your date to  " << endl;
+	goToXY(x, y + 1); cout << "                                                                 ";
+	goToXY(x, y + 1); cout << "Now change your date to  " << endl;
 	do {
-		cout << "year: "; cin >> yr;
+		goToXY(x, y + 2);cout<<"                              ";
+		goToXY(x, y + 2); cout << "year: "; cin >> yr;
 		compr = convertStringToInt(yr, result);
-		if (compr == false) cout << "Error Input " << endl;
+		if (compr == false) goToXY(x, y + 2); cout << "                            ";
 	} while (compr == false);
 	do {
-		cout << "month: "; cin >> mnth;
+		goToXY(x, y + 3); cout << "                              ";
+		goToXY(x, y + 3); cout << "month: "; cin >> mnth;
 		compr = convertStringToInt(mnth, result2);
 		monthcmpr = correctMonth(result2);
-		if (compr == false || monthcmpr == false) cout << "Error Input " << endl;
+		if (compr == false || monthcmpr == false) goToXY(x, y + 3); cout << "                                       ";
 	} while (compr == false || monthcmpr == false); cout << endl;
 	do {
-		cout << "day: "; cin >> dy;
+		goToXY(x, y + 4); cout << "                                       ";
+		goToXY(x, y + 4); cout << "day: "; cin >> dy;
 		compr = convertStringToInt(dy, result3);
 		ultcompr = correctDate(result2, result, result3);
-		if (compr == false || ultcompr == false) cout << "Error Input " << endl;
+		if (compr == false || ultcompr == false) goToXY(x, y + 4); cout << "                                       ";
 	} while (compr == false || ultcompr == false); cout << endl;
 }
 void clrscrfromatob(int a, int b, int x) {
@@ -321,6 +324,7 @@ void editCourse(int numSemester, Semester* pSemester) {
 		}
 		if (choice == 1) {
 			Lecturer* lectu = nullptr; int numlect; int count = 0; string lect;
+			goToXY(x, y + 10); cout << "                                           ";
 			goToXY(x, y + 11); cout << "                                 ";
 			loadLecturer(numlect, lectu);
 			do {
@@ -368,6 +372,7 @@ void editCourse(int numSemester, Semester* pSemester) {
 				goToXY(x, y + 17); cout << "6.Friday" << endl;
 				goToXY(x, y + 18); cout << "7.Saturday" << endl;
 				goToXY(x, y + 19); cout << "8.Sunday" << endl;
+				goToXY(x, y + 20); cout << "                                             ";
 				goToXY(x, y + 20); cout << "your choice: "; cin >> po; cm = convertStringToInt(po, pick); cout << endl;
 				if (pick == 2) { s4->day = "MON"; }
 				if (pick == 3) { s4->day = "TUE"; }
@@ -382,66 +387,83 @@ void editCourse(int numSemester, Semester* pSemester) {
 		}
 		if (choice == 3) {
 			string roomID;
-			cout << "the room ID for the course is: " << s4->room << endl;
-			cout << "Now change to room : "; cin >> roomID;
+			goToXY(x, y + 10); cout << "                                           ";
+			goToXY(x, y + 11); cout << "                                                                                ";
+			goToXY(x, y + 11); cout << "the room ID for the course is: " << s4->room << endl;
+			goToXY(x, y + 12); cout << "Now change to room : "; cin >> roomID;
 			s4->room = roomID;
 			rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
+			system("cls");
 		}
 		if (choice == 4) {
-			cout << "current start date is " << s4->dateStart.year << " " << s4->dateStart.month << " " << s4->dateStart.day << endl;
+			goToXY(x, y + 10); cout << "                                           ";
+			goToXY(x, y + 11); cout << "                                                                                ";
+			
+			goToXY(x, y + 12); cout << "current start date is " << s4->dateStart.year << " " << s4->dateStart.month << " " << s4->dateStart.day << endl;
 			int yr, mnth, dy;
-			inputDate(yr, mnth, dy);
+			inputDate(yr, mnth, dy,y+12,x);
 			s4->dateStart.year = yr;
 			s4->dateStart.month = mnth;
 			s4->dateStart.day = dy;
 			rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
+			system("cls");
 		}
 		if (choice == 5) {
-			cout << "current end date is " << s4->dateEnd.year << " " << s4->dateEnd.month << " " << s4->dateEnd.day << endl;
+			goToXY(x, y + 10); cout << "                                           ";
+			goToXY(x, y + 11); cout << "                                                                                ";
+			goToXY(x, y + 12); cout << "current end date is " << s4->dateEnd.year << " " << s4->dateEnd.month << " " << s4->dateEnd.day << endl;
 			int yr, mnth, dy;
-			inputDate(yr, mnth, dy);
+			inputDate(yr, mnth, dy,y+12,x);
 			s4->dateEnd.year = yr;
 			s4->dateEnd.month = mnth;
 			s4->dateEnd.day = dy;
 			rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
+			system("cls");
 		}
 		if (choice == 6) {
-			cout << "current start time is " << s4->timeStart.hour << " " << s4->timeStart.minute << endl;
-			cout << "Now change your start time to  " << endl;
-			int hr; int min;
+			goToXY(x, y + 10); cout << "                                           ";
+			goToXY(x, y + 11); cout << "                                                                                ";
+			goToXY(x, y + 12); cout << "current start time is " << s4->timeStart.hour << " : " << s4->timeStart.minute << endl;
+			goToXY(x, y + 13); cout << "Now change your start time to  " << endl;
+			int hr; int min; string hr1, min1; bool hrk, mink;
 			do {
-				cout << "hour : "; cin >> hr;
-				if (hr < 0 || hr>24) cout << "Error Input ";
-			} while (hr < 0 || hr>24);
+				goToXY(x, y + 14); cout << "hour : "; cin >> hr1; hrk = convertStringToInt(hr1, hr);
+				if ((hr < 0 || hr>24)||hrk==false) goToXY(x, y + 14); cout << "                                                       ";
+			} while (hr < 0 || hr>24 || hrk == false);
 			do {
-				cout << "minute : "; cin >> min;
-				if (min < 0 || min>60) cout << "Error Input ";
-			} while (min < 0 || min>60);
+				goToXY(x, y + 15); cout << "minute : "; cin >> min1; mink = convertStringToInt(min1, min);
+				if (min < 0 || min>59||mink==false) goToXY(x, y + 15); cout << "                                                       ";
+			} while (min < 0 || min>59||mink==false);
 			s4->timeStart.hour = hr;
 			s4->timeStart.minute = min;
 			rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
+			system("cls");
 		}
 		if (choice == 7) {
-			cout << "current end time is " << s4->timeEnd.hour << " " << s4->timeEnd.minute << endl;
-			cout << "Now change your end time to  " << endl;
-			int hr; int min;
+			goToXY(x, y + 10); cout << "                                           ";
+			goToXY(x, y + 11); cout << "                                                                                ";
+			goToXY(x, y + 12); cout << "current end time is " << s4->timeEnd.hour << " " << s4->timeEnd.minute << endl;
+			goToXY(x, y + 13); cout << "Now change your end time to  " << endl;
+			int hr; int min; string hr1, min1; bool hrk, mink;
 			do {
-				cout << "hour : "; cin >> hr;
-				if (hr < 0 || hr>24) cout << "Error Input ";
-			} while (hr < 0 || hr>24);
+				goToXY(x, y + 14); cout << "hour : "; cin >> hr1; hrk = convertStringToInt(hr1, hr);
+				if ((hr < 0 || hr>24) || hrk == false) goToXY(x, y + 14); cout << "                                                       ";
+			} while (hr < 0 || hr>24 || hrk == false);
 			do {
-				cout << "minute : "; cin >> min;
-				if (min < 0 || min>60) cout << "Error Input ";
-			} while (min < 0 || min>60);
+				goToXY(x, y + 15); cout << "minute : "; cin >> min1; mink = convertStringToInt(min1, min);
+				if (min < 0 || min>59 || mink == false) goToXY(x, y + 15); cout << "                                                       ";
+			} while (min < 0 || min>59 || mink == false);
 			s4->timeEnd.hour = hr;
 			s4->timeEnd.minute = min;
 			rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
+			system("cls");
 		}
 	} while (choice != 0 || formain == false);
 }
 void removeCourse(int numSemester, Semester* pSemester) {
-	int x = 10; int y = 5; int ch;
-	cout << "To delete course, you have to input some information " << endl;
+	int x = 10; int y = 5; int ch; string ch1; bool chk;
+	goToXY(x, y);
+	cout << "To delete course, you have to input some information " << endl; y++;
 	string acdmy, smstr2, classID, CourseID;
 	Semester* smstr = pSemester;
 	Semester* s1 = checkAcademicY(smstr, acdmy, y, x);
@@ -452,32 +474,34 @@ void removeCourse(int numSemester, Semester* pSemester) {
 	if (s3 == nullptr) return;
 	Course* s4 = checkCourse(s3, CourseID, y, x);
 	if (s4 == nullptr) return;
+	goToXY(x, y+1);
 	cout << "Do you really want to delete this course ? " << endl;
 	do {
-		cout << "1.Yes->continue " << endl;
-		cout << "0.No->exit" << endl;
-		cout << "your choice: "; cin >> ch;
-	} while (ch != 0 && ch != 1);
+		goToXY(x, y + 2); cout << "1.Yes->continue " << endl;
+		goToXY(x, y + 3); cout << "0.No->exit" << endl;
+		goToXY(x, y + 4); cout << "your choice: "; cin >> ch1; chk=convertStringToInt(ch1, ch);
+		if (chk == false || (ch != 0 && ch != 1))goToXY(x, y + 4); cout << "                                                            ";
+	} while ((ch != 0 && ch != 1)|| chk == false);
 	if (ch == 0) return;
 	if (ch == 1) {
 		int j = 0; Course* s0 = nullptr;
 		loadCourseList(j, s0, "Semester\\2018-2019-HK2\\" + s3->cla + "\\", s3->cla);
 		if (s0->courseID == s4->courseID) {
 			Course* tempt = s0;
-			s0 = s0->pNext; cout << s0->courseID;
+			s0 = s0->pNext;
 			delete tempt;
 		}
-		Course* cur = s0;
+		Course* cur = s0; if (s0 == nullptr) goto c;
 		while (cur->pNext != nullptr) {
 			if (cur->pNext->courseID == s4->courseID) {
 				Course* tempt = cur->pNext;
 				cur->pNext = cur->pNext->pNext;
-				delete tempt;
+                delete tempt;
 			}
 			else {
-				cur = cur->pNext;
+			cur = cur->pNext;
 			}
-		}
+		}c:
 		rewriteCourseList(j - 1, s0, "Semester\\2018-2019-HK2\\" + s3->cla + "\\" + s3->cla + ".txt");
 		deleteCourseList(s0);
 
@@ -489,7 +513,8 @@ void removeCourse(int numSemester, Semester* pSemester) {
 	}
 }
 void removeStudentfromCourse(int numSemester, Semester* pSemester) {
-	int x = 10; int y = 5; int ch;
+	int x = 10; int y = 5; int ch; string ch1; bool chk;
+	goToXY(x, y);
 	string acdmy, smstr2, classID, CourseID, student;
 	Semester* smstr = pSemester;
 	Semester* s1 = checkAcademicY(smstr, acdmy, y, x);
@@ -500,15 +525,18 @@ void removeStudentfromCourse(int numSemester, Semester* pSemester) {
 	if (s3 == nullptr) return;
 	Course* s4 = checkCourse(s3, CourseID, y, x);
 	if (s4 == nullptr) return;
+	goToXY(x, ++y);
 	cout << "Enter Student that you want to remove from the course: " << endl;
 	Student* st = checkStudent(s4, student, y, x);
 	if (st == nullptr) return;
+	goToXY(x, ++y);
 	cout << "Do you really want to remove this student from the course ? " << endl;
 	do {
-		cout << "1.Yes->continue " << endl;
-		cout << "0.No->exit" << endl;
-		cout << "your choice: "; cin >> ch;
-	} while (ch != 0 && ch != 1);
+		goToXY(x, y + 2); cout << "1.Yes->continue " << endl;
+		goToXY(x, y + 3); cout << "0.No->exit" << endl;
+		goToXY(x, y + 4); cout << "your choice: "; cin >> ch1; chk = convertStringToInt(ch1, ch);
+		if (chk == false||(ch != 0 && ch != 1))goToXY(x, y + 4); cout << "                                                            ";
+	} while ((ch != 0 && ch != 1) || chk == false);
 	if (ch == 0) return;
 	if (ch == 1) {
 		if (st->id == s4->pStudent->id) {
@@ -516,15 +544,15 @@ void removeStudentfromCourse(int numSemester, Semester* pSemester) {
 			s4->pStudent = s4->pStudent->pNext;
 			delete tempt;
 		}
-		Student* curst = s4->pStudent;
+		Student* curst = s4->pStudent; if (curst == nullptr) goto x;
 		while (curst->pNext != nullptr) {
-			if (st->id == curst->id) {
-				Student* tempt = curst;
+			if (st->id == curst->pNext->id) {
+				Student* tempt = curst->pNext;
 				curst->pNext = curst->pNext->pNext;
 				delete tempt;
 			}
 			else curst = curst->pNext;
-		}
+		}x:
 		s4->numStudent--;
 		rewriteCourse(s4, "Semester\\2018-2019-HK2\\" + classID + "\\" + CourseID + ".txt");
 
@@ -533,6 +561,7 @@ void removeStudentfromCourse(int numSemester, Semester* pSemester) {
 }
 void editAttendance(int numSemester, Semester* pSemester) {
 	int x = 10; int y = 5; int ch, ngay, ap, opt;
+	string ngay1, ap1, opt1; bool ngayk, apk, optk;
 	string acdmy, smstr2, classID, CourseID, student;
 	Semester* smstr = pSemester;
 	Semester* s1 = checkAcademicY(smstr, acdmy, y, x);
@@ -549,17 +578,35 @@ ab2:goToXY(x, y + 1); cout << "Enter Student that you want to edit attendance " 
 	if (st == nullptr) return;
 	while (curStudent->id != st->id) curStudent = curStudent->pNext;
 ab1:
-	outputAttendance(s4, x, y,curStudent);
-    goToXY(x, y + 4); cout << "Edit Attendance information " << endl;
-	goToXY(x, y + 5); cout << "Enter day: "; cin >> ngay; cout << endl;
-	goToXY(x, y + 6); cout << "Absent or Present ?(Present(1) /Absent(0)): "; cin >> ap; cout << endl;
+	outputAttendance(s4, x, y, curStudent);
+	goToXY(x, y + 4); cout << "Edit Attendance information " << endl;
+abd:	goToXY(x, y + 5); cout << "                                                                  ";
+	goToXY(x, y + 5); cout << "Enter date number : "; cin >> ngay1; ngayk = convertStringToInt(ngay1, ngay); cout << endl;
+	if (ngay < 1 || ngay>10 || ngayk == false) {
+		goToXY(x, y + 6); cout << "Error Input !";
+		goToXY(x, y + 6); cout << "                                             ";
+		goto abd;
+	}
+adap:	goToXY(x, y + 6); cout << "                                                                           ";
+	goToXY(x, y + 6); cout << "Absent or Present ?(Present(1) /Absent(0)): "; cin >> ap1; apk = convertStringToInt(ap1, ap); cout << endl;
+	if (ap != 0 && ap != 1 || apk == false) {
+		goToXY(x, y + 7); cout << "Error Input !";
+		goToXY(x, y + 7); cout << "                                             ";
+		goto adap;
+	}
 	curStudent->attend[ngay - 1] = ap;
 	rewriteCourse(s4, "Semester\\" + s1->academicYear + "-" + s1->semester + "\\" + classID + "\\" + CourseID + ".txt");
 ab3:goToXY(x, y + 8); cout << "Choose those option to continue ";
 	goToXY(x, y + 9); cout << "1.Continue editting this student" << endl;
 	goToXY(x, y + 10); cout << "2.Edit another student " << endl;
 	goToXY(x, y + 11); cout << "0.Exit" << endl;
-	goToXY(x, y + 12); cout << "Your choice: "; cin >> opt;
+	goToXY(x, y + 12); cout << "Your choice: "; cin >> opt1; optk = convertStringToInt(opt1, opt);
+	if(optk == false){
+		goToXY(x, y + 13); cout << "Error Input"; cout << endl; system("pause");
+		clrscrfromatob(y + 8, y + 14, x);
+		goToXY(0, y + 14); cout << "                                                          ";
+		goto ab3;
+}
 	if (opt == 1) {
 		clrscrfromatob(y + 5, y + 12, x);
 		goto ab1;
@@ -572,7 +619,8 @@ ab3:goToXY(x, y + 8); cout << "Choose those option to continue ";
 	if (opt == 0) return;
 	if (opt < 0 || opt>2) {
 		goToXY(x, y + 13); cout << "Error Input"; cout << endl; system("pause");
-		clrscrfromatob(y + 8, y + 13, x);
+		clrscrfromatob(y + 8, y + 14, x);
+		goToXY(0, y + 14); cout << "                                                          ";
 		goto ab3;
 	}
 

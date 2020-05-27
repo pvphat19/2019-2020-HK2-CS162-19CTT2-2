@@ -1,8 +1,8 @@
 5
 19126002
-123456
+123
 Trinh Van Minh
-2001 4 30
+2001 9 3
 19APCS1
 1
 
@@ -13,13 +13,6 @@ Do Vuong Phuc Hoi Nhieu
 19CLC10
 1
 
-19127001
-20200401
-Nguyen Van 1
-2020 4 1
-19APCS2
-1
-
 19127002
 20200402
 Nguyen Van 2
@@ -27,8 +20,15 @@ Nguyen Van 2
 19APCS1
 0
 
+19127001
+20200401
+Nguyen Van 1
+2020 4 1
+19APCS1
+1
+
 1912799
-20010401
+wwwwwwwe
 Super Star
 2001 4 1
 19CLC5

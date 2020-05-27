@@ -159,27 +159,20 @@ void editScore(int numSemester, Semester* pSemester);
 
 //modifyFunction
 bool convertStringToInt(string str, int& x);
-void inputDate(int& result, int& result2, int& result3);
+void inputDate(int& result, int& result2, int& result3,int y,int x);
 bool cmpDate(Date& date1, Date& date2);
 void nextWeek(Date& date, int n);
 void sortStudentList(Student*& pStudent);
 void nextWeek(Date& date, int n);
 bool isLunarYear(int year);
 void printDate(int x);
+void clrscrfromatob(int a, int b, int x);
 
 //academic
 void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
 void createAcademicYear(int& numSemester, Semester*& pSemester);
-void deleteSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
-void deleteAcademicYear(int& numSemester, Semester*& pSemester);
-void updateAcademicYear(int& numSemester, Semester*& pSemester);
-void viewAcademicYear(string academicYear, int numSemester, Semester* pSemester);
-void viewallSemester();
 void importCourse(int& numSemester, Semester*& pSemester);
 void manuallyAddCourse(int& numSemester, Semester*& pSemester);
-void importScoreboard(int& numSemester, Semester*& pSemester);
-void exportAttendanceList(Semester* pSemester);
-
 #endif // !_FUNCTION_H_
 
 

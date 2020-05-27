@@ -126,7 +126,6 @@
     <ClInclude Include="function.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="academic.cpp" />
     <ClCompile Include="add_import_students.cpp" />
     <ClCompile Include="checkUsers.cpp" />
     <ClCompile Include="consoleEdit.cpp" />

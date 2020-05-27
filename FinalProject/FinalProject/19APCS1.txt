@@ -1,4 +1,4 @@
-2
+3
 19126002
 123456
 Trinh Van Minh
@@ -10,6 +10,13 @@ Trinh Van Minh
 20200402
 Nguyen Van 2
 2020 4 2
+19APCS1
+0
+
+19127001
+20200401
+Nguyen Van 1
+2020 4 1
 19APCS1
 1
 
