@@ -325,3 +325,69 @@ void viewStudentInCourse(Semester*& pSemester) {
 	y = y + 3;; goToXY(x, y++); system("pause");
 	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
 }
+
+bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory)
+{
+	string academicYear, semester, cla, courseId, dir = "Semester\\"; curCourse = nullptr;
+	//Semester
+	goToXY(x, y++); cout << "Enter academic year: "; getline(cin, academicYear);
+	goToXY(x, y++); cout << "Enter semester name: "; getline(cin, semester);
+	Semester* curSemester = pSemester;
+	while (curSemester)
+	{
+		if ((curSemester->academicYear == academicYear) && (curSemester->semester == semester))
+			break;
+		curSemester = curSemester->pNext;
+	}
+	if (curSemester == nullptr)
+	{
+		y++;
+		int choice;
+		textColor(4);
+		goToXY(x, y++); cout << "Invalid semester! Do you want to try again (Yes(1) / No(0))?";
+		goToXY(x, y++); cout << "Enter your choice: "; cin >> choice; cin.get();
+		textColor(15);
+		return choice;
+	}
+	//Schedule
+	dir = dir + academicYear + '-' + semester + "\\";
+	goToXY(x, y++); cout << "Enter class name: "; getline(cin, cla);
+	Schedule* curSchedule = curSemester->pSchedule;
+	while (curSchedule)
+	{
+		if (curSchedule->cla == cla)
+			break;
+		curSchedule = curSchedule->pNext;
+	}
+	if (curSchedule == nullptr)
+	{
+		y++;
+		int choice;
+		textColor(4);
+		goToXY(x, y++); cout << "Invalid class! Do you want to try again (Yes(1) / No(0))?";
+		goToXY(x, y++); cout << "Enter your choice: "; cin >> choice; cin.get();
+		textColor(15);
+		return choice;
+	}
+	//Course
+	dir = dir + cla + "\\";
+	goToXY(x, y++); cout << "Enter course Id: "; getline(cin, courseId);
+	curCourse = curSchedule->pCourse;
+	while (curCourse)
+	{
+		if (curCourse->courseID == courseId)
+			break;
+		curCourse = curCourse->pNext;
+	}
+	if (curCourse == nullptr)
+	{
+		y++;
+		int choice;
+		textColor(4);
+		goToXY(x, y++); cout << "Invalid course Id! Do you want to try again (Yes(1) / No(0))?";
+		goToXY(x, y++); cout << "Enter your choice: "; cin >> choice; cin.get();
+		textColor(15);
+		return choice;
+	}
+	directory = dir;
+	return true;

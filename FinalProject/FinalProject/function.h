@@ -134,8 +134,20 @@ void staffMenu(Staff*& curStaff);
 void login();
 
 //viewData
+bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string& directory);
+void viewCurLecturerInfo(Lecturer* curLecturer);
+void viewCurStaffInfo(Staff* curStaff);
+void viewCurStudentInfo(Student* curStudent);
+void viewCourseAttendance(Semester*);
+void viewCourseScoreboard(Semester*);
+void viewLecturer();
 void viewClass();
 void viewStudentsInClass();
+void viewStudentInCourse(Semester*& pSemester);
+void viewCourse(Semester*& pSemester);
+void viewCheckInResult(Student* curStudent, Course* curCourse);
+void viewSchedule(Student* curStudent, Course* curCourse);
+void student_view_score(Student* curStudent, Course* curCourse);
 
 //ModificationClass
 void removestudent();
@@ -146,6 +158,7 @@ void sortStudentList(Student*& pStudent);
 //manually add and import class
 void manually_add_student_to_class();
 void import_class();
+void addStudentIntoClass(Semester* pSemester);
 //CourseMod
 void editCourse(int numSemester, Semester* pSemester);
 void removeCourse(int numSemester, Semester* pSemester);
