@@ -1,11 +1,11 @@
 CM101
 Communications
 19APCS1
-dnvu
-Duong Nguyen Vu
-GS
+dbtien
+Dinh Ba Tien
+Tien si
 0
-WED
+FRI
 I25
 2020 4 1
 2020 6 1
@@ -13,10 +13,10 @@ I25
 3
 19126002
 0 0 0 0
+0 0 0 0 0 0 0 0 1 0 
+19127002
+0 0 9 0
 0 0 0 0 0 0 0 0 0 0 
 19127001
 0 0 0 0
 0 0 0 0 0 0 0 0 1 0 
-19127002
-0 0 0 0
-0 0 0 0 0 0 0 0 0 0 

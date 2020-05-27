@@ -307,6 +307,7 @@ void import_class()//can nang cap doan check class ban dau
 		}
 		deleteClassList(pClass1);
 		deleteStudentList(pStudent1);
+<<<<<<< HEAD
 }
 
 void addStudentIntoCourse(Semester*& pSemester) {
@@ -391,4 +392,6 @@ void addStudentIntoCourse(Semester*& pSemester) {
 	goToXY(x, y++); system("pause");
 	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
 	deleteStudentList(pStudent);
+=======
+>>>>>>> 14008cddb70d06bb6428cd184544499bc697f0f1
 }
