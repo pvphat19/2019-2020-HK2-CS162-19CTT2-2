@@ -310,132 +310,85 @@ void import_class()//can nang cap doan check class ban dau
 }
 
 void addStudentIntoCourse(Semester*& pSemester) {
-	Semester* curSemester = pSemester;
-	Schedule* curSchedule = pSemester->pSchedule;
-	Course* curCourse = pSemester->pSchedule->pCourse;
-	Student* curStudent = nullptr;
-	string year, term;
-
-	// Users choose academic year and semester
-	cout << "Please enter the academic year you need (Example: 2018-2019): ";
-	cin >> year;
-	cout << "Please enter the semester you need (Example: HK2): ";
-	cin >> term;
-
-	if (curSemester == nullptr) {
-		cout << "There is no information in stored data" << endl;
+	int x, y;
+	string dir;
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to add the students"; y++;
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	viewStudentInCourse(pSemester);
 		return;
 	}
 
-	while (curSemester != nullptr) {
-		if (year == curSemester->academicYear && term == curSemester->semester) {
-			if (curSchedule == nullptr) {
-				cout << "There is no information about this schedule in stored data" << endl;
-				break;
-			}
-			else {
-				// User chooses schedule
-				cout << "Please choose the class you need from the list below" << endl;
-				while (curSchedule != nullptr) {
-					// List of classes
-					int i = 1;
-					cout << i << ". " << curSchedule->cla << endl;
-					curSchedule = curSchedule->pNext;
-					++i;
-				}
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	y++; goToXY(x + 30, y++); cout << "Enter following information to enroll" << endl; y++;
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+	int temp;
+	cout << "Please enter student's ID: ";
+	cin >> temp;
 
-				curSchedule = pSemester->pSchedule; // Set curSchedule to head of linked list
-				int iSchedule = 1;
-				int scheduleChoice;
+	// check if the student has already in the course
+	while (check_id(temp, curCourse->pStudent) == false) {
+		cout << "This student has already enrolled. Please try again: ";
+		cin >> temp;
+	}
 
-				cout << "Your choice is: ";
-				cin >> scheduleChoice;
+	// check if the student is in the system
+	Student* cur = pStudent;
+	while (cur)
+	{
+		if (cur->id == temp)
+			break;
+		cur = cur->pNext;
+	}
 
-				while (curSchedule != nullptr) {
-					if (iSchedule == scheduleChoice) {
-						if (curCourse == nullptr) {
-							cout << "There is no information about this class in stored data" << endl;
-							break;
-						}
-
-						else {
-							// User chooses course
-							cout << "Please choose the course you need from the list below" << endl;
-							while (curCourse != nullptr) {
-								int i = 1;
-								cout << i << ". " << curCourse->courseName << " - " << curCourse->courseID << endl;
-								curCourse = curCourse->pNext;
-								++i;
-							}
-
-							curCourse = pSemester->pSchedule->pCourse;// Set curCourse to head of linked list
-							int iCourse = 1;
-							int courseChoice;
-
-							cout << "Your choice is: ";
-							cin >> courseChoice;
-
-							while (curCourse != nullptr) {
-								if (iCourse == courseChoice) {
-
-									// If there are no student, create new one
-									if (pSemester->pSchedule->pCourse->pStudent == nullptr) {
-										cout << "There is no student in stored data" << endl;
-										pSemester->pSchedule->pCourse->pStudent = new Student;
-										Student* curStudent = pSemester->pSchedule->pCourse->pStudent;
-										cout << "Please enter student's ID to enroll: ";
-										cin >> curStudent->id;
-										curStudent->grade.bonus = 0; curStudent->grade.midterm = 0; curStudent->grade.final = 0; curStudent->grade.total = 0;
-										cout << "Student's grades: " << curStudent->grade.bonus << " " << curStudent->grade.midterm << " " << curStudent->grade.final << " " << curStudent->grade.total << endl;
-										for (int i = 0; i < 10; ++i) {
-											curStudent->attend[i] = 0;
-										}
-										cout << "Student's attendance: ";
-										for (int i = 0; i < 10; ++i) {
-											cout << curStudent->attend[i] << " ";
-										}
-										curStudent->pNext = nullptr;
-									}
-
-									// Add new one
-									else {
-										curStudent->pNext = new Student;
-										cout << "Please enter student's ID to enroll: ";
-										cin >> curStudent->id;
-										curStudent->grade.bonus = 0; curStudent->grade.midterm = 0; curStudent->grade.final = 0; curStudent->grade.total = 0;
-										cout << "Student's grades: " << curStudent->grade.bonus << " " << curStudent->grade.midterm << " " << curStudent->grade.final << " " << curStudent->grade.total << endl;
-										for (int i = 0; i < 10; ++i) {
-											curStudent->attend[i] = 0;
-										}
-										cout << "Student's attendance: ";
-										for (int i = 0; i < 10; ++i) {
-											cout << curStudent->attend[i] << " ";
-										}
-										curStudent->pNext = nullptr;
-
-										// Overwrite old data
-										rewriteCourse(curCourse, curCourse->courseName);
-										break;
-									}
-								}
-								else {
-									curCourse = curCourse->pNext;
-									++iCourse;
-								}
-							}
-							break;
-						}
-					}
-					else {
-						++iSchedule;
-						curSchedule = curSchedule->pNext;
-					}
-				}
-				break;
-			}
+	// if yes, enroll
+	if (cur)
+	{
+		Student* curStudent = curCourse->pStudent;
+		if (curStudent == nullptr)
+		{
+			pStudent = new Student;
+			curStudent = pStudent;
 		}
 		else {
-			curSemester = curSemester->pNext;
+			for (int i = 0; i < curCourse->numStudent - 1; ++i)
+				curStudent = curStudent->pNext;
+			curStudent->pNext = new Student;
+			curStudent = curStudent->pNext;
 		}
+		curStudent->pNext = nullptr;
+		curStudent->id = temp;
+		curStudent->grade.bonus = 0, curStudent->grade.final = 0, curStudent->grade.midterm = 0;
+		curStudent->grade.total = curStudent->grade.bonus * 0.3 + curStudent->grade.final * 0.4 + curStudent->grade.midterm * 0.3;
+		cout << "Student's grades by default: " << curStudent->grade.bonus << " "
+			<< curStudent->grade.final << " " << curStudent->grade.midterm << " "
+			<< curStudent->grade.total << endl;
+		for (int j = 0; j < 10; ++j) {
+			curStudent->attend[j] = 0;
+		}
+		cout << "Student's attendaces by default: ";
+		for (int j = 0; j < 10; ++j) {
+			cout << curStudent->attend[j];
+		}
+		++curCourse->numStudent;
 	}
+
+	// else, return
+	else
+	{
+		cout << "Student does not exist" << endl;
+	}
+
+	y++;
+	goToXY(x, y++); system("pause");
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
+	deleteStudentList(pStudent);
 }
