@@ -48,6 +48,9 @@
     <ClCompile Include="ModClassAndStudent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="academic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="function.h">
