@@ -126,14 +126,14 @@
     <ClInclude Include="function.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="academic.cpp" />
     <ClCompile Include="add_import_students.cpp" />
-    <ClCompile Include="checkUsers.cpp" />
     <ClCompile Include="consoleEdit.cpp" />
     <ClCompile Include="CourseMod.cpp" />
     <ClCompile Include="deleteData.cpp" />
     <ClCompile Include="loadData.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModClassAndStudent.cpp" />
+    <ClCompile Include="ModificationFunction.cpp" />
     <ClCompile Include="rewriteTextFile.cpp" />
     <ClCompile Include="systemMenu.cpp" />
     <ClCompile Include="viewData.cpp" />
