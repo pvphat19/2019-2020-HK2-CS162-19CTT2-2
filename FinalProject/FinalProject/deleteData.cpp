@@ -74,3 +74,14 @@ void deleteCourseList(Course*& pCourse)
 		delete tmp;
 	}
 }
+
+void deleteStudent(Student* prev, Student*& cur, Student*& pHead)
+{
+	Student* tmp = cur;
+	cur = cur->pNext;
+	if (prev)
+		prev->pNext = cur;
+	else
+		pHead = cur;
+	delete tmp;
+}

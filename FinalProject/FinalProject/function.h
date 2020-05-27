@@ -104,6 +104,8 @@ void deleteLecturerList(Lecturer*&);
 void deleteSemesterList(Semester*&);
 void deleteScheduleList(Schedule*&);
 void deleteCourseList(Course*&);
+void deleteStudent(Student* prev, Student*& cur, Student*& pHead);
+
 
 //rewriteTextFile
 void rewriteStudent(int, Student*, string);
@@ -139,6 +141,7 @@ void viewStudentsInClass();
 void removestudent();
 void editStudent();
 void changeStudentClass();
+void sortStudentList(Student*& pStudent);
 
 //manually add and import class
 void manually_add_student_to_class();
