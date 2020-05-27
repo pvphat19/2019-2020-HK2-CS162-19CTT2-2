@@ -1,15 +1,5 @@
 #include "function.h"
 
-void deleteStudent(Student* prev, Student*& cur, Student*& pHead)
-{
-	Student* tmp = cur;
-	cur = cur->pNext;
-	if (prev)
-		prev->pNext = cur;
-	else
-		pHead = cur;
-	delete tmp;
-}
 void deleteStudentList(Student*& pStudent)
 {
 	Student* tmp;

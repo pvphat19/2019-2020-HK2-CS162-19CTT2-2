@@ -1,35 +1,28 @@
-﻿  academic.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\academic.cpp(54,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\academic.cpp(446,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  CourseMod.cpp
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(5,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(240,18): warning C4101: 'compr3': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(239,20): warning C4101: 'compr2': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(505,29): warning C4101: 'ch': unreferenced local variable
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(533,29): warning C4101: 'ch': unreferenced local variable
+  ModClassAndStudent.cpp
   add_import_students.cpp
+  checkUsers.cpp
   consoleEdit.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\consoleEdit.cpp(19,28): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\consoleEdit.cpp(19,34): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-  CourseMod.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(163,18): warning C4101: 'compr3': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(162,20): warning C4101: 'compr2': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(345,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\consoleEdit.cpp(19,28): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\consoleEdit.cpp(19,34): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
   deleteData.cpp
   loadData.cpp
   main.cpp
-  ModificationFunction.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\ModificationFunction.cpp(88,53): warning C4101: 'cl': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\ModificationFunction.cpp(198,72): warning C4101: 'i': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\ModificationFunction.cpp(207,40): warning C4101: 'pos': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\ModificationFunction.cpp(359,40): warning C4101: 'pos': unreferenced local variable
   rewriteTextFile.cpp
   systemMenu.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\systemMenu.cpp(27,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   viewData.cpp
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\viewData.cpp(488,9): warning C4101: 'y': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\viewData.cpp(488,6): warning C4101: 'x': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\viewData.cpp(528,9): warning C4101: 'y': unreferenced local variable
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\viewData.cpp(528,6): warning C4101: 'x': unreferenced local variable
   Generating Code...
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(35): warning C4715: 'checkSemester': not all control paths return a value
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(68): warning C4715: 'checkCourse': not all control paths return a value
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(52): warning C4715: 'checkClassID': not all control paths return a value
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(18): warning C4715: 'checkAcademicY': not all control paths return a value
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(84): warning C4715: 'checkStudent': not all control paths return a value
-C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\FinalProject\CourseMod.cpp(159): warning C4715: 'correctDate': not all control paths return a value
-  FinalProject.vcxproj -> C:\Users\admin\source\repos\2019-2020-HK2-CS162-19CTT2-2\FinalProject\x64\Debug\FinalProject.exe
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\viewData.cpp(105): warning C4715: 'inputCourse': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\ModClassAndStudent.cpp(51): warning C4715: 'checkClass': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(77): warning C4715: 'checkSemester': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(141): warning C4715: 'checkCourse': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(45): warning C4715: 'checkAcademicY': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(173): warning C4715: 'checkStudent': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(109): warning C4715: 'checkClassID': not all control paths return a value
+C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\FinalProject\CourseMod.cpp(232): warning C4715: 'correctDate': not all control paths return a value
+  FinalProject.vcxproj -> C:\Users\Admin\OneDrive\Documents\Clone and work\Folder for clone\course part\FinalProject\x64\Debug\FinalProject.exe
