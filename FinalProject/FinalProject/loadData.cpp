@@ -251,7 +251,7 @@ void loadSchedule(int& numSchedule, Schedule*& pSchedule, string dir, string nam
 				cur = pSchedule;
 				getline(in, cur->cla);
 				cur->pCourse = nullptr;
-				loadCourseList(cur->numCourse, cur->pCourse, "Semester\\2018-2019-HK2\\" + cur->cla + "\\", cur->cla);
+				loadCourseList(cur->numCourse, cur->pCourse, dir + cur->cla + "\\", cur->cla);
 				cur->pNext = nullptr;
 			}
 			else
@@ -260,7 +260,7 @@ void loadSchedule(int& numSchedule, Schedule*& pSchedule, string dir, string nam
 				cur = cur->pNext;
 				getline(in, cur->cla);
 				cur->pCourse = nullptr;
-				loadCourseList(cur->numCourse, cur->pCourse, "Semester\\2018-2019-HK2\\" + cur->cla + "\\", cur->cla);
+				loadCourseList(cur->numCourse, cur->pCourse, dir + cur->cla + "\\", cur->cla);
 				cur->pNext = nullptr;
 			}
 		}

@@ -1,8 +1,8 @@
-3
-19126002
-qeqeqeqeq
-Trinh Van Minh
-2001 3 2
+4
+19127001
+123456
+Nguyen Van 1
+2020 4 1
 19APCS1
 1
 
@@ -11,12 +11,18 @@ Trinh Van Minh
 Nguyen Van 2
 2020 4 2
 19APCS1
-0
+1
 
-19127001
-20200401
-Nguyen Van 1
-2020 4 1
+19125103
+29032001
+Nguyen Hoang Linh
+2001 3 29
 19APCS1
 1
 
+19125056
+20010101
+Nguyen Pham Tung Lam
+2001 1 1
+19APCS1
+1

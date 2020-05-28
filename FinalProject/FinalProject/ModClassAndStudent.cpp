@@ -1,27 +1,41 @@
 #include "function.h"
+
 Student* checkaStudent(int x, int y) {
 	int num1, Id, mark = 0; Student* stu = nullptr; string stid; bool k;
-	Student* link;
+	Student* link = nullptr;
 	loadStudent(num1, stu, "Student");
 	do {
-		link = stu;
+		system("cls");
 		goToXY(x, y); cout << "                                                             ";
-		goToXY(x, y); cout << "Enter Student's ID: "; cin >> stid;
+		goToXY(x, y); cout << "Enter Student's ID: "; getline(cin, stid);
 		k = convertStringToInt(stid, Id);
-		while (link != nullptr) {
-			if (Id == link->id) {
-				mark++;
-				break;
-			}
-			else {
+		if (k)
+		{
+			link = stu;
+			while (link != nullptr)
+			{
+				if (link->id == Id)
+					break;
 				link = link->pNext;
 			}
 		}
-		if (link == nullptr && mark == 0 || k == false) {
-			{goToXY(x, y + 1);
-			cout << "Invalid ID " << endl; }
+		else
+			link = nullptr;
+		if (link == nullptr) {
+			int choice;
+			textColor(4);
+			goToXY(x, y + 3); cout << "Invalid id! Do you want to try again (Yes(1) / No(0))?";
+			goToXY(x, y + 4); cout << "Enter your choice: "; 
+			string tmp;
+			do {
+				clearLine(x + 19, y + 4);
+				goToXY(x + 19, y + 4); getline(cin, tmp);
+			} while (!convertStringToInt(tmp, choice));
+			textColor(14);
+			if (!choice)
+				return nullptr;
 		}
-	} while (mark == 0);
+	} while (link == nullptr);
 	goToXY(x, y + 1); cout << "                                             ";
 	return link;
 }
@@ -175,8 +189,11 @@ void ViewInfo(Student* viewStudent, int x, int y)
 	cout << endl;
 }
 void editStudent() {
-	int x = 10, y = 5;
-	Student* ch = checkaStudent(x, y); string tk; int i; bool ed;
+	int y = 5, x = 10;
+	Student* ch = checkaStudent(x, y);
+	if (ch == nullptr)
+		return; 
+	string tk; int i; bool ed;
 	do {
 	pin:goToXY(x, y + 2); cout << "Enter your choice: " << endl;
 		goToXY(x, y + 3); cout << "1.change student password " << endl;
@@ -198,10 +215,13 @@ void editStudent() {
 		clrscrfromatob(y + 8, y + 15, x);
 	} while (i != 0);
 	delete ch;
+	system("pause");
 }
 void removestudent() {
 	int y = 5, x = 10;
 	Student* ch = checkaStudent(x, y);
+	if (ch == nullptr)
+		return;
 	ViewInfo(ch, x, y + 2); int mark; string mark1; bool markk;
 	goToXY(x, y + 7); cout << "Are you sure to remove this student ? " << endl;
 	goToXY(x, y + 8); cout << "1.Yes" << " " << "0.No" << endl;
@@ -217,11 +237,13 @@ void removestudent() {
 	if (mark == 0) return;
 	option1(ch, 0, 1, x, y + 11);
 	delete ch;
-
+	//system("pause");
 }
 void changeStudentClass() {
-	int x = 10, y = 5;
+	int y = 5, x = 10;
 	Student* ch = checkaStudent(x, y);
+	if (ch == nullptr)
+		return;
 	Class* claa = checkClass(ch, x, y + 1);
 	Student* test2 = nullptr, * test3 = nullptr, * test4 = nullptr; int num2, num3, num4;
 	loadStudent(num2, test2, ch->cla);
@@ -240,7 +262,7 @@ void changeStudentClass() {
 		}
 		else test0 = test0->pNext;
 	}
-	bb:
+bb:
 	num2--;
 	rewriteStudent(num2, test2, ch->cla);
 	loadStudent(num4, test4, "Student");
@@ -264,5 +286,6 @@ void changeStudentClass() {
 	deleteStudentList(test3);
 	delete claa, cln;
 	delete ch;
+	//system("pause");
 }
 

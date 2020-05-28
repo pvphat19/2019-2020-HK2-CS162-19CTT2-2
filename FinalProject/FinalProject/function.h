@@ -9,8 +9,10 @@
 #include <conio.h>
 #include <string>
 #include <direct.h>
+#include <ctime>
 using namespace std;
 
+//struct
 struct Date {
 	int day;
 	int month;
@@ -86,6 +88,7 @@ struct Semester {
 	Schedule* pSchedule;
 	Semester* pNext;
 };
+
 //loadData
 void loadStudent(int&, Student*&, string name);
 void loadClass(int&, Class*&);
@@ -105,7 +108,6 @@ void deleteLecturerList(Lecturer*&);
 void deleteSemesterList(Semester*&);
 void deleteScheduleList(Schedule*&);
 void deleteCourseList(Course*&);
-bool isStaff(string username, string password, Staff*& curStaff);
 
 //rewriteTextFile
 void rewriteStudent(int, Student*, string);
@@ -126,7 +128,6 @@ void fixConsoleWindow(); // Ham co dinh console
 // system("pause")	// Ham pause cho den khi nhan 1 phim bat ki	*/
 
 //systemMenu
-bool convertStringToInt(string, int&);
 void login();
 
 //viewData
@@ -140,43 +141,47 @@ void viewLecturer();
 void viewClass();
 void viewStudentsInClass();
 void viewStudentInCourse(Semester*& pSemester);
-void viewCourse(Semester*& pSemester);
+void viewCourse(Semester* pSemester);
+void viewCheckInResult(Student* curStudent, Semester* pSemester);
+void viewSchedule(Student* curStudent, Semester* pSemester);
+void student_view_score(Student* curStudent, Semester* pSemester);
+
 //ModClassAndStudent
-void editStudent();
-void removestudent();
-void changeStudentClass();
+void editStudent(); //done
+void removestudent(); //done
+void changeStudentClass(); //done
 
 //manually add and import class
 void manually_add_student_to_class();
 void import_class();
+void addStudentIntoCourse(Semester*& pSemester);
 
 //CourseMod
-void editCourse(int numSemester, Semester* pSemester);
-void removeCourse(int numSemester, Semester* pSemester);
-void removeStudentfromCourse(int numSemester, Semester* pSemester);
-void editAttendance(int numSemester, Semester* pSemester);
-void editScore(int numSemester, Semester* pSemester);
+void editCourse(int numSemester, Semester* pSemester); //done
+void removeCourse(int numSemester, Semester* pSemester); //done
+void removeStudentfromCourse(int numSemester, Semester* pSemester); //done
+void editAttendance(int numSemester, Semester* pSemester); //done
+void editScore(int numSemester, Semester* pSemester); //done
 
 //modifyFunction
 bool convertStringToInt(string str, int& x);
-void inputDate(int& result, int& result2, int& result3,int y,int x);
-bool cmpDate(Date& date1, Date& date2);
-void nextWeek(Date& date, int n);
+void clrscrfromatob(int a, int b, int x);
+void inputDate(int& result, int& result2, int& result3, int y, int x);
+int cmpDate(Date& date1, Date& date2);
+void nextWeek(Date& date);
 void sortStudentList(Student*& pStudent);
-void nextWeek(Date& date, int n);
 bool isLunarYear(int year);
 void printDate(int x);
-void clrscrfromatob(int a, int b, int x);
+void clearLine(int x, int y);
+void getCurrentTime(Date& curDate, Time& curTime);
 
 //academic
-void updateAcademicYear(int& numSemester, Semester*& pSemester);
-void viewallSemester();
+void updateAcademicYear(int& numSemester, Semester*& pSemester); //done
+void viewallSemester(); //done
 void importCourse(int& numSemester, Semester*& pSemester);
-void manuallyAddCourse(int& numSemester, Semester*& pSemester);
+void manuallyAddCourse(int& numSemester, Semester*& pSemester); //done
 void importScoreboard(int& numSemester, Semester*& pSemester);
 void exportAttendanceList(Semester* pSemester);
-void exportscoreboard(Semester* pSemester);
+void exportScoreboard(Semester* pSemester);
 #endif // !_FUNCTION_H_
-
-
 

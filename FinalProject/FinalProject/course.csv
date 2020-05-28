@@ -1,0 +1,3 @@
+No,Course ID,Course Name,Lecturer name,Lecturer Degree,Lecturer gender,Lecturer Account,Start Date,End Date,Day of Week,Start Hour,Start Minute,End Hour,End HourMinute,Room
+1,CS163,Introduction to Computer program,Dinh Ba Tien,Tien si,Male,dbtien,2020-04-06,2020-06-08,MON,8,0,10,0,I41
+2,CM101,Communication Management,Duong Nguyen Vu,Giao su,Male,dnvu,2020-04-06,2020-06-08,MON,13,30,17,30,I01

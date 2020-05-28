@@ -19,7 +19,6 @@ void create_password(Date dob, string& s)
 	c = int('0') + dob.day % 10;
 	s = s + c;
 }
-
 bool check_id(int ID, Student* pStudent)
 {
 	if (pStudent == nullptr) return true;
@@ -36,7 +35,6 @@ bool check_id(int ID, Student* pStudent)
 	}
 	return t;
 }
-
 bool checkValidDate(Date day)
 {
 	if (day.month == 1 || day.month == 3 || day.month == 5 || day.month == 7 || day.month == 8 || day.month || 10 || day.month == 12)
@@ -60,7 +58,6 @@ bool checkValidDate(Date day)
 	}
 	return false;
 }
-
 void manually_add_student_to_class()//chua kt ngay thang nam
 {
 	int x;
@@ -167,7 +164,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	string dobYear;
 	getline(cin, dobYear);
 	check = convertStringToInt(dobYear, tmp->dob.year);
-	while (!check )
+	while (!check)
 	{
 		textColor(4);
 		goToXY(x, y++); cout << "Please enter a positive integer: ";
@@ -262,7 +259,6 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	system("pause");
 	textColor(14);
 }
-
 void import_class()
 {
 	int x;
@@ -338,8 +334,8 @@ void import_class()
 	int success = 0;
 	int dem = 0;
 	Student* pStudent = nullptr;
-	int numStudent=0;
-	loadStudent(numStudent, pStudent,classname);
+	int numStudent = 0;
+	loadStudent(numStudent, pStudent, classname);
 	Student* cur = pStudent;
 	int numstudent1 = 0;
 	Student* pStudent1 = nullptr;
@@ -378,7 +374,7 @@ void import_class()
 				pStudent->pNext = nullptr;
 				cur = pStudent;
 				success = 1;
-				numStudent=1;
+				numStudent = 1;
 				dem++;
 				cur->id = ID;
 			}
@@ -466,4 +462,94 @@ void import_class()
 	goToXY(x, y++);
 	system("pause");
 	textColor(14);
+}
+void addStudentIntoCourse(Semester*& pSemester) {
+	int x, y;
+	string dir;
+	Course* curCourse;
+	while (true)
+	{
+		system("cls");
+		x = 10; y = 5;
+		goToXY(x, y++); cout << "Choose the course you want to add the students"; y++;
+		bool check = inputCourse(x, y, pSemester, curCourse, dir);
+		if (curCourse)	break;
+		if (check)	addStudentIntoCourse(pSemester);
+		return;
+	}
+
+	int numStudent;
+	Student* pStudent = nullptr;
+	loadStudent(numStudent, pStudent, "Student");
+	y++; goToXY(x, y++); cout << "Enter student's ID to enroll: "; y++;
+	int temp;
+	cin >> temp;
+	sortStudentList(curCourse->pStudent);
+	Student* prevStudent = nullptr;
+
+	// check if the student has already in the course
+	if (check_id(temp, curCourse->pStudent) == false)
+	{
+		goToXY(x, ++y); cout << "This student has already enrolled in this course.";
+		goToXY(x, ++y); system("pause");
+		return;
+	}
+
+	// check if the student is in the system
+	Student* cur = pStudent;
+	while (cur)
+	{
+		if (cur->id == temp)
+			break;
+		cur = cur->pNext;
+	}
+
+	// if yes
+	if (cur)
+	{
+		goToXY(x, ++y); cout << "Student with ID " << cur->id << "'s information: ";
+		cout << cur->fullname; cout << " in class "; cout << cur->cla << endl; y++;
+		goToXY(x, ++y); cout << "Do you want to enroll this student into this course? YES (1) / NO (0)" << endl; 
+		int choice;
+		goToXY(x, ++y); cout << "Your choice is: "; cin >> choice; y++;
+		if (choice == 1) {
+			Student* curStudent = curCourse->pStudent;
+			if (curStudent == nullptr)
+			{
+				pStudent = new Student;
+				curStudent = pStudent;
+			}
+			else {
+				for (int i = 0; i < curCourse->numStudent - 1; ++i)
+					curStudent = curStudent->pNext;
+				curStudent->pNext = new Student;
+				curStudent = curStudent->pNext;
+			}
+			curStudent->pNext = nullptr;
+			curStudent->id = temp;
+			curStudent->grade.bonus = 0, curStudent->grade.final = 0, curStudent->grade.midterm = 0;
+			curStudent->grade.total = curStudent->grade.bonus * 0.3 + curStudent->grade.final * 0.4 + curStudent->grade.midterm * 0.3;
+			for (int j = 0; j < 10; ++j) {
+				curStudent->attend[j] = 0;
+			}
+			++curCourse->numStudent;
+			goToXY(x, ++y); cout << "Student has been added to the course." << endl;
+			goToXY(x, ++y); system("pause");
+		}
+		if (choice == 0)
+		{
+			goToXY(x, ++y); system("pause");
+			return;
+		}
+	}
+
+	// else, return
+	else
+	{
+		goToXY(x, ++y); cout << "Student does not exist" << endl;
+		goToXY(x, ++y); system("pause");
+		return;
+	}
+	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
+	deleteStudentList(pStudent);
 }
