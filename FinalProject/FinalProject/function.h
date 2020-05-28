@@ -169,10 +169,13 @@ void printDate(int x);
 void clrscrfromatob(int a, int b, int x);
 
 //academic
-void createSemester(string AcademicYear, string Semestername, int& numSemester, Semester*& pSemester);
-void createAcademicYear(int& numSemester, Semester*& pSemester);
+void updateAcademicYear(int& numSemester, Semester*& pSemester);
+void viewallSemester();
 void importCourse(int& numSemester, Semester*& pSemester);
 void manuallyAddCourse(int& numSemester, Semester*& pSemester);
+void importScoreboard(int& numSemester, Semester*& pSemester);
+void exportAttendanceList(Semester* pSemester);
+void exportscoreboard(Semester* pSemester);
 #endif // !_FUNCTION_H_
 
 
