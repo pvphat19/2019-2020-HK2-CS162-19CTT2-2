@@ -273,65 +273,23 @@ void import_class()
 	goToXY(x, y++); cout << "Please enter the name of the class: ";
 	//nhap ten class
 	string classname;
-	int choice = 1;
+	getline(cin, classname);
+	bool t = true;
 	int numClass = 0;
-	while (choice == 1) {
-		getline(cin, classname);
-		bool t = true;
-		Class* pClass = nullptr;
-		loadClass(numClass, pClass);
-		Class* tmpClass = pClass;
-		while (tmpClass != nullptr)
-		{
-			if (tmpClass->name == classname)
-				t = false;
-			tmpClass = tmpClass->pNext;
-		}
-		deleteClassList(pClass);
-		if (t == false)
-		{
-			textColor(4);
-			goToXY(x, y++); cout << "The class is existed.";
-			textColor(14);
-			goToXY(x, y++); cout << "Do you want to continue import another class? 1 for yes, 0 for no: ";
-			string yourchoice;
-			getline(cin, yourchoice);
-			bool check = convertStringToInt(yourchoice, choice);
-			while (!check || (choice != 1 && choice != 0))
-			{
-				goToXY(x, y++); cout << "Please enter 0 or 1: ";
-				getline(cin, yourchoice);
-				check = convertStringToInt(yourchoice, choice);
-			}
-			if (choice == 0)
-			{
-				textColor(2);
-				goToXY(x, y);
-				system("pause");
-				textColor(14);
-				return;
-			}
-			else
-			{
-				goToXY(x, y++); cout << "Enter class: ";
-			}
-		}
-		else
-		{
-			//chua cap nhat Class.txt o day vi con dem so hoc sinh
-			goToXY(x, y++); cout << "This is a new class." << endl;
-			goToXY(x, y++);
-			textColor(2);
-			system("pause");
-			textColor(14);
-			break;
-		}
+	Class* pClass = nullptr;
+	loadClass(numClass, pClass);
+	Class* tmpClass = pClass;
+	while (tmpClass != nullptr)
+	{
+		if (tmpClass->name == classname)
+			t = false;
+		tmpClass = tmpClass->pNext;
 	}
-	//end of checking
-	//import
-	if (choice == 0) return;
-	system("cls");
-	x = 10; y = 5;
+	deleteClassList(pClass);
+	if (t == true)
+	{
+		goToXY(x, y++); cout << "This is a new class.";
+	}
 	goToXY(x, y++); cout << "You choose class " << classname << ".";
 	goToXY(x, y++); cout << "Please enter the link of csv file:";
 	string csv;
@@ -346,6 +304,7 @@ void import_class()
 		goToXY(x, y++); cout << "1. Enter another link.";
 		goToXY(x, y++); cout << "Your choice: ";
 		string yourChoice;
+		int choice;
 		getline(cin, yourChoice);
 		bool check = convertStringToInt(yourChoice, choice);
 		while (!check || (choice != 0 && choice != 1))
@@ -371,12 +330,17 @@ void import_class()
 		textColor(14);
 		return;
 	}
-	out << 0;
+	if (t == true)
+	{
+		out << 0;
+	}
 	out.close();
 	int success = 0;
-	Student* pStudent = nullptr;
-	Student* cur = pStudent;
 	int dem = 0;
+	Student* pStudent = nullptr;
+	int numStudent=0;
+	loadStudent(numStudent, pStudent,classname);
+	Student* cur = pStudent;
 	int numstudent1 = 0;
 	Student* pStudent1 = nullptr;
 	loadStudent(numstudent1, pStudent1, "Student");
@@ -396,14 +360,14 @@ void import_class()
 			getline(in, lastname, ',');
 			string firstname;
 			getline(in, firstname, ',');
-			int day;
-			in >> day;
+			int year;
+			in >> year;
 			in.ignore();
 			int month;
 			in >> month;
 			in.ignore();
-			int year;
-			in >> year;
+			int day;
+			in >> day;
 			in.ignore();
 		}
 		else
@@ -414,18 +378,8 @@ void import_class()
 				pStudent->pNext = nullptr;
 				cur = pStudent;
 				success = 1;
+				numStudent=1;
 				dem++;
-				Student* tmp = pStudent1;
-				if (pStudent1 == nullptr)
-				{
-					pStudent1 = pStudent;
-				}
-				else {
-					while (tmp->pNext != nullptr)
-						tmp = tmp->pNext;
-					tmp->pNext = pStudent;
-				}
-				numstudent1++;
 				cur->id = ID;
 			}
 			else
@@ -435,7 +389,7 @@ void import_class()
 				cur->pNext = nullptr;
 				success++;
 				dem++;
-				numstudent1++;
+				numStudent++;
 				cur->id = ID;
 			}
 			in.ignore(100, ',');
@@ -456,31 +410,48 @@ void import_class()
 		}
 	}
 	in.close();
-	rewriteStudent(success, pStudent, classname);
+	if (pStudent != nullptr)
+	{
+		if (pStudent1 == nullptr)
+			pStudent1 = pStudent;
+		else
+		{
+			Student* tmp = pStudent1;
+			while (tmp->pNext != nullptr)
+				tmp = tmp->pNext;
+			tmp->pNext = pStudent;
+		}
+		numstudent1 += success;
+	}
+	rewriteStudent(numStudent, pStudent, classname);
 	rewriteStudent(numstudent1, pStudent1, "Student");
 	//update class.txt
 	int numClass1 = 0;
 	Class* pClass1 = nullptr;
 	loadClass(numClass1, pClass1);
-	Class* temp1 = pClass1;
-	numClass1++;
-	if (pClass1 == nullptr)
+	if (t == true)
 	{
-		pClass1 = new Class;
-		pClass1->name = classname;
-		pClass1->pNext = nullptr;
+		numClass1++;
+		if (pClass1 == nullptr)
+		{
+			pClass1 = new Class;
+			pClass1->name = classname;
+			pClass1->pNext = nullptr;
+			pClass1->pStudent = nullptr;
+		}
+		else
+		{
+			Class* temp1 = pClass1;
+			while (temp1->pNext != nullptr)
+				temp1 = temp1->pNext;
+			temp1->pNext = new Class;
+			temp1 = temp1->pNext;
+			temp1->pNext = nullptr;
+			temp1->name = classname;
+			temp1->pStudent = nullptr;
+		}
+		rewriteClass(numClass1, pClass1);
 	}
-	else
-	{
-		Class* temp = pClass1;
-		while (temp->pNext != nullptr)
-			temp = temp->pNext;
-		temp->pNext = new Class;
-		temp = temp->pNext;
-		temp->pNext = nullptr;
-		temp->name = classname;
-	}
-	rewriteClass(numClass1, pClass1);
 	//
 	textColor(2);
 	goToXY(x, y++); cout << "We have import " << success << " students successfully among " << dem << " students." << endl;
