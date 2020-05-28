@@ -129,27 +129,28 @@ void option1(Student* ch, int i, int i2, int x, int y) {
 c:
 	num2--; num3--;
 	}
-	Student* cur = test3;
+	Student* cur = test3; Student* tesk = test2;
+	while (tesk != nullptr && tesk->id != ch->id) tesk = tesk->pNext;
 	while (cur != nullptr && cur->id != ch->id) cur = cur->pNext;
 	if (i == 1) {
-		test->password = pss;
+		tesk->password = pss;
 		cur->password = pss;
 	}
 	if (i == 2) {
-		test->fullname = s;
+		tesk->fullname = s;
 		cur->fullname = s;
 	}
 	if (i == 3) {
-		test->dob.year = yr;
-		test->dob.month = mo;
-		test->dob.day = dy;
+		tesk->dob.year = yr;
+		tesk->dob.month = mo;
+		tesk->dob.day = dy;
 		cur->dob.year = yr;
 		cur->dob.month = mo;
 		cur->dob.day = dy;
 
 	}
 	if (i == 4) {
-		test->status = st;
+		tesk->status = st;
 		cur->status = st;
 	}
 	rewriteStudent(num2, test2, test->cla);
