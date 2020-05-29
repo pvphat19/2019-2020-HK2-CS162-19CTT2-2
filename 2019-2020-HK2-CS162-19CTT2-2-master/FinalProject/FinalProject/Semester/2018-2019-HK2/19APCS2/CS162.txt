@@ -1,0 +1,19 @@
+CS162
+Introduction to Computer Science II
+19APCS2
+dbtien
+Dinh Ba Tien
+Tien si
+0
+MON
+I42
+2020 4 6
+2020 6 8
+7 30 11 30
+2
+19127002
+0 0 0 0
+0 0 0 0 0 0 0 0 0 0 
+19127001
+0 0 0 0
+0 0 0 0 0 0 0 0 1 0 
