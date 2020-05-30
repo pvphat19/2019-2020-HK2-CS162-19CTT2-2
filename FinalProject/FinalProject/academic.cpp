@@ -208,10 +208,6 @@ void createAcademicYear(int& x, int& y, string academicYear, int& numSemester, S
 		createSemester(academicYear, Semestername, numSemester, pSemester);
 	}
 	rewriteSemester(numSemester, pSemester);
-	textColor(3);
-	goToXY(x, y++); cout << "The academic year has been created."; goToXY(x, y++);
-	system("pause");
-	textColor(14);
 }
 void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semester
 {
@@ -238,18 +234,20 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 		}
 		if (choice == 0)
 		{
-			textColor(2);
+			textColor(14);
 			goToXY(x, y);
 			system("pause");
-			textColor(14);
 			return;
 		}
 		else {
 			createAcademicYear(x, y, academicYear, numSemester, pSemester);
+			textColor(2);
+			goToXY(x, y++); cout << "The academic year has been created successfully!";
+			textColor(14);
 		}
 	}
 	else {
-		goToXY(x, y++); cout << "You choose academic year " << academicYear << endl;
+		goToXY(x, y++); cout << "You choose academic year " << academicYear;
 		Semester* cur = pSemester;
 		int count = 0;
 		while (cur != nullptr)
@@ -261,26 +259,29 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 			cur = cur->pNext;
 		}
 		if (count > 0) {
-			goToXY(x, y++); cout << "The academic year has the semester(s) below: " << endl;
+			goToXY(x, y++); cout << "This academic year has the semester(s) below: ";
 			cur = pSemester;
 			int dem = 0;
+			x += 3; y++;
 			while (cur != nullptr)
 			{
 				if (cur->academicYear == academicYear)
 				{
 					dem++;
-					goToXY(x, y++); cout << dem << ". " << cur->semester << endl;
+					goToXY(x, y++); cout << dem << ". " << cur->semester;
 				}
 				cur = cur->pNext;
 			}
+			x -= 3; y++;
 		}
 		else {
-			goToXY(x, y++); cout << "The academic year has no semester." << endl;
+			goToXY(x, y++); cout << "The academic year has no semester.";
+			y++;
 		}
-		goToXY(x, y++); cout << "We have 3 options: " << endl;
-		goToXY(x, y++); cout << "0. Exit." << endl;
-		goToXY(x, y++); cout << "1. Add a new semester." << endl;
-		goToXY(x, y++); cout << "2. Delete an existing semester." << endl;
+		goToXY(x, y++); cout << "We have 3 options: ";
+		goToXY(x, y++); cout << "0. Exit.";
+		goToXY(x, y++); cout << "1. Add a new semester.";
+		goToXY(x, y++); cout << "2. Delete an existing semester.";
 		goToXY(x, y++); cout << "Your choice: ";
 		string yourChoice;
 		int choice;
@@ -288,26 +289,25 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 		bool check = convertStringToInt(yourChoice, choice);
 		while (!check || (choice < 0 || choice >2))
 		{
-			goToXY(x, y); cout << "                                                                 ";
-			goToXY(x, y); cout << "Please enter from 0 to 2: ";
+			goToXY(x, y - 1); cout << "                                                                 ";
+			goToXY(x, y - 1); cout << "Please enter your choice (0, 1 or 2): ";
 			getline(cin, yourChoice);
 			check = convertStringToInt(yourChoice, choice);
 		}
-		y++;
 		if (choice == 0);
 		else if (choice == 1)
 		{
 			//tao folder semester va cap nhat pSemester
-			goToXY(x, y++); cout << "Please enter the name of semester you want to add or edit: ";
+			goToXY(x, y++); cout << "Please enter the name of semester you want to add: ";
 			string Semestername;
 			getline(cin, Semestername, '\n');
 			bool t = checkDuplicateSemester(academicYear, Semestername, pSemester);
 			while (t)
 			{
-				goToXY(x, y++); cout << "The name of semester has existed." << endl;
-				goToXY(x, y++); cout << "Do you want to " << endl;
-				goToXY(x, y++); cout << "0. End adding semester." << endl;
-				goToXY(x, y++); cout << "1. Add another semester." << endl;
+				goToXY(x, y++); cout << "The name of semester has existed.";
+				goToXY(x, y++); cout << "Do you want to ";
+				goToXY(x, y++); cout << "0. End adding semester.";
+				goToXY(x, y++); cout << "1. Enter another semester name.";
 				int choice2;
 				goToXY(x, y++); cout << "Your choice: ";
 				string yourchoice;
@@ -315,12 +315,11 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 				bool check = convertStringToInt(yourchoice, choice2);
 				while (!check || (choice2 != 0 && choice2 != 1))
 				{
-					goToXY(x, y); cout << "                                                          ";
-					goToXY(x, y); cout << "Please enter 0 or 1: ";
+					goToXY(x, y - 1); cout << "                                                                       ";
+					goToXY(x, y - 1); cout << "Please enter your choice (0 or 1): ";
 					getline(cin, yourchoice);
 					check = convertStringToInt(yourchoice, choice2);
 				}
-				y++;
 				if (choice2 == 0)
 					break;
 				else
@@ -336,7 +335,7 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 				count++;
 				createSemester(academicYear, Semestername, numSemester, pSemester);
 				textColor(2);
-				goToXY(x, y++); cout << "The semester has successfully added." << endl;
+				goToXY(x, y++); cout << "The semester has successfully added!" << endl;
 				textColor(14);
 			}
 		}
@@ -344,34 +343,56 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 		{
 			if (count == 0)
 			{
-				goToXY(x, y++); cout << "There is no semester to delete." << endl;
+				goToXY(x, y++); cout << "There is no semester to delete.";
 			}
 			else {
 				goToXY(x, y++); cout << "Please enter the name of semester you want to delete: ";
-				string deleteSemestername;
-				getline(cin, deleteSemestername, '\n');
-				while (!checkDuplicateSemester(academicYear, deleteSemestername, pSemester))
+				string Semestername;
+				getline(cin, Semestername, '\n');
+				bool t = checkDuplicateSemester(academicYear, Semestername, pSemester);
+				while (!t)
 				{
-					goToXY(x, y); cout << "                                                                                          ";
-					textColor(4);
-					goToXY(x, y); cout << "The semester has not existed. Please enter again: ";
-					textColor(14);
-					getline(cin, deleteSemestername, '\n');
+					goToXY(x, y++); cout << "The name of semester has not existed.";
+					goToXY(x, y++); cout << "Do you want to ";
+					goToXY(x, y++); cout << "0. End deleting semester.";
+					goToXY(x, y++); cout << "1. Enter another semester name.";
+					int choice2;
+					goToXY(x, y++); cout << "Your choice: ";
+					string yourchoice;
+					getline(cin, yourchoice);
+					bool check = convertStringToInt(yourchoice, choice2);
+					while (!check || (choice2 != 0 && choice2 != 1))
+					{
+						goToXY(x, y - 1); cout << "                                                                       ";
+						goToXY(x, y - 1); cout << "Please enter your choice (0 or 1): ";
+						getline(cin, yourchoice);
+						check = convertStringToInt(yourchoice, choice2);
+					}
+					if (choice2 == 0)
+						break;
+					else
+					{
+						goToXY(x, y++); cout << "Please enter the semester name again: ";
+						getline(cin, Semestername, '\n');
+					}
+					t = checkDuplicateSemester(academicYear, Semestername, pSemester);
 				}
-				y++;
-				count--;
-				deleteSemester(academicYear, deleteSemestername, numSemester, pSemester);
-				textColor(2);
-				goToXY(x, y++); cout << "The semester has been remove successfully." << endl;
-				textColor(14);
+				if (t == false);
+				else
+				{
+					count--;
+					deleteSemester(academicYear, Semestername, numSemester, pSemester);
+					textColor(2);
+					goToXY(x, y++); cout << "The semester has successfully deleted!";
+					textColor(14);
+				}
 			}
 		}
 	}
 	rewriteSemester(numSemester, pSemester);
 	goToXY(x, y);
-	textColor(2);
-	system("pause");
 	textColor(14);
+	system("pause");
 }
 /*void deleteAcademicYear(int& numSemester, Semester*& pSemester)
 {
@@ -420,27 +441,6 @@ void updateAcademicYear(int& numSemester, Semester*& pSemester)//con xoa semeste
 	rewriteSemester(numSemester, pSemester);
 	system("pause");
 }*/
-void viewAcademicYear(int& x, int& y, string academicYear, int numSemester, Semester* pSemester)
-{
-	int dem = 0;
-	Semester* curSemester = pSemester;
-	while (curSemester != nullptr)
-	{
-		if (curSemester->academicYear == academicYear)
-			dem++;
-		curSemester = curSemester->pNext;
-	}
-	goToXY(x, y++); cout << "The academic " << academicYear << " has " << dem << " semester(s) below: ";
-	curSemester = pSemester;
-	while (curSemester)
-	{
-		if (curSemester->academicYear == academicYear)
-		{
-			goToXY(x, y++); cout << curSemester->semester;
-		}
-		curSemester = curSemester->pNext;
-	}
-}
 void sortSemesterList(Semester*& pSemester)
 {
 	for (Semester* curI = pSemester; curI != nullptr; curI = curI->pNext)
@@ -456,6 +456,58 @@ void sortSemesterList(Semester*& pSemester)
 					swap(curI->semester, curJ->semester);
 				}
 }
+void viewAcademicYear(int& x, int& y, string academicYear, int numSemester, Semester* pSemester)
+{
+	Semester* tempSemester = nullptr;
+	Semester* temp = nullptr;
+	int dem = 0;
+	Semester* curSemester = pSemester;
+	while (curSemester != nullptr)
+	{
+		if (curSemester->academicYear == academicYear)
+		{
+			dem++;
+			if (tempSemester == nullptr)
+			{
+				tempSemester = new Semester;
+				tempSemester->academicYear = curSemester->academicYear;
+				tempSemester->semester = curSemester->semester;
+				tempSemester->numSchedule = 0;
+				tempSemester->pSchedule = nullptr;
+				tempSemester->pNext = nullptr;
+				temp = tempSemester;
+			}
+			else
+			{
+				temp->pNext = new Semester;
+				temp = temp->pNext;
+				temp->academicYear = curSemester->academicYear;
+				temp->semester = curSemester->semester;
+				temp->numSchedule = 0;
+				temp->pSchedule = nullptr;
+				temp->pNext = nullptr;
+			}
+		}
+		curSemester = curSemester->pNext;
+	}
+	sortSemesterList(tempSemester);
+	if (dem == 0)
+	{
+		goToXY(x, y++); cout << "The academic year has no semester.";
+	}
+	else {
+		goToXY(x, y++); cout << "The academic year " << academicYear << " has " << dem << " semester(s) below: ";
+		temp = tempSemester;
+		x += 3; y++;
+		while (temp)
+		{
+			goToXY(x, y++); cout << temp->semester;
+			temp = temp->pNext;
+		}
+		x -= 3; y++;
+	}
+	deleteSemesterList(tempSemester);
+}
 void viewallSemester() {
 	system("cls"); int x = 10, y = 5;
 	int tmpnum = 0;
@@ -463,17 +515,18 @@ void viewallSemester() {
 	loadSemester(tmpnum, tmppSemester);
 	sortSemesterList(tmppSemester);
 	Semester* cur = tmppSemester;
-	goToXY(x, y++); cout << "All the semester we have: ";
+	goToXY(x, y++); cout << "All available semester(s): ";
+	x += 3; y++;
 	while (cur)
 	{
 		goToXY(x, y++); cout << cur->academicYear << " - " << cur->semester << endl;
 		cur = cur->pNext;
 	}
+	x -= 3; y++;
 	deleteSemesterList(tmppSemester);
 	goToXY(x, y);
-	textColor(2);
-	system("pause");
 	textColor(14);
+	system("pause");
 }
 bool checkExistingClass(string classname) {
 	int numClass = 0;
@@ -590,11 +643,10 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	if (!checkDuplicateAcademicYear(academicYear, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The academic year is not existed. ";
-		textColor(2);
+		goToXY(x, y++); cout << "The academic year has not existed. ";
+		textColor(14);
 		goToXY(x, y);
 		system("pause");
-		textColor(14);
 		return;
 	}
 	viewAcademicYear(x, y, academicYear, numSemester, pSemester);
@@ -604,11 +656,10 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	if (!checkDuplicateSemester(academicYear, Semestername, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The semester is not existed.";
-		textColor(2);
+		goToXY(x, y++); cout << "The semester has not existed!";
+		textColor(14);
 		goToXY(x, y);
 		system("pause");
-		textColor(14);
 		return;
 	}
 	goToXY(x, y++); cout << "Please enter the class you want to import: ";
@@ -617,11 +668,10 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	if (!checkExistingClass(classname))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The class is not available.";
-		textColor(2);
+		goToXY(x, y++); cout << "This class is not available.";
+		textColor(14);
 		goToXY(x, y);
 		system("pause");
-		textColor(14);
 		return;
 	}
 	if (!checkExistingClassInSemester(classname, academicYear, Semestername, pSemester))
@@ -636,7 +686,6 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	{
 		curSchedule = curSchedule->pNext;
 	}
-	Course* pCourse = curSchedule->pCourse;
 	goToXY(x, y++); cout << "Please enter the link of csv file: ";
 	string linkcsv;
 	getline(cin, linkcsv, '\n');
@@ -645,7 +694,7 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	while (!in.is_open())
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "Can not open csv file.";
+		goToXY(x, y++); cout << "Can not open csv file!";
 		textColor(14);
 		goToXY(x, y++); cout << "Do you want to: ";
 		goToXY(x, y++); cout << "0. Exit.";
@@ -657,17 +706,15 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		bool check = convertStringToInt(yourchoice, choice);
 		while (!check || (choice != 0 && choice != 1))
 		{
-			goToXY(x, y); cout << "                                                                    ";
-			goToXY(x, y); cout << "Please enter 0 or 1: ";
+			goToXY(x, y - 1); cout << "                                                                    ";
+			goToXY(x, y - 1); cout << "Please enter 0 or 1: ";
 			getline(cin, yourchoice);
 			check = convertStringToInt(yourchoice, choice);
 		}
-		y++;
 		if (choice == 0)
 		{
-			textColor(2);
-			goToXY(x, y); system("pause");
 			textColor(14);
+			goToXY(x, y); system("pause");
 			return;
 		}
 		else
@@ -677,8 +724,6 @@ void importCourse(int& numSemester, Semester*& pSemester)
 			in.open(linkcsv);
 		}
 	}
-	y++;
-	//toi cho nay thi check on, con 2 ham o tren chua viet thoi
 	in.ignore(1000, '\n');
 	while (!in.eof())
 	{
@@ -686,11 +731,11 @@ void importCourse(int& numSemester, Semester*& pSemester)
 		string courseID;
 		getline(in, courseID, ',');
 		if (in.eof()) break;
-		Course* tmpCourse = pCourse;
-		if (pCourse == nullptr)
+		Course* tmpCourse = curSchedule->pCourse;
+		if (curSchedule->pCourse == nullptr)
 		{
-			pCourse = new Course;
-			tmpCourse = pCourse;
+			curSchedule->pCourse = new Course;
+			tmpCourse = curSchedule->pCourse;
 			curSchedule->numCourse++;
 		}
 		else {
@@ -702,7 +747,7 @@ void importCourse(int& numSemester, Semester*& pSemester)
 			}
 			if (tmpCourse == nullptr)
 			{
-				tmpCourse = pCourse;
+				tmpCourse = curSchedule->pCourse;
 				while (tmpCourse->pNext != nullptr)
 					tmpCourse = tmpCourse->pNext;
 				tmpCourse->pNext = new Course;
@@ -775,7 +820,6 @@ void importCourse(int& numSemester, Semester*& pSemester)
 			rewriteLecturer(numLecturer, pLecturer);
 			deleteLecturerList(pLecturer);
 		}
-		//neu lecturer trung username ma khac ten thi sao???
 		int numLecturer = 0;
 		Lecturer* pLecturer = nullptr;
 		loadLecturer(numLecturer, pLecturer);
@@ -814,13 +858,13 @@ void importCourse(int& numSemester, Semester*& pSemester)
 	string directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + academicYear + "-" + Semestername + ".txt";
 	rewriteScheduleList(curSemester->numSchedule, curSemester->pSchedule, directory);
 	directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + classname + ".txt";
-	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
+	rewriteCourseList(curSchedule->numCourse, curSchedule->pCourse, directory);
 	in.close();
 	textColor(2);
-	goToXY(x, y++); cout << "Import successfully.";
+	goToXY(x, y++); cout << "Import successfully!";
 	goToXY(x, y++);
-	system("pause");
 	textColor(14);
+	system("pause");
 }
 void createdayOfWeek(int day, string& res)
 {
@@ -888,14 +932,13 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 	if (!checkDuplicateAcademicYear(academicYear, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The academic year has not existed.";
+		goToXY(x, y++); cout << "The academic year has not existed!";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
-	goToXY(x, y++); cout << "We already have the following semester." << endl;
 	viewAcademicYear(x, y, academicYear, numSemester, pSemester);
 	goToXY(x, y++); cout << "Please enter the semester you want to choose: ";
 	string Semestername;
@@ -903,44 +946,45 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 	if (!checkDuplicateSemester(academicYear, Semestername, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The semester has not existed.";
+		goToXY(x, y++); cout << "The semester has not existed!";
 		textColor(2);
+		textColor(14);
 		goToXY(x, y++);
 		system("pause");
-		textColor(14);
 		return;
 	}
-	goToXY(x, y++); cout << "We already have class(es) below: " << endl;
+	goToXY(x, y++); cout << "We already have class(es) below: ";
+	x += 3; y++;
 	int numClass = 0;
 	Class* pClass = nullptr;
 	loadClass(numClass, pClass);
 	Class* cur = pClass;
 	while (cur != nullptr)
 	{
-		goToXY(x, y++); cout << cur->name << endl;
+		goToXY(x, y++); cout << cur->name;
 		cur = cur->pNext;
 	}
 	deleteClassList(pClass);
-	goToXY(x, y++); cout << "Please enter the class: ";
+	x -= 3; y++;
+	goToXY(x, y++); cout << "Please enter the class you want to choose: ";
 	string classname;
 	getline(cin, classname, '\n');
 	if (!checkExistingClass(classname))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The class has not existed.";
+		goToXY(x, y++); cout << "The class has not existed!";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	if (!checkExistingClassInSemester(classname, academicYear, Semestername, pSemester))
 	{
 		createClassInSemester(classname, academicYear, Semestername, pSemester);
 	}
-	goToXY(x, y++); textColor(2);
+	goToXY(x, y++);
 	system("pause");
-	textColor(14);
 	system("cls");
 	x = 10; y = 5;
 	Semester* curSemester = pSemester;
@@ -988,7 +1032,7 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 	getline(cin, lecturerAccount, '\n');
 	if (!checkExistingLecturer(lecturerAccount))
 	{
-		goToXY(x, y++); cout << "This is a new lecturer. We need to add more information." << endl;
+		goToXY(x, y++); cout << "This is a new lecturer. We need to add more information.";
 		int numLecturer = 0;
 		Lecturer* pLecturer = nullptr;
 		loadLecturer(numLecturer, pLecturer);
@@ -1024,11 +1068,11 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 		rewriteLecturer(numLecturer, pLecturer);
 		deleteLecturerList(pLecturer);
 	}
-	goToXY(x, y++); cout << "Input date start. ";
+	goToXY(x, y++); cout << "Please enter date start: ";
 	inputdaycourse(tmpCourse->dateStart, x, y);
-	goToXY(x, y++); cout << "Input date end. ";
+	goToXY(x, y++); cout << "Please enter date end: ";
 	inputdaycourse(tmpCourse->dateEnd, x, y);
-	goToXY(x, y++); cout << "Day of week(e.g: 2, 3, 4, 5, 6, 7, 8): ";
+	goToXY(x, y++); cout << "Please enter day of week(e.g: 2, 3, 4, 5, 6, 7, 8): ";
 	int dayOfWeek;
 	cin >> dayOfWeek;
 	while (dayOfWeek <= 1 || dayOfWeek > 8)
@@ -1037,18 +1081,17 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 		cin >> dayOfWeek;
 	}
 	createdayOfWeek(dayOfWeek, tmpCourse->day);
-	goToXY(x, y++); cout << "Start hour: ";
+	goToXY(x, y++); cout << "Please enter start hour: ";
 	cin >> tmpCourse->timeStart.hour;
-	goToXY(x, y++); cout << "Start minute: ";
+	goToXY(x, y++); cout << "Please enter start minute: ";
 	cin >> tmpCourse->timeStart.minute;
-	goToXY(x, y++); cout << "End hour: ";
+	goToXY(x, y++); cout << "Please enter end hour: ";
 	cin >> tmpCourse->timeEnd.hour;
-	goToXY(x, y++); cout << "End minute: ";
+	goToXY(x, y++); cout << "Please enter end minute: ";
 	cin >> tmpCourse->timeEnd.minute;
 	cin.ignore();
-	goToXY(x, y++); cout << "Room: ";
+	goToXY(x, y++); cout << "Please enter room: ";
 	getline(cin, tmpCourse->room, '\n');
-	//neu lecturer trung username ma khac ten thi sao???
 	int numLecturer = 0;
 	Lecturer* pLecturer = nullptr;
 	loadLecturer(numLecturer, pLecturer);
@@ -1085,9 +1128,9 @@ void manuallyAddCourse(int& numSemester, Semester*& pSemester)
 	directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + classname + ".txt";
 	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
 	textColor(2);
-	goToXY(x, y++); cout << "Import successfully.";
-	goToXY(x, y++); system("pause");
+	goToXY(x, y++); cout << "Import successfully!";
 	textColor(14);
+	goToXY(x, y++); system("pause");
 	return;
 }
 bool checkExistingCourse(int numSemester, Semester* pSemester, string academicYear, string Semestername, string classname, string courseID)
@@ -1121,25 +1164,25 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	if (!checkDuplicateAcademicYear(academicYear, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The academic year has not existed.";
+		goToXY(x, y++); cout << "The academic year has not existed!";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	viewAcademicYear(x, y, academicYear, numSemester, pSemester);
-	goToXY(x, y++); cout << "Please enter the semester: ";
+	goToXY(x, y++); cout << "Please enter the semester you want to choose: ";
 	string Semestername;
 	getline(cin, Semestername, '\n');
 	if (!checkDuplicateSemester(academicYear, Semestername, pSemester))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The semester has not existed.";
+		goToXY(x, y++); cout << "The semester has not existed!";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	goToXY(x, y++);  cout << "Please enter the class: ";
@@ -1151,8 +1194,8 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 		goToXY(x, y++); cout << "The class has not existed in this semester.";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	Semester* curSemester = pSemester;
@@ -1169,8 +1212,8 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 		goToXY(x, y++); cout << "The class has not had any course.";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	Course* pCourse = curSchedule->pCourse;
@@ -1180,11 +1223,11 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	if (!checkExistingCourse(numSemester, pSemester, academicYear, Semestername, classname, courseID))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The course has not existed for this class.";
+		goToXY(x, y++); cout << "The course is not available for this class!";
 		textColor(2);
 		goToXY(x, y++);
-		system("pause");
 		textColor(14);
+		system("pause");
 		return;
 	}
 	Course* tmpCourse = pCourse;
@@ -1200,7 +1243,7 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	while (!in.is_open())
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "Can not open csv file.";
+		goToXY(x, y++); cout << "Can not open csv file!";
 		textColor(14);
 		goToXY(x, y++); cout << "Do you want to: ";
 		goToXY(x, y++); cout << "0. Exit.";
@@ -1212,16 +1255,16 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 		bool check = convertStringToInt(yourchoice, choice);
 		while (!check || (choice != 0 && choice != 1))
 		{
-			goToXY(x, y); cout << "                                                                    ";
-			goToXY(x, y); cout << "Please enter 0 or 1: ";
+			goToXY(x, y - 1); cout << "                                                                    ";
+			goToXY(x, y - 1); cout << "Please enter your choice(0 or 1): ";
 			getline(cin, yourchoice);
 			check = convertStringToInt(yourchoice, choice);
 		}
 		if (choice == 0) {
 			textColor(2);
 			goToXY(x, y++);
-			system("pause");
 			textColor(14);
+			system("pause");
 			return;
 		}
 		else
@@ -1231,7 +1274,6 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 			in.open(linkcsv);
 		}
 	}
-	y++;
 	Student* pStudent = tmpCourse->pStudent;
 	int dem = 0;
 	int success = 0;
@@ -1287,10 +1329,10 @@ void importScoreboard(int& numSemester, Semester*& pSemester)//mac dinh course p
 	directory = "Semester\\" + academicYear + "-" + Semestername + "\\" + classname + "\\" + classname + ".txt";
 	rewriteCourseList(curSchedule->numCourse, pCourse, directory);
 	textColor(2);
-	goToXY(x, y++); cout << "We have import scoreboard successfully " << success << " student(s) in " << dem << " student(s).";
+	goToXY(x, y++); cout << "We have import scoreboard successfully " << success << " student(s) in " << dem << " student(s)!";
 	goToXY(x, y++);
-	system("pause");
 	textColor(14);
+	system("pause");
 }
 void exportAttendanceList(Semester* pSemester)
 {
@@ -1304,7 +1346,7 @@ void exportAttendanceList(Semester* pSemester)
 		goToXY(x, y++); cout << "Choose the course you want to export the attendance list"; y++;
 		bool check = inputCourse(x, y, pSemester, curCourse, dir);
 		if (curCourse)	break;
-		if (check)	viewCourseAttendance(pSemester);
+		if (check)	exportAttendanceList(pSemester);
 		return;
 	}
 	//
@@ -1398,7 +1440,7 @@ void exportScoreboard(Semester* pSemester)
 		goToXY(x, y++); cout << "Choose the course you want to export the scoreboard"; y++;
 		bool check = inputCourse(x, y, pSemester, curCourse, dir);
 		if (curCourse)	break;
-		if (check)	viewCourseAttendance(pSemester);
+		if (check)	exportScoreboard(pSemester);
 		return;
 	}
 	//

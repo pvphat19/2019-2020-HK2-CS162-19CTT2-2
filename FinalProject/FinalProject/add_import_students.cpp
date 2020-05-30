@@ -70,12 +70,15 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	loadClass(numClass, pClass);
 	Class* cur = pClass;
 	goToXY(x, y++); cout << "Manually add a student to a class.";
-	goToXY(x, y++); cout << "Please choose the class you want to add in. We have " << numClass << " class:";
+	goToXY(x, y++); cout << "Please choose the class you want to add in.";
+	goToXY(x, y++); cout << " We have " << numClass << " class(es) below :";
+	x += 3; y++;
 	for (int i = 0; i < numClass; ++i)
 	{
 		goToXY(x, y++); cout << i + 1 << "." << cur->name << endl;
 		cur = cur->pNext;
 	}
+	x -= 3; y++;
 	goToXY(x, y++); cout << "Enter the order of class you want: ";
 	string tmpchoice;
 	int n = 0;
@@ -102,13 +105,15 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	getline(cin, tmpID);
 	int ID;
 	check = convertStringToInt(tmpID, ID);
+	if (!check || check_id(ID, pAllStudent) == false) y++;
 	while (!check || check_id(ID, pAllStudent) == false) {
+		goToXY(x, y - 1); cout << "                                                                                                 ";
 		if (!check) {
-			goToXY(x, y++); cout << "Please enter a number: ";
+			goToXY(x, y - 1); cout << "Please enter a number: ";
 		}
 		else
 		{
-			goToXY(x, y++); cout << "The ID has been used. Please enter another ID: ";
+			goToXY(x, y - 1); cout << "The ID has been used. Please enter another ID: ";
 		}
 		getline(cin, tmpID);
 		check = convertStringToInt(tmpID, ID);
@@ -133,7 +138,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	tmp->id = ID;
 	tmp->cla = cur->name;
 	tmp->status = 1;
-	goToXY(x, y++); cout << "Please enter full name of the student: ";
+	goToXY(x, y++); cout << "Enter full name of the student: ";
 	getline(cin, tmp->fullname);
 	goToXY(x, y++); cout << "Enter date of birth: " << endl;
 	goToXY(x, y++); cout << "Day: ";
@@ -142,9 +147,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	check = convertStringToInt(dobDay, tmp->dob.day);
 	while (!check && (tmp->dob.day <= 0 || tmp->dob.day > 31))
 	{
-		textColor(4);
 		goToXY(x, y++); cout << "Please enter a positive integer: ";
-		textColor(14);
 		getline(cin, dobDay);
 		check = convertStringToInt(dobDay, tmp->dob.day);
 	}
@@ -154,9 +157,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	check = convertStringToInt(dobMonth, tmp->dob.month);
 	while (!check && (tmp->dob.month <= 0 || tmp->dob.month > 12))
 	{
-		textColor(4);
 		goToXY(x, y++); cout << "Please enter a positive integer: ";
-		textColor(14);
 		getline(cin, dobMonth);
 		check = convertStringToInt(dobMonth, tmp->dob.month);
 	}
@@ -166,16 +167,14 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	check = convertStringToInt(dobYear, tmp->dob.year);
 	while (!check)
 	{
-		textColor(4);
 		goToXY(x, y++); cout << "Please enter a positive integer: ";
-		textColor(14);
 		getline(cin, dobYear);
 		check = convertStringToInt(dobYear, tmp->dob.year);
 	}
 	while (!checkValidDate(tmp->dob))
 	{
 		textColor(4);
-		goToXY(x, y++); cout << "The date is not existed. Please enter another date: ";
+		goToXY(x, y++); cout << "The date does not exist. Please enter another date: ";
 		textColor(14);
 		goToXY(x, y++); cout << "Day: ";
 		string dobDay;
@@ -209,6 +208,9 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 		}
 	}
 	create_password(tmp->dob, tmp->password);
+	tmp->grade.midterm = -1; tmp->grade.final = -1; tmp->grade.bonus = -1; tmp->grade.total = -1;
+	for (int i = 0; i < 10; ++i)
+		tmp->attend[i] = -1;
 	numStudent++;
 	//cap nhat student.txt
 	Student* tmp1 = pAllStudent;
@@ -223,13 +225,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 		tmp1->pNext = new Student;
 		tmp1 = tmp1->pNext;
 	}
-	tmp1->pNext = nullptr;
-	tmp1->id = tmp->id;
-	tmp1->cla = tmp->cla;
-	tmp1->dob = tmp->dob;
-	tmp1->fullname = tmp->fullname;
-	tmp1->password = tmp->password;
-	tmp1->status = tmp->status;
+	(*tmp1) = (*tmp);
 	numAllStudent++;
 	goToXY(x, y++); cout << "Do you want to add this student to class " << cur->name << "? 1 to confirm, 0 for exist: ";
 	getline(cin, tmpchoice);
@@ -245,17 +241,18 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 		rewriteStudent(numStudent, pStudent, cur->name);
 		rewriteStudent(numAllStudent, pAllStudent, "Student");
 		textColor(2);
-		goToXY(x, y++); cout << "The student has been added to system." << endl;
+		goToXY(x, y++); cout << "The student has been added to system!";
 	}
 	else
 	{
 		textColor(2);
-		goToXY(x, y++); cout << "The student has not been added to system" << endl;
+		goToXY(x, y++); cout << "Cancel adding student!";
 	}
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStudentList(pAllStudent);
 	goToXY(x, y++);
+	textColor(14);
 	system("pause");
 	textColor(14);
 }
@@ -287,14 +284,16 @@ void import_class()
 		goToXY(x, y++); cout << "This is a new class.";
 	}
 	goToXY(x, y++); cout << "You choose class " << classname << ".";
-	goToXY(x, y++); cout << "Please enter the link of csv file:";
+	goToXY(x, y++); cout << "Please enter the link of csv file: ";
 	string csv;
 	getline(cin, csv);
 	ifstream in;
 	in.open(csv);
 	while (!in.is_open())
 	{
-		goToXY(x, y++); cout << "Error when opening the csv file." << endl;
+		textColor(4);
+		goToXY(x, y++); cout << "Error when opening the csv file.";
+		textColor(14);
 		goToXY(x, y++); cout << "Do you want to:";
 		goToXY(x, y++); cout << "0.Exit.";
 		goToXY(x, y++); cout << "1. Enter another link.";
@@ -309,37 +308,56 @@ void import_class()
 			getline(cin, yourChoice);
 			check = convertStringToInt(yourChoice, choice);
 		}
-		if (choice == 0) return;
+		if (choice == 0)
+		{
+			system("pause");
+			textColor(14);
+			return;
+		}
 		goToXY(x, y++); cout << "Please enter csv link: ";
 		getline(cin, csv);
 		in.open(csv);
 	}
 	string filename = classname + ".txt";
 	ofstream out;
-	out.open(filename);
-	if (!out.is_open())
-	{
-		textColor(4);
-		goToXY(x, y++);  cout << "Error in creating the file.";
-		goToXY(x, y++); textColor(2);
-		system("pause");
-		textColor(14);
-		return;
-	}
-	if (t == true)
-	{
+	if (t == true) {
+		out.open(filename);
+		if (!out.is_open())
+		{
+			textColor(4);
+			goToXY(x, y++);  cout << "Error in opening the class file.";
+			goToXY(x, y++);
+			system("pause");
+			textColor(14);
+			return;
+		}
 		out << 0;
+		out.close();
 	}
-	out.close();
 	int success = 0;
 	int dem = 0;
 	Student* pStudent = nullptr;
 	int numStudent = 0;
 	loadStudent(numStudent, pStudent, classname);
 	Student* cur = pStudent;
-	int numstudent1 = 0;
+	if (cur != nullptr)
+	{
+		while (cur->pNext != nullptr)
+		{
+			cur = cur->pNext;
+		}
+	}
+	int numStudent1 = 0;
 	Student* pStudent1 = nullptr;
-	loadStudent(numstudent1, pStudent1, "Student");
+	loadStudent(numStudent1, pStudent1, "Student");
+	Student* cur1 = pStudent1;
+	if (cur1 != nullptr)
+	{
+		while (cur1->pNext != nullptr)
+		{
+			cur1 = cur1->pNext;
+		}
+	}
 	in.ignore(1000, '\n');
 	while (!in.eof())
 	{
@@ -388,39 +406,49 @@ void import_class()
 				numStudent++;
 				cur->id = ID;
 			}
+			if (pStudent1 == nullptr)
+			{
+				pStudent1 = new Student;
+				pStudent1->pNext = nullptr;
+				cur1 = pStudent1;
+				numStudent1 = 1;
+				cur->id = ID;
+			}
+			else
+			{
+				cur1->pNext = new Student;
+				cur1 = cur1->pNext;
+				cur1->pNext = nullptr;
+				numStudent1++;
+				cur1->id = ID;
+			}
 			in.ignore(100, ',');
 			string lastname;
 			getline(in, lastname, ',');
 			string firstname;
 			getline(in, firstname, ',');
 			cur->fullname = lastname + " " + firstname;
+			cur1->fullname = cur->fullname;
 			in >> cur->dob.year;
+			cur1->dob.year = cur->dob.year;
 			in.ignore();
 			in >> cur->dob.month;
+			cur1->dob.month = cur->dob.month;
 			in.ignore();
 			in >> cur->dob.day;
+			cur1->dob.day = cur->dob.day;
 			in.ignore();
 			cur->status = 1;
+			cur1->status = 1;
 			cur->cla = classname;
+			cur1->cla = cur->cla;
 			create_password(cur->dob, cur->password);
+			cur1->password = cur->password;
 		}
 	}
 	in.close();
-	if (pStudent != nullptr)
-	{
-		if (pStudent1 == nullptr)
-			pStudent1 = pStudent;
-		else
-		{
-			Student* tmp = pStudent1;
-			while (tmp->pNext != nullptr)
-				tmp = tmp->pNext;
-			tmp->pNext = pStudent;
-		}
-		numstudent1 += success;
-	}
 	rewriteStudent(numStudent, pStudent, classname);
-	rewriteStudent(numstudent1, pStudent1, "Student");
+	rewriteStudent(numStudent1, pStudent1, "Student");
 	//update class.txt
 	int numClass1 = 0;
 	Class* pClass1 = nullptr;
@@ -450,18 +478,18 @@ void import_class()
 	}
 	//
 	textColor(2);
-	goToXY(x, y++); cout << "We have import " << success << " students successfully among " << dem << " students." << endl;
+	goToXY(x, y++); cout << "We have import " << success << " student(s) successfully in " << dem << " student(s)!";
 	if (dem > success)
 	{
 		textColor(4);
-		goToXY(x, y++); cout << dem - success << " students failed because of existing id." << endl;
+		goToXY(x, y++); cout << dem - success << " students failed because of existing id!";
 	}
 	deleteClassList(pClass1);
+	deleteStudentList(pStudent);
 	deleteStudentList(pStudent1);
-	textColor(2);
 	goToXY(x, y++);
-	system("pause");
 	textColor(14);
+	system("pause");
 }
 void addStudentIntoCourse(Semester*& pSemester) {
 	int x, y;
