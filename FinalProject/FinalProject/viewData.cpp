@@ -88,7 +88,7 @@ bool inputCourse(int& x, int& y, Semester* pSemester, Course*& curCourse, string
 {
 	string academicYear, semester, cla, courseId, dir = "Semester\\"; curCourse = nullptr;
 	//Semester
-	goToXY(x, y++); cout << "Enter academic year: "; getline(cin, academicYear);
+	goToXY(x, y++); cout << "Enter academic year (Example: 2012-2013): "; getline(cin, academicYear);
 	goToXY(x, y++); cout << "Enter semester name: "; getline(cin, semester);
 	Semester* curSemester = pSemester;
 	while (curSemester)
@@ -258,7 +258,7 @@ void viewCourseAttendance(Semester* pSemester)
 	int numStudent;
 	Student* pStudent = nullptr;
 	loadStudent(numStudent, pStudent, "Student");
-	y++; goToXY(x+40, y++); cout << "Attendance list of the course" << endl; y++;
+	y++; goToXY(x + 23, y++); cout << "Attendance list of the course " << curCourse->courseID << " - " << curCourse->courseName; y++;
 	int numDay = 10;
 	Date date = curCourse->dateStart;
 	for (int i = 0; i < 10; i++)
@@ -327,7 +327,7 @@ void viewCourseScoreboard(Semester* pSemester)
 	int numStudent;
 	Student* pStudent = nullptr;
 	loadStudent(numStudent, pStudent, "Student");
-	y++; goToXY(x + 30, y++); cout << "Scoreboard of the course" << endl; y++;
+	y++; goToXY(x + 10, y++); cout << "Scoreboard of the course " << curCourse->courseID << " - " << curCourse->courseName; y++;
 	goToXY(x + 25, y); cout << "Midterm";
 	goToXY(x + 36, y); cout << "Final";
 	goToXY(x + 46, y); cout << "Bonus";
@@ -410,7 +410,10 @@ void viewStudentsInClass() {
 	int choice;
 
 	++y; goToXY(x + 3, y++); cout << "Your Choice is: "; ++y;
-	cin >> choice;
+	string tmp;
+	getline(cin, tmp);
+	if (!convertStringToInt(tmp, choice))
+		choice = -1;
 
 	bool ok = true;
 	while (cur != nullptr) {
@@ -424,12 +427,15 @@ void viewStudentsInClass() {
 			else {
 				system("cls");
 				x = 10, y = 5;
-				goToXY(x, y++); cout << "Here is the student list in class " << cur->name << endl; y++;
+				goToXY(x, y++); cout << "Here is the student list of class " << cur->name << endl; 
 				sortStudent(cur->pStudent);
 				rewriteStudent(cur->numStudent, cur->pStudent, cur->name);
 				Student* curS = cur->pStudent;
 				while (curS != nullptr) {
-					goToXY(x + 5, y++); cout << curS->fullname << " - " << curS->id << endl;
+					y++;
+					goToXY(x + 3, y++); cout << "ID number    : " << curS->id << endl;
+					goToXY(x + 3, y++); cout << "Full name    : " << curS->fullname << endl;
+					goToXY(x + 3, y++); cout << "Date of birth: " << curS->dob.day << '/' << curS->dob.month << '/' << curS->dob.year << endl;
 					curS = curS->pNext;
 				}
 			}
@@ -458,7 +464,7 @@ void viewCourse(Semester* pSemester)
 {
 	int x = 10, y = 5;
 	string academicYear, semester;
-	Semester* curSemester = pSemester;
+	Semester* curSemester;
 	while (true)
 	{
 		system("cls");
@@ -466,6 +472,7 @@ void viewCourse(Semester* pSemester)
 		goToXY(x, y++); cout << "Choose the semester you want to view list of courses"; y++;
 		goToXY(x, y++); cout << "Enter academic year: "; getline(cin, academicYear);
 		goToXY(x, y++); cout << "Enter semester name: "; getline(cin, semester);
+		curSemester = pSemester;
 		while (curSemester)
 		{
 			if ((curSemester->academicYear == academicYear) && (curSemester->semester == semester))
@@ -478,7 +485,12 @@ void viewCourse(Semester* pSemester)
 			int choice;
 			textColor(4);
 			goToXY(x, y++); cout << "Invalid semester! Do you want to try again (Yes(1) / No(0))?";
-			goToXY(x, y++); cout << "Enter your choice: "; cin >> choice; cin.get();
+			goToXY(x, y++); cout << "Enter your choice: ";
+			string tmp;
+			do {
+				clearLine(x + 19, y - 1);
+				goToXY(x + 19, y - 1); getline(cin, tmp);
+			} while (!convertStringToInt(tmp, choice));
 			textColor(14);
 			if (!choice)
 				return;
@@ -496,7 +508,8 @@ void viewCourse(Semester* pSemester)
 		Course* curCourse = curSchedule->pCourse;
 		while (curCourse)
 		{
-			goToXY(x + 2, y++); cout << "+   " << curCourse->courseID << " - " << curCourse->courseName;
+			goToXY(x + 2, y++); cout << "+   " << curCourse->courseID << " - " << curCourse->courseName
+								<< " - " << curCourse->lecturer.fullname;
 			curCourse = curCourse->pNext;
 		}
 		curSchedule = curSchedule->pNext;
@@ -519,18 +532,17 @@ void viewStudentInCourse(Semester*& pSemester) {
 		return;
 	}
 
-	system("cls");
-	x = 10, y = 5;
+	y++;
 	int numStudent;
 	Student* pStudent = nullptr;
 	loadStudent(numStudent, pStudent, "Student");
-	y++; goToXY(x + 30, y++); cout << "Students of the course " << curCourse->courseID; y++;
+	goToXY(x, y++); cout << "List of students of the course " << curCourse->courseID << " - " << curCourse->courseName;
 	sortStudentList(curCourse->pStudent);
 	Student* prevStudent = nullptr;
 	Student* curStudent = curCourse->pStudent;
 	while (curStudent)
 	{
-		++y;
+		y++;
 		Student* cur = pStudent;
 		while (cur)
 		{
@@ -540,9 +552,10 @@ void viewStudentInCourse(Semester*& pSemester) {
 		}
 		if (cur)
 		{
-			goToXY(x, ++y); cout << "Student's name: " << cur->fullname;
-			goToXY(x, ++y); cout << "Student's ID: " << cur->id;
-			goToXY(x, ++y); cout << "Student's class: " << cur->cla;
+			goToXY(x + 3, y++); cout << "ID number    : " << cur->id << endl;
+			goToXY(x + 3, y++); cout << "Full name    : " << cur->fullname << endl;
+			goToXY(x + 3, y++); cout << "Date of birth: " << cur->dob.day << '/' << cur->dob.month << '/' << cur->dob.year << endl;
+			goToXY(x + 3, y++); cout << "Class        : " << cur->cla << endl;
 			prevStudent = curStudent;
 			curStudent = curStudent->pNext;
 		}
@@ -553,7 +566,7 @@ void viewStudentInCourse(Semester*& pSemester) {
 		}
 	}
 	deleteStudentList(pStudent);
-	y = y + 3;; goToXY(x, y++); system("pause");
+	goToXY(x, ++y); system("pause");
 	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");
 }
 void viewCheckInResult(Student* curStudent, Semester* pSemester) 
@@ -646,7 +659,7 @@ void viewSchedule(Student* curStudent, Semester* pSemester) {
 				getCurrentTime(curDate, curTime);
 				if ((curStudentCourse) && (cmpDate(curCourse->dateStart, curDate) <= 0) && (cmpDate(curDate, curCourse->dateEnd) <= 0))
 				{
-					ok = true;
+					ok = false;
 					y++;
 					goToXY(x, y++); cout << curCourse->courseID << " - " << curCourse->courseName;
 					goToXY(x, y++); cout << "Class     : " << curCourse->cla;
@@ -678,9 +691,9 @@ void student_view_score(Student* curStudent, Semester* pSemester)
 	goToXY(x, y++); cout << "Here is your scores:"; y++;
 	Semester* curSemester = pSemester;
 	goToXY(x + 40, y); cout << "Midterm";
-	goToXY(x + 51, y); cout << "Final";
-	goToXY(x + 61, y); cout << "Bonus";
-	goToXY(x + 71, y); cout << "Total";
+	goToXY(x + 50, y); cout << "Final";
+	goToXY(x + 60, y); cout << "Bonus";
+	goToXY(x + 70, y); cout << "Total";
 	while (curSemester)
 	{
 		Schedule* curSchedule = curSemester->pSchedule;
@@ -701,10 +714,10 @@ void student_view_score(Student* curStudent, Semester* pSemester)
 					ok = false;
 					goToXY(x, ++y); cout << curCourse->courseID;
 					goToXY(x, ++y); cout << curCourse->courseName;
-					goToXY(x + 43, y); cout << curStudentCourse->grade.midterm;
-					goToXY(x + 53, y); cout << curStudentCourse->grade.total;
-					goToXY(x + 63, y); cout << curStudentCourse->grade.final;
-					goToXY(x + 73, y); cout << curStudentCourse->grade.bonus;
+					goToXY(x + 40, y); cout << curStudentCourse->grade.midterm;
+					goToXY(x + 50, y); cout << curStudentCourse->grade.total;
+					goToXY(x + 60, y); cout << curStudentCourse->grade.final;
+					goToXY(x + 70, y); cout << curStudentCourse->grade.bonus;
 				}
 				curCourse = curCourse->pNext;
 			}

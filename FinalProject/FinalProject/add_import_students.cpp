@@ -251,9 +251,7 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStudentList(pAllStudent);
-	goToXY(x, y++);
-	textColor(14);
-	system("pause");
+	goToXY(x, y++); system("pause");
 	textColor(14);
 }
 void import_class()
@@ -291,6 +289,7 @@ void import_class()
 	in.open(csv);
 	while (!in.is_open())
 	{
+		y++;
 		textColor(4);
 		goToXY(x, y++); cout << "Error when opening the csv file.";
 		textColor(14);
@@ -310,7 +309,8 @@ void import_class()
 		}
 		if (choice == 0)
 		{
-			system("pause");
+			y++;
+			goToXY(x, y++); system("pause");
 			textColor(14);
 			return;
 		}
@@ -326,8 +326,7 @@ void import_class()
 		{
 			textColor(4);
 			goToXY(x, y++);  cout << "Error in opening the class file.";
-			goToXY(x, y++);
-			system("pause");
+			goToXY(x, y++);  system("pause");
 			textColor(14);
 			return;
 		}
@@ -487,9 +486,8 @@ void import_class()
 	deleteClassList(pClass1);
 	deleteStudentList(pStudent);
 	deleteStudentList(pStudent1);
-	goToXY(x, y++);
+	goToXY(x, y++); system("pause");
 	textColor(14);
-	system("pause");
 }
 void addStudentIntoCourse(Semester*& pSemester) {
 	int x, y;
@@ -511,15 +509,19 @@ void addStudentIntoCourse(Semester*& pSemester) {
 	loadStudent(numStudent, pStudent, "Student");
 	y++; goToXY(x, y++); cout << "Enter student's ID to enroll: "; y++;
 	int temp;
-	cin >> temp;
-	sortStudentList(curCourse->pStudent);
+	string tmp;
+	getline(cin, tmp);
+	if (!convertStringToInt(tmp, temp))
+		temp = -1;
 	Student* prevStudent = nullptr;
 
 	// check if the student has already in the course
 	if (check_id(temp, curCourse->pStudent) == false)
 	{
+		textColor(4);
 		goToXY(x, ++y); cout << "This student has already enrolled in this course.";
 		goToXY(x, ++y); system("pause");
+		textColor(14);
 		return;
 	}
 
@@ -536,10 +538,15 @@ void addStudentIntoCourse(Semester*& pSemester) {
 	if (cur)
 	{
 		goToXY(x, ++y); cout << "Student with ID " << cur->id << "'s information: ";
-		cout << cur->fullname; cout << " in class "; cout << cur->cla << endl; y++;
+						cout << cur->fullname; cout << " in class "; cout << cur->cla << endl; y++;
 		goToXY(x, ++y); cout << "Do you want to enroll this student into this course? YES (1) / NO (0)" << endl; 
 		int choice;
-		goToXY(x, ++y); cout << "Your choice is: "; cin >> choice; y++;
+		goToXY(x, ++y); cout << "Enter your choice: ";
+		do {
+			clearLine(x + 19, y);
+			goToXY(x + 19, y); getline(cin, tmp);
+		} while (!convertStringToInt(tmp, choice));
+		y++;
 		if (choice == 1) {
 			Student* curStudent = curCourse->pStudent;
 			if (curStudent == nullptr)
@@ -561,8 +568,10 @@ void addStudentIntoCourse(Semester*& pSemester) {
 				curStudent->attend[j] = 0;
 			}
 			++curCourse->numStudent;
+			textColor(2);
 			goToXY(x, ++y); cout << "Student has been added to the course." << endl;
 			goToXY(x, ++y); system("pause");
+			textColor(14);
 		}
 		if (choice == 0)
 		{
@@ -574,8 +583,10 @@ void addStudentIntoCourse(Semester*& pSemester) {
 	// else, return
 	else
 	{
+		textColor(4);
 		goToXY(x, ++y); cout << "Student does not exist" << endl;
 		goToXY(x, ++y); system("pause");
+		textColor(14);
 		return;
 	}
 	rewriteCourse(curCourse, dir + curCourse->courseID + ".txt");

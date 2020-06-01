@@ -80,7 +80,7 @@ void changePassword(string& password)
 		{
 			while (true)
 			{
-				textColor(8); 
+				textColor(12);
 				newPass1 = ""; newPass2 = "";
 				clearLine(x + 21, y + 1);
 				goToXY(x + 21, y + 1); getPassword(newPass1);
@@ -265,6 +265,7 @@ bool isStudent(string username, string password, Student* pStudent, Student*& cu
 void staffClassMenu()
 {
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -278,24 +279,26 @@ void staffClassMenu()
 		goToXY(x, y++); cout << "7. View list of students in a class" << endl;
 		goToXY(x, y++); cout << "0. Return" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: "; 
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
 		case 1:
 		{
 			import_class();
-			break; 
+			break;
 		}
 		case 2:
 		{
 			manually_add_student_to_class();
-			break; //done
+			break;
 		}
 		case 3:
 		{
 			editStudent();
-			break; //done
+			break;
 		}
 		case 4:
 		{
@@ -329,6 +332,7 @@ void staffClassMenu()
 void staffCourseMenu(int& numSemester, Semester*& pSemester)
 {
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -346,7 +350,9 @@ void staffCourseMenu(int& numSemester, Semester*& pSemester)
 		goToXY(x, y++); cout << "11. View list of semesters" << endl;
 		goToXY(x, y++); cout << "0. Return" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: ";
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
@@ -358,7 +364,7 @@ void staffCourseMenu(int& numSemester, Semester*& pSemester)
 		case 2:
 		{
 			importCourse(numSemester, pSemester);
-			break; 
+			break; //done
 		}
 		case 3:
 		{
@@ -417,6 +423,7 @@ void staffCourseMenu(int& numSemester, Semester*& pSemester)
 void staffASMenu(Semester* pSemester)
 {
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -427,7 +434,9 @@ void staffASMenu(Semester* pSemester)
 		goToXY(x, y++); cout << "4. Export a scoreboard to a csv file" << endl;
 		goToXY(x, y++); cout << "0. Return" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: ";
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
@@ -475,6 +484,7 @@ bool staffMenu(string username, string password)
 	Semester* pSemester = nullptr;
 	loadSemester(numSemester, pSemester);
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -488,7 +498,9 @@ bool staffMenu(string username, string password)
 		goToXY(x, y++); cout << "5. Change password" << endl;
 		goToXY(x, y++); cout << "0. Logout" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: "; 
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
@@ -545,6 +557,7 @@ bool lecturerMenu(string username, string password)
 	Semester* pSemester = nullptr;
 	loadSemester(numSemester, pSemester);
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -562,7 +575,9 @@ bool lecturerMenu(string username, string password)
 		goToXY(x, y++); cout << "9. Change password" << endl;
 		goToXY(x, y++); cout << "0. Logout" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: ";
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
@@ -639,6 +654,7 @@ bool studentMenu(string username, string password)
 	Semester* pSemester = nullptr;
 	loadSemester(numSemester, pSemester);
 	int choice;
+	string tmp;
 	while (true)
 	{
 		system("cls");
@@ -653,7 +669,9 @@ bool studentMenu(string username, string password)
 		goToXY(x, y++); cout << "6. Change password" << endl;
 		goToXY(x, y++); cout << "0. Logout" << endl; y++;
 		goToXY(x, y++); cout << "Please enter your choice: ";
-		cin >> choice;	cin.get();
+		getline(cin, tmp);
+		if (!convertStringToInt(tmp, choice))
+			choice = -1;
 		if (choice == 0)	break;
 		switch (choice)
 		{
@@ -708,7 +726,6 @@ void login()
 		system("cls");
 		textColor(9);
 		printHCMUS(29, 12);
-		textColor(14);
 		int x = 50, y = 22;
 		string username = "";
 		string password = "";

@@ -25,7 +25,7 @@ Student* checkaStudent(int x, int y) {
 			int choice;
 			textColor(4);
 			goToXY(x, y + 3); cout << "Invalid id! Do you want to try again (Yes(1) / No(0))?";
-			goToXY(x, y + 4); cout << "Enter your choice: "; 
+			goToXY(x, y + 4); cout << "Enter your choice: ";
 			string tmp;
 			do {
 				clearLine(x + 19, y + 4);
@@ -56,7 +56,7 @@ Class* checkClass(Student* ch, int x, int y) {
 	do {
 		check = clas;
 		goToXY(x, y + 1); cout << "                                                                            ";
-		goToXY(x, y + 1); cout << "Now change to class: "; cin >> cl;
+		goToXY(x, y + 1); cout << "Now change to class: "; getline(cin, cl);
 		while (check != nullptr) {
 			if (check->name == cl) {
 				mark++;
@@ -72,16 +72,16 @@ Class* checkClass(Student* ch, int x, int y) {
 	goToXY(x, y + 2); cout << "                                                  ";
 }
 void option1(Student* ch, int i, int i2, int x, int y) {
-	string pss, ttt; char s[100]; bool kkk;
+	string pss, ttt; string s; bool kkk;
 	Student* clas = NULL; int num1; int num2, num3, st;
 	int yr, mo, dy;
 	loadStudent(num1, clas, "Student");
 	while (clas->id != ch->id) clas = clas->pNext;
 	if (i == 1) {
 		goToXY(x, y); cout << "                                                    ";
-		goToXY(x, y); cout << "Enter password again: "; cin >> pss;
+		goToXY(x, y); cout << "Enter password again: "; getline(cin, pss);
 	}
-	if (i == 2) { goToXY(x, y); cout << "Enter Student's name again:  "; cin.ignore(); cin.get(s, 100, '\n'); }
+	if (i == 2) { goToXY(x, y); cout << "Enter Student's name again:  "; getline(cin, s); }
 	if (i == 3) {
 		goToXY(x, y);
 		cout << "Enter Student's day of birth again:  " << endl;
@@ -92,7 +92,7 @@ void option1(Student* ch, int i, int i2, int x, int y) {
 			goToXY(x, y); cout << "Enter Student's status again: ";
 			goToXY(x, y + 1); cout << "0.inactive " << " " << "1.active" << endl;
 		aa:goToXY(x, y + 2); cout << "                                                       ";
-			goToXY(x, y + 2); cout << "your choice: "; cin >> ttt; kkk = convertStringToInt(ttt, st);
+			goToXY(x, y + 2); cout << "your choice: "; getline(cin, ttt); kkk = convertStringToInt(ttt, st);
 			if (st != 1 && st != 0 || kkk == false) {
 				goToXY(x, y + 3);
 				cout << "Error input";
@@ -192,7 +192,7 @@ void editStudent() {
 	int y = 5, x = 10;
 	Student* ch = checkaStudent(x, y);
 	if (ch == nullptr)
-		return; 
+		return;
 	string tk; int i; bool ed;
 	do {
 	pin:goToXY(x, y + 2); cout << "Enter your choice: " << endl;
@@ -203,7 +203,7 @@ void editStudent() {
 		goToXY(x, y + 7); cout << "0.Exit";
 		goToXY(x, y + 8); cout << "                                                                              ";
 		goToXY(x, y + 8); cout << "Choose the option : ";
-		cin >> tk; ed = convertStringToInt(tk, i); cout << endl;
+		getline(cin, tk); ed = convertStringToInt(tk, i); cout << endl;
 		if ((i > 4 || i < 0) || ed == false) {
 			goToXY(x, y + 9);
 			cout << "Error Input ";
@@ -215,7 +215,6 @@ void editStudent() {
 		clrscrfromatob(y + 8, y + 15, x);
 	} while (i != 0);
 	delete ch;
-	system("pause");
 }
 void removestudent() {
 	int y = 5, x = 10;
@@ -227,7 +226,7 @@ void removestudent() {
 	goToXY(x, y + 8); cout << "1.Yes" << " " << "0.No" << endl;
 	do {
 		goToXY(x, y + 9); cout << "                                                                   ";
-		goToXY(x, y + 9); cout << "Choose option correctly:  "; cin >> mark1; markk = convertStringToInt(mark1, mark);
+		goToXY(x, y + 9); cout << "Choose option correctly:  "; getline(cin, mark1); markk = convertStringToInt(mark1, mark);
 		if ((mark != 0 && mark != 1) || markk == false) {
 			goToXY(x, y + 10);
 			cout << "Invalid input!";
