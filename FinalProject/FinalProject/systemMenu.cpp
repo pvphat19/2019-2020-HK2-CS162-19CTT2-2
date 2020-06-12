@@ -725,7 +725,7 @@ void login()
 	{
 		system("cls");
 		textColor(9);
-		printHCMUS(29, 12);
+		printHCMUS(33, 12);
 		int x = 50, y = 22;
 		string username = "";
 		string password = "";

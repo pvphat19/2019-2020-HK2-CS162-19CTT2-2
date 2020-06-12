@@ -251,8 +251,8 @@ void manually_add_student_to_class()//chua kt ngay thang nam
 	deleteStudentList(pStudent);
 	deleteClassList(pClass);
 	deleteStudentList(pAllStudent);
-	goToXY(x, y++); system("pause");
 	textColor(14);
+	goToXY(x, y++); system("pause");
 }
 void import_class()
 {
@@ -411,7 +411,7 @@ void import_class()
 				pStudent1->pNext = nullptr;
 				cur1 = pStudent1;
 				numStudent1 = 1;
-				cur->id = ID;
+				cur1->id = ID;
 			}
 			else
 			{
@@ -486,8 +486,8 @@ void import_class()
 	deleteClassList(pClass1);
 	deleteStudentList(pStudent);
 	deleteStudentList(pStudent1);
-	goToXY(x, y++); system("pause");
 	textColor(14);
+	goToXY(x, y++); system("pause");
 }
 void addStudentIntoCourse(Semester*& pSemester) {
 	int x, y;
